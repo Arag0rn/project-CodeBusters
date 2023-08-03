@@ -1,20 +1,4 @@
 @import '~node_modules/modern-normalize/modern-normalize.css';
-
-$main-font-family: 'DM Sans', sans-serif;
-$text-font-weight: 400;
-$title-font-weight: 700;
-
-$main-color-light-theme: #111111;
-$main-background-color-light-theme: #f6f6f6;
-$secondary-background-color-light-theme: #ffffff;
-
-$main-color-dark-theme: #ffffff;
-$main-background-color-dark-theme: #202024;
-$secondary-background-color-dark-theme: #111111;
-
-$main-accent-color: #4f2ee8;
-$secondary-accent-color: #eac645;
-
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -22,23 +6,22 @@ $secondary-accent-color: #eac645;
   margin: -1px;
   border: 0;
   padding: 0;
-
   white-space: nowrap;
-  clip-path: inset(100%);
+  -webkit-clip-path: inset(100%);
+          clip-path: inset(100%);
   clip: rect(0 0 0 0);
   overflow: hidden;
 }
 
 body {
-  font-family: $main-font-family;
-
-  color: $main-color-light-theme;
-  background-color: $main-background-color-light-theme;
+  font-family: "DM Sans", sans-serif;
+  color: #111111;
+  background-color: #f6f6f6;
 }
 
 body.dark-theme {
-  color: $main-color-dark-theme;
-  background-color: $main-background-color-dark-theme;
+  color: #ffffff;
+  background-color: #202024;
 }
 
 .container {
@@ -51,28 +34,24 @@ body.dark-theme {
     width: 100%;
   }
 }
-
 @media screen and (min-width: 375px) {
   .container {
     width: 375px;
   }
 }
-
 @media screen and (min-width: 768px) {
   .container {
     width: 768px;
     padding: 0 32px;
   }
 }
-
 @media screen and (min-width: 1440px) {
   .container {
     width: 1440px;
     padding: 0 24px;
   }
-
   .home-container {
     display: flex;
     justify-content: space-between;
   }
-}
+}/*# sourceMappingURL=index.css.map */
