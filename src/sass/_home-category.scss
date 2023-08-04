@@ -1,0 +1,21 @@
+@media screen and (max-width: 767px) {
+  .home-book-card:not(:last-child) {
+    margin-bottom: 40px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .book-by-category-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    row-gap: 40px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .book-by-category-list {
+    width: 996px;
+  }
+}
