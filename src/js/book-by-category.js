@@ -63,23 +63,23 @@ function renderBooks(array, currentCategory) {
     markup =
       `<h1 class="books-category-title-active">${firstPartOfTitle}<span class="category-title-accent">${secondPartOfTitle}</span></h1><ul class="book-by-category-list js-books-container">` +
       array
-        .map(({ id, author, book_image, title }) => {
-          return `<li class="home-book-card js-book-card" data-book-id="${id}">
-    <div class="img-container js-book-card" data-book-id="${id}">
+        .map(({ _id, author, book_image, title }) => {
+          return `<li class="home-book-card js-book-card" data-book-id="${_id}">
+    <div class="img-container js-book-card" data-book-id="${_id}">
       <img
         class="home-book-card-img js-book-card"
         src="${book_image}"
         alt=""
-        data-book-id="${id}"
+        data-book-id="${_id}"
       />
-      <div class="overlay-book-card" data-book-id="${id}">
-        <p class="overlay-book-card-text" data-book-id="${id}">quick view</p>
+      <div class="overlay-book-card" data-book-id="${_id}">
+        <p class="overlay-book-card-text" data-book-id="${_id}">quick view</p>
       </div>
     </div>
-    <h3 class="home-book-card-book-title js-book-card" data-book-id="${id}">
+    <h3 class="home-book-card-book-title js-book-card" data-book-id="${_id}">
       ${title}
     </h3>
-    <p class="home-book-card-author js-book-card" data-book-id="${id}">
+    <p class="home-book-card-author js-book-card" data-book-id="${_id}">
       ${author}
     </p>
   </li>`;
