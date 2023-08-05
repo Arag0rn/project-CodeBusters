@@ -11,6 +11,7 @@
 // @media screen and (min-width: 1440px) {
    
 // }
+
 .support-ukraine-block {
     height: 474px;
     width: 356px;
@@ -27,7 +28,7 @@
     letter-spacing: -0.04em;
     text-align: left;
     color: #ffffff;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     margin-left: 40px;
 }
 .support-ukraine-item {
@@ -53,6 +54,7 @@
     justify-content: center;
     align-items: center;
     border: none;
+    margin-top: 24px;
 }
 .icon-emblem {
     fill: #ffffff;
@@ -66,12 +68,18 @@
     width: 20px;
     height: 20px;
 }
-img {
+.support-ukraine-img {
     filter: brightness(0) invert(1);
     margin-left: 16px;
     max-width: 100%;
     height: 32px;
 }
 .third-image {
-   height: 15px;
+    height: 15px;
+    filter: brightness(0) invert(1);
+    margin-left: 16px;
+    max-width: 100%;
+}
+.support-ukraine-item:nth-child(n+7) {
+    display: none;
 }
