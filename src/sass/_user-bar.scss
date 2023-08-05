@@ -1,0 +1,94 @@
+.user-btn-container {
+  display: none;
+  position: relative;
+  transform: translateX(-100%);
+
+  body.sign-in & {
+    display: flex;
+  }
+}
+
+.user-bar-btn {
+  position: relative;
+  z-index: 100;
+  padding: 0 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 45px;
+
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
+}
+
+.user-bar-photo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 37px;
+  height: 37px;
+
+  border-radius: 50%;
+  background-color: $main-background-color-light-theme;
+}
+
+.user-bar-btn {
+  border: none;
+  border-radius: 36px;
+  background-color: $main-accent-color;
+}
+
+.user-name {
+  margin-left: 9px;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.44px;
+
+  color: $main-color-dark-theme;
+}
+
+.user-arrow-svg {
+  margin-left: 4px;
+}
+
+.user-bar-log-out-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 184px;
+  height: 48px;
+  padding: 15px 14px;
+
+  border-radius: 18px;
+  border: 1.5px solid #111;
+  background: $main-background-color-light-theme;
+
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(0);
+  transition: opacity 500ms cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 500ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 800ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.is-open {
+    visibility: visible;
+    opacity: 100%;
+    pointer-events: all;
+    transform: translateY(45px);
+  }
+}
+
+.log-out-text {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.29;
+  letter-spacing: -0.56px;
+}

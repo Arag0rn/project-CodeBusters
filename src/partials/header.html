@@ -32,8 +32,7 @@
             <clipPath id="clip0_4313_342">
               <rect width="24" height="24" fill="white" />
             </clipPath>
-          </defs></svg
-        ><svg
+          </defs></svg><svg
           id="text-logo"
           xmlns="http://www.w3.org/2000/svg"
           width="78"
@@ -83,7 +82,9 @@
     <ul class="header-list">
       <li class="header-item">
 
+
         <a class="header-link link current" href="./index.html">home</a>
+
 
       </li>
       <li class="header-item">
@@ -104,12 +105,14 @@
         </a>
       </li>
     </ul>
-    <div class="switcher"><span class="wrapper">
-      <label id="switch" class="switch">
-        <input type="checkbox" class="switcher-toggle" id="slider" />
-        <span class="round slider"></span>
-      </label>
-    </div>
+   <div class="switcher">
+  <span class="wrapper">
+    <label id="switch" class="switch">
+      <input type="checkbox" class="switcher-toggle" id="slider" />
+      <span class="round slider"></span>
+    </label>
+  </span>
+</div>
     <button type="button" class="signup-btn js-signup">
       Sign up<svg
         xmlns="http://www.w3.org/2000/svg"
@@ -127,6 +130,24 @@
         />
       </svg>
     </button>
+    <div class="user-btn-container">
+  <button class="user-bar-btn" type="button">
+    <div class="user-bar-photo">
+      <svg class="user-svg" width="19" height="19">
+        <use href="./images/icons.svg#icon-user"></use>
+      </svg>
+    </div>
+    <span class="user-name">Stephen</span>
+    <svg class="user-arrow-svg" width="23" height="26">
+      <use href="./images/icons.svg#icon-arrow-accaunt"></use>
+    </svg>
+  </button>
+  <button class="user-bar-log-out-btn" type="button">
+    <span class="log-out-text">Log out</span>
+    <svg class="user-arrow-svg" width="20" height="20">
+      <use href="./images/icons.svg#icon-arrow-yellow"></use>
+    </svg>
+  </button></div>
     <div class="mob-menu js-mob-menu">
       <button class="burger-menu js-open-menu">
         <svg id="burger-svg"
@@ -199,12 +220,10 @@
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-              /></svg
-          ></span>
+              /></svg></span>
         </button>
         <img class="decoration" src="./images/mob-menu-books.png" />
       </div>
     </div>
   </nav>
 </div>
-
