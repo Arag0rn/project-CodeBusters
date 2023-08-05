@@ -16,9 +16,9 @@
 //   });
 // });
 document.addEventListener("DOMContentLoaded", function () {
-  const showMoreButton = document.getElementById("showMoreButton");
-  const remainingFunds = document.getElementById("remaining-funds");
-
+  const showMoreButton = document.getElementById(".circle");
+  const remainingFunds = document.getElementById(".support-ukraine-list");
+    console.log(showMoreButton);
   showMoreButton.addEventListener("click", function () {
     remainingFunds.classList.remove("hidden");
     showMoreButton.style.display = "none";
