@@ -4,10 +4,11 @@
   display: flex;
   padding-top: 18px;
   padding-bottom: 18px;
-  font-family: DM Sans;
+  background-color: $secondary-background-color-light-theme;
 
   .dark-theme & {
     border: 1.5px solid #fff;
+    background-color: $secondary-background-color-dark-theme;
   }
 
   @media screen and (max-width: 767px) {
@@ -337,4 +338,26 @@ input:checked + .slider:before {
   .header-container {
     width: 1440px;
   }
+
+  .header-list {
+    margin-right: 745px;
+  }
+  .switcher {
+    margin-left: 24px;
+  }
+  .link.current {
+    background-color: $secondary-accent-color;
+  }
+  .shopping-link {
+    &.current {
+      background: $secondary-accent-color;
+      border-radius: 36px;
+    }
+    &:focus,
+    &:hover {
+      background: $secondary-accent-color;
+      border-radius: 36px;
+    }
+  }
+
 }

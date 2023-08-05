@@ -10,9 +10,10 @@
             <div class="modal__content">
                 <img class="modal-close" src="./images/x-close.png" alt="">
                 <form action="submit" class="signIn-form">
-                    <input type="text" name="name" required class="auth-input" placeholder="NAME">
-                    <input type="text" name="email" required class="auth-input" placeholder="EMAIL">
-                    <input type="text" type="password" required name="password" class="auth-input" placeholder="PASSWORD">
+                    <input type="text" name="name" required class="auth-input" minlength="3" maxlength="10" placeholder="NAME">
+                    <input type="text" name="email" required pattern="\S+@[a-z]+.[a-z]+" class="auth-input" placeholder="EMAIL">
+                    <input type="password" id="password" required name="password" class="auth-input" placeholder="PASSWORD">
+                    <label><input type="checkbox" class="password-checkbox"> Show password</label>
                     <button type="submit" name="regist" class="SignUpBtn">SIGN UP</button>
                 </form>
 
