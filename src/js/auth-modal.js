@@ -5,6 +5,7 @@ export const modal = document.querySelector(".modal__auth");
 
 const link = document.querySelector(".js-signup")
 
+
 link.addEventListener('click', onSignOnclick)
 close.addEventListener('click', onCloseClick)
 
@@ -18,3 +19,21 @@ export function onCloseClick (){
   modal.style.opacity = 0;
   modal.style.visibility = "hidden"
 }
+
+
+const checkbox = document.querySelector('.password-checkbox');
+const password = document.querySelector('#password');
+
+show_hide_password(checkbox, password);
+console.log(checkbox);
+
+function show_hide_password(checkbox, password) {
+
+  if (checkbox.checked) {
+      password.setAttribute('type', 'text');
+  } else {
+    password.setAttribute('type', 'password');
+  }
+  return false;
+}
+
