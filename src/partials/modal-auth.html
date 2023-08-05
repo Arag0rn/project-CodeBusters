@@ -8,12 +8,16 @@
     <div class="modal__auth">
         <div class="modal__body">
             <div class="modal__content">
-                <img class="modal-close" src="./images/x-close.png" alt="">
+                <svg class="modal-close"
+                     width="28" height="28" viewBox="0 0 28 28" fill="black" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 7L7 21M7 7L21 21" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+
                 <form action="submit" class="signIn-form">
                     <input type="text" name="name" required class="auth-input" minlength="3" maxlength="10" placeholder="NAME">
                     <input type="text" name="email" required pattern="\S+@[a-z]+.[a-z]+" class="auth-input" placeholder="EMAIL">
                     <input type="password" id="password" required name="password" class="auth-input" placeholder="PASSWORD">
-                    <label><input type="checkbox" class="password-checkbox"> Show password</label>
+                    <label class="checkbox-label"><input type="checkbox" class="password-checkbox"> Show password</label>
                     <button type="submit" name="regist" class="SignUpBtn">SIGN UP</button>
                 </form>
 
