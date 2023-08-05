@@ -198,13 +198,6 @@ img {
   margin-bottom: 140px;
 }
 
-.default-content {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
 .add-list-color {
   color: #4f2ee8;
 }
