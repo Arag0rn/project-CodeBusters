@@ -34,7 +34,7 @@
             </clipPath>
           </defs></svg
         ><svg
-          class="text-logo"
+          id="text-logo"
           xmlns="http://www.w3.org/2000/svg"
           width="78"
           height="14"
@@ -82,15 +82,17 @@
     </div>
     <ul class="header-list">
       <li class="header-item">
+
         <a class="header-link link current" href="./index.html">home</a>
+
       </li>
       <li class="header-item">
         <a class="shopping-link link" href="./shopping-list.html"
           >Shopping List
-          <svg
+          <svg  id="cart"
             xmlns="http://www.w3.org/2000/svg"
-            width="14"
-            height="18"
+            width="20"
+            height="20"
             viewBox="0 0 14 18"
             fill="none"
           >
@@ -125,9 +127,9 @@
         />
       </svg>
     </button>
-    <div class="mob-menu">
+    <div class="mob-menu js-mob-menu">
       <button class="burger-menu js-open-menu">
-        <svg
+        <svg id="burger-svg"
           xmlns="http://www.w3.org/2000/svg"
           width="28"
           height="28"
@@ -165,7 +167,7 @@
         </svg></button
       ></span>
       <button type="button" class="close-menu mobile-menu-btn js-menu-close">
-        <svg
+        <svg id="close-btn"
           xmlns="http://www.w3.org/2000/svg"
           width="28"
           height="28"
@@ -181,7 +183,7 @@
           />
         </svg>
       </button>
-      <div class="mob-container js-mobile-container">
+      <div class="mob-container  js-mobile-container">
         <button type="button" class="mob-signup-btn js-signup">
           Sign up<span class="arrow"
             ><svg
@@ -200,9 +202,9 @@
               /></svg
           ></span>
         </button>
-
         <img class="decoration" src="./images/mob-menu-books.png" />
       </div>
     </div>
   </nav>
 </div>
+
