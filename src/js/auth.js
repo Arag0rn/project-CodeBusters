@@ -1,5 +1,5 @@
 "use strict";
-
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { initializeApp } from 'firebase/app';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -12,15 +12,15 @@ import { getDatabase, ref, set, post, child, push, update } from "firebase/datab
 const form = document.querySelector("form")
 
 const body = document.querySelector("body")
-
-const userNameField = document.querySelector(".activUser")
+const userButtonCont = document.querySelector('.user-btn-container')
+const userNameField = document.querySelector(".user-name")
 const logInBtn = document.querySelector(".signIn")
-const logoutBtn = document.querySelector(".logOut")
+const logoutBtn = document.querySelector(".user-bar-log-out-btn")
 const addToShopBtn = document.querySelector(".addTo")
 
 
 
-//logoutBtn.addEventListener('click', onSignOutClick)
+logoutBtn.addEventListener('click', onSignOutClick)
 logInBtn.addEventListener('click', onSignInClick)
 form.addEventListener("submit", onSubmitReg)
 
@@ -110,7 +110,7 @@ const productCards = document.querySelectorAll(".book-by-category-list");
       bookId: bookId
     }
     ).then(() => {
-      console.log("Book added to user's shopping list successfully.");
+      Notify.success("Book added to user's shopping list successfully.");
     }).catch((error) => {
       console.error("Error adding book to user's shopping list:", error);
     });
@@ -134,7 +134,8 @@ get(child(dbRef, `users/${userId}`)).then((snapshot) => {
   if (snapshot.exists()) {
     const userData = (snapshot.val());
     console.log(userData.displayName);
-    //userNameField.innerHTML = `<img src="./images/userimg.png" alt="" width="37">${userData.displayName}<img src="./images/fi-ss-caret-down.png" alt="">`
+    userButtonCont.style.display = "block"
+    userNameField.textContent = `${userData.displayName}`
     //userNameField.textContent = userData.displayName
   } else {
     console.log("No data available");
@@ -146,12 +147,18 @@ get(child(dbRef, `users/${userId}`)).then((snapshot) => {
 const user = auth.currentUser;
 
 
-function onSignOutClick(){
-  signOut(auth).then(() => {
-   // Sign-out successful.
- }).catch((error) => {
-   // An error happened.
- })}
+function onSignOutClick() {
+  signOut(auth)
+    .then(() => {
+      Notify.success('Sign-out successful');
+    })
+    .catch((error) => {
+      Notify.failure("An error happened")
+    })
+    .finally(() => {
+      location.reload();
+    });
+}
 
 console.log(user);
 
@@ -161,14 +168,23 @@ function onSignInClick(){
   const password = form.password.value
  signInWithEmailAndPassword(auth, email, password)
    .then((userCredential) => {
-     // Signed in 
-    const user = userCredential.user;
     onCloseClick()
+    Notify.success ("Glad you're back again") 
+    const user = userCredential.user;
+    
    })
-  .catch((error) => {
+   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
-   });
+
+    if (errorCode === 'auth/wrong-password') {
+      Notify.failure('Wrong password. Please try again.');
+    } else if (errorCode === 'auth/user-not-found') {
+      Notify.failure('User not found. Please check your email or sign up.');
+    } else {
+      Notify.failure('An error occurred during sign-in. Please try again later.');
+    }
+  });
   }
 
   onValue(ref(database, "users"), function(snapshot){

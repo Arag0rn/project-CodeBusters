@@ -6,7 +6,5 @@ import './js/book-by-category';
 import './js/best-sellers';
 import './js/auth-modal.js';
 import './js/auth.js'
-
-
 import './js/user-bar';
 
