@@ -1,8 +1,11 @@
 "use strict";
 
 export const close = document.querySelector(".modal-close")
-export const modal = document.querySelector(".js-signup");
+export const modal = document.querySelector(".modal__auth");
 
+const link = document.querySelector(".js-signup")
+
+link.addEventListener('click', onSignOnclick)
 close.addEventListener('click', onCloseClick)
 
 export function onSignOnclick (e){
