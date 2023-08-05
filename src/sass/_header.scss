@@ -24,6 +24,7 @@
   align-items: center;
 
   padding-right: 24px;
+  padding-left: 24px;
   width: 100%;
 
   @media screen and (max-width: 767px) {
@@ -72,6 +73,10 @@
   align-items: center;
   margin-left: 40px;
   text-transform: uppercase;
+}
+
+body.sign-in .signup-btn {
+  display: none;
 }
 
 @media screen and (max-width: 767px) {
@@ -334,17 +339,15 @@ input:checked + .slider:before {
   }
 }
 
+.switcher {
+  margin-left: auto;
+}
+
 @media screen and (min-width: 1440px) {
   .header-container {
     width: 1440px;
   }
 
-  .header-list {
-    margin-right: 745px;
-  }
-  .switcher {
-    margin-left: 24px;
-  }
   .link.current {
     background-color: $secondary-accent-color;
   }
@@ -359,5 +362,4 @@ input:checked + .slider:before {
       border-radius: 36px;
     }
   }
-
 }

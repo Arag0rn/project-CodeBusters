@@ -4,7 +4,9 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 const categoriesContainerRef = document.querySelector('.category_list');
 const booksContainerRef = document.querySelector('.js-books');
 
-categoriesContainerRef.addEventListener('click', onCategoryClick);
+if (document.location.pathname === '/index.html') {
+  categoriesContainerRef.addEventListener('click', onCategoryClick);
+}
 
 function onCategoryClick(e) {
   if (e.target.nodeName === 'P') {
