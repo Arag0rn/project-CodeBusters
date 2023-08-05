@@ -1,4 +1,5 @@
 "use strict";
+import {onCloseClick, onSignOnclick} from './auth-modal';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { initializeApp } from 'firebase/app';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
@@ -168,10 +169,7 @@ function onSignInClick(){
   const password = form.password.value
  signInWithEmailAndPassword(auth, email, password)
    .then((userCredential) => {
-    onCloseClick()
-    Notify.success ("Glad you're back again") 
     const user = userCredential.user;
-    
    })
    .catch((error) => {
     const errorCode = error.code;
@@ -181,10 +179,12 @@ function onSignInClick(){
       Notify.failure('Wrong password. Please try again.');
     } else if (errorCode === 'auth/user-not-found') {
       Notify.failure('User not found. Please check your email or sign up.');
-    } else {
-      Notify.failure('An error occurred during sign-in. Please try again later.');
-    }
-  });
+    } 
+  })
+  .finally(()=>{
+    Notify.success ("Glad you're back again") 
+    onCloseClick()
+  })
   }
 
   onValue(ref(database, "users"), function(snapshot){
