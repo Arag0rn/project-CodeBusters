@@ -21,19 +21,14 @@ export function onCloseClick (){
 }
 
 
-const checkbox = document.querySelector('.password-checkbox');
 const password = document.querySelector('#password');
 
-show_hide_password(checkbox, password);
-console.log(checkbox);
 
-function show_hide_password(checkbox, password) {
-
-  if (checkbox.checked) {
-      password.setAttribute('type', 'text');
-  } else {
-    password.setAttribute('type', 'password');
-  }
-  return false;
-}
-
+const checkbox = document.querySelector('.password-checkbox');
+checkbox.addEventListener('change', () => {
+    if (password.getAttribute('type') === 'password'){
+      password.setAttribute('type', 'text')
+    } else {
+      password.setAttribute('type', 'password')
+    }
+  })

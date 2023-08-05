@@ -7,11 +7,15 @@
     left: 0;
     opacity: 0;
     visibility: hidden;
-
+    transition: visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
 .modal__auth.open {
     opacity: 1;
     visibility:visible;
-}
+    transition: visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
 }
 .modal__body {
         min-height: 100%;
@@ -22,6 +26,7 @@
 .modal__content {
     position: relative;
     display: flex;
+    z-index: 1000;
     flex-direction: column;
     background-color: #fff;
     color: #000;
