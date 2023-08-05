@@ -77,6 +77,7 @@
     position: absolute;
     top: 24px;
     right: 24px;
+    stroke: black;
     cursor: pointer;
     &:hover{
         scale: 120%;
@@ -85,3 +86,53 @@
 
 }
 
+.upButton {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    
+}
+
+.visually-hidden {
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    border: 0;
+    padding: 0;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    margin: -1px;
+}
+
+body.dark-theme {
+    .modal__content {
+        background-color: #202024;
+        border: solid 2px white;
+
+    }
+    .auth-input{
+        border: solid 2px white;
+        background-color: #202024;
+    }
+    .SignUpBtn{
+        border: solid 2px white;
+        background-color:#202024 ;
+        color: #F3F3F3;
+        &:hover{
+            scale: 105%;
+            transition: scale 250ms cubic-bezier(0.4, 0, 0.2, 1)
+        }
+    }
+    .signIn, .signUp {
+        background-color: transparent;
+        color: #F6F6F6; 
+    }
+    .checkbox-label{
+        color:#F6F6F6;
+    }
+    .modal-close{
+        stroke: #F6F6F6;
+    }
+    }
