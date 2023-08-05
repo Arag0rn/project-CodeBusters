@@ -96,6 +96,9 @@ img {
   padding-bottom: 18px;
   font-family: DM Sans;
 }
+.dark-theme .header-container {
+  border: 1.5px solid #fff;
+}
 @media screen and (max-width: 767px) {
   .header-container {
     height: 64px;
@@ -122,6 +125,9 @@ img {
   align-items: center;
   gap: 8px;
 }
+.dark-theme .logo-svg #text-logo path {
+  fill: #fff;
+}
 
 @media screen and (max-width: 767px) {
   .header-list {
@@ -145,16 +151,18 @@ img {
   .mob-menu.is-open .burger-menu {
     display: none;
   }
-  .mob-menu:hover, .mob-menu:focus {
-    fill: #4f2ee8;
-  }
   .burger-menu {
     border: none;
-    background-color: #f6f6f6;
-    fill: #202024;
+    background-color: transparent;
   }
-  .burger-menu.is-open {
+  .dark-theme .burger-menu #burger-svg path {
+    stroke: #f3f3f3;
+  }
+  .dark-theme .burger-menu.is-open {
     display: none;
+  }
+  .burger-menu:hover #burger-svg path, .burger-menu:focus #burger-svg path {
+    stroke: #4f2ee8;
   }
   .mob-container {
     position: fixed;
@@ -208,7 +216,6 @@ img {
   .decoration {
     position: absolute;
     bottom: 0;
-    margin-bottom: 45px;
   }
   .close-menu {
     display: none;
@@ -224,6 +231,12 @@ img {
   }
   .js-mob-menu.is-open .close-menu {
     display: inline-block;
+  }
+  .dark-theme .close-menu #close-btn path {
+    stroke: #f3f3f3;
+  }
+  .close-menu:hover #close-btn path, .close-menu:focus #close-btn path {
+    stroke: #4f2ee8;
   }
 }
 .switch input {
@@ -316,7 +329,12 @@ input:checked + .slider:before {
     display: flex;
     align-items: center;
   }
-  .header-link.link:focus, .header-link.link:active {
+  .header-link.current {
+    background: #eac645;
+    border-radius: 36px;
+    font-weight: 700;
+  }
+  .header-link:focus, .header-link:hover {
     background: #eac645;
     border-radius: 36px;
   }
@@ -331,6 +349,13 @@ input:checked + .slider:before {
     text-transform: uppercase;
     gap: 8px;
     display: flex;
+  }
+  .dark-theme .shopping-link #cart path {
+    stroke: #f3f3f3;
+  }
+  .shopping-link:focus, .shopping-link:hover {
+    background: #eac645;
+    border-radius: 36px;
   }
   .signup-btn {
     width: 184px;
@@ -352,13 +377,6 @@ input:checked + .slider:before {
     margin-left: 90px;
   }
 }
-.header-link.link.current,
-.shopping-link.link.current {
-  background: #eac645;
-  border-radius: 36px;
-  font-weight: 700;
-}
-
 @media screen and (min-width: 1440px) {
   .header-container {
     width: 1440px;
