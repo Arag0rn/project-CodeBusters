@@ -1,5 +1,6 @@
 @charset "UTF-8";
 @import '~node_modules/modern-normalize/modern-normalize.css';
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,600;9..40,700&display=swap");
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -431,7 +432,6 @@ img {
 }
 
 .common {
-  font-family: DM Sans, sans-serif;
   font-size: 48px;
   font-style: normal;
   font-weight: 700;
@@ -526,7 +526,6 @@ img {
 .card-title {
   color: #111111;
   margin-bottom: 4px;
-  font-family: DM Sans, sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
@@ -538,7 +537,6 @@ img {
 .card-text {
   color: #B4AFAF;
   margin-bottom: 8px;
-  font-family: DM Sans, sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
@@ -550,7 +548,6 @@ img {
   color: #111111;
   margin-bottom: 16px;
   overflow: hidden;
-  font-family: DM Sans, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -560,7 +557,6 @@ img {
 
 .text-author {
   color: #B4AFAF;
-  font-family: DM Sans;
   font-size: 12px;
   font-style: italic;
   font-weight: 400;
@@ -590,7 +586,6 @@ img {
   color: rgba(0, 0, 0, 0.6);
   text-align: center;
   margin-bottom: 20px;
-  font-family: DM Sans, sans-serif;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
