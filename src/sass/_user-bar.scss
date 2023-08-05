@@ -1,11 +1,16 @@
 .user-btn-container {
   display: none;
-  position: relative;
-  transform: translateX(-100%);
+  position: absolute;
+  right: 0;
+  transform: translateX(-24px);
 
   body.sign-in & {
     display: flex;
   }
+}
+
+.header-menu {
+  position: relative;
 }
 
 .user-bar-btn {
@@ -16,6 +21,7 @@
   justify-content: center;
   align-items: center;
   height: 45px;
+  max-width: 195px;
 
   @media screen and (max-width: 767px) {
     display: none;
@@ -55,34 +61,42 @@
   margin-left: 4px;
 }
 
-.user-bar-log-out-btn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 184px;
-  height: 48px;
-  padding: 15px 14px;
+@media screen and (max-width: 767px) {
+  .user-bar-log-out-btn {
+    display: none;
+  }
+}
 
-  border-radius: 18px;
-  border: 1.5px solid #111;
-  background: $main-background-color-light-theme;
+@media screen and (min-width: 768px) {
+  .user-bar-log-out-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 184px;
+    height: 48px;
+    padding: 15px 14px;
 
-  visibility: hidden;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(0);
-  transition: opacity 500ms cubic-bezier(0.4, 0, 0.2, 1),
-    visibility 500ms cubic-bezier(0.4, 0, 0.2, 1),
-    transform 800ms cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 18px;
+    border: 1.5px solid #111;
+    background: $main-background-color-light-theme;
 
-  &.is-open {
-    visibility: visible;
-    opacity: 100%;
-    pointer-events: all;
-    transform: translateY(45px);
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(0);
+    transition: opacity 500ms cubic-bezier(0.4, 0, 0.2, 1),
+      visibility 500ms cubic-bezier(0.4, 0, 0.2, 1),
+      transform 800ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &.is-open {
+      visibility: visible;
+      opacity: 100%;
+      pointer-events: all;
+      transform: translateY(45px);
+    }
   }
 }
 
@@ -91,4 +105,77 @@
   font-weight: 500;
   line-height: 1.29;
   letter-spacing: -0.56px;
+}
+
+body.sign-in .mob-signup-btn {
+  display: none;
+}
+
+.user-login-mob-menu-container {
+  display: none;
+
+  align-items: center;
+
+  margin-top: 20px;
+  margin-left: 20px;
+
+  body.sign-in & {
+    display: flex;
+  }
+}
+
+.mob-container {
+  text-align: center;
+}
+
+.header-list-mob {
+  display: none;
+  margin-top: 126px;
+
+  text-transform: uppercase;
+
+  .header-item:not(:last-child) {
+    margin-bottom: 25px;
+  }
+
+  .shopping-link {
+    display: flex;
+    align-items: center;
+
+    color: $main-color-dark-theme;
+  }
+
+  .shopping-icon-svg {
+    fill: currentColor;
+  }
+
+  body.sign-in & {
+    display: inline-block;
+  }
+}
+
+.log-out-mob-btn {
+  position: absolute;
+  z-index: 10;
+  bottom: 0;
+  left: 0;
+  transform: translate(20px, -20px);
+
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  height: 48px;
+  padding: 15px 24px;
+
+  border-radius: 18px;
+  border: 1.5px solid #111;
+  background: $main-background-color-light-theme;
+
+  body.sign-in & {
+    display: flex;
+  }
+}
+
+.header-link {
+  color: #111;
 }
