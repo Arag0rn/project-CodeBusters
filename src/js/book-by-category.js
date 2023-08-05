@@ -2,7 +2,6 @@ import axios from 'axios';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const categoriesContainerRef = document.querySelector('.category_list');
-const allCategoriesRef = document.querySelectorAll('.category_text');
 const booksContainerRef = document.querySelector('.js-books');
 
 categoriesContainerRef.addEventListener('click', onCategoryClick);
@@ -20,6 +19,7 @@ function onCategoryClick(e) {
 }
 
 function removeStylesForCurrentCategory() {
+  const allCategoriesRef = document.querySelectorAll('.category_text');
   for (const category of allCategoriesRef) {
     category.classList.remove('current');
   }
