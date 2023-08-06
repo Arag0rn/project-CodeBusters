@@ -6,7 +6,7 @@ import './js/support-ukraine';
 import './js/book-by-category';
 import './js/best-sellers';
 import './js/auth-modal.js';
-import './js/auth.js'
+import './js/auth.js';
 import './js/user-bar';
-import './js/scrol-to-top.js'
+import './js/scrol-to-top.js';
 
