@@ -2,6 +2,7 @@ import axios from 'axios';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { loadCategoriesAndBooks } from './best-sellers';
+import { modalInit } from './modal.js';
 
 Loading.init({
   backgroundColor: 'rgba(0,0,0,0.1)',
@@ -114,4 +115,5 @@ function renderBooks(array, currentCategory) {
   }
 
   booksContainerRef.innerHTML = markup;
+  modalInit();
 }

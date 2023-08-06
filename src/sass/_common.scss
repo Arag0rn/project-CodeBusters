@@ -84,4 +84,9 @@ body.dark-theme {
 
 aside {
   padding-top: 40px;
+
+  @media screen and (min-width: 768px) and (max-width: 1439px) {
+    display: flex;
+    gap: 32px;
+  }
 }
