@@ -69,7 +69,7 @@ async function fetchBooks(currentCategory) {
 }
 
 function renderBooks(array, currentCategory) {
-  const indexOfFirstSpace = currentCategory.indexOf(' ');
+  const indexOfFirstSpace = currentCategory.lastIndexOf(' ');
   const firstPartOfTitle = currentCategory.slice(0, indexOfFirstSpace);
   const secondPartOfTitle = currentCategory.slice(
     indexOfFirstSpace,
