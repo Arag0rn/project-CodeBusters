@@ -2,109 +2,35 @@ document.addEventListener("DOMContentLoaded", function () {
     const showMoreButton = document.getElementById("show-more-button");
   const block = document.querySelector(".support-ukraine-block");
   const button = document.querySelector('#show-more-button');
-
-  let isExpanded = false;
-  let isExpanded2 = false;
-  let isExpanded3; let count = true;
+  const innerContainer = document.querySelector('.support-ukraine-container__inner');
+  const computedStyles = getComputedStyle(innerContainer);
+ let count = 0;
 
   showMoreButton.addEventListener('click', function () {
-    isExpanded = !isExpanded;
-    // isExpanded2 = !isExpanded2;
-    // isExpanded2 = !isExpanded3;
-    
-    console.log(isExpanded, isExpanded2, isExpanded3);
-    if (!isExpanded && isExpanded2 && isExpanded3==undefined) {
-      block.classList.toggle('expanded');
-      console.log('1');
-    }
-    if (isExpanded&& !isExpanded2 && isExpanded3==undefined){
-      block.classList.toggle('expanded');
-      block.classList.toggle('expanded-second');
-      console.log('2');
-      isExpanded2 = true;
-    }
-    else if (!isExpanded && isExpanded2 && isExpanded3==undefined) {
-      block.classList.toggle('expanded-second');
-      block.classList.toggle('expanded-third');
-      button.style.transform = 'rotate(180deg)';
-      button.style.transition = '250ms cubic-bezier(0.4, 0, 0.2, 1)';
-      console.log('3');
-      isExpanded3 = false;
-    }
-    else if (isExpanded && isExpanded2) {
-      count = false;
-      console.log('4');
-      button.style.transform = 'rotate(180deg)';
-      block.classList.toggle('expanded-third');
-      block.classList.toggle('expanded-second');
-    }
-    if (count == false && !isExpanded && isExpanded2 && !isExpanded3) {
-      console.log(count);
-     
-      block.classList.toggle('expanded-second');
+    if (computedStyles.height === '188px') {
+    count++;
+    if (count == 1 || count == 5 || count == 9 || count == 13 || count == 17 || count == 21) {
+      block.classList.add('expanded');
       
-      block.classList.toggle('expanded');
     }
+    else if (count == 2 || count == 6 || count == 10 || count == 14 || count == 18 || count == 22) {
+      block.classList.add('expanded');
+      block.classList.toggle('expanded-second');
+      button.style.transform = 'rotate(180deg)'
+      button.style.transition = '250ms cubic-bezier(0.4, 0, 0.2, 1)';
+    }
+    else if (count == 3 || count == 7 || count == 11 || count == 15 || count == 19 || count == 23) {
+      block.classList.toggle('expanded-second');
+      button.style.transform = 'rotate(180deg)';
+       button.style.transition = '250ms cubic-bezier(0.4, 0, 0.2, 1)';
+    }
+    else if (count == 4 || count == 8 || count == 12 || count == 16 || count == 20 || count == 24) {
+      block.classList.toggle('expanded');
+      button.style.transform = 'rotate(0deg)'
+    }
+} else if (computedStyles.height === '305px'){
+block.classList.toggle('expanded');
+}
+   
   });
- 
-
-    
-  
-
-  
-// document.addEventListener("DOMContentLoaded", function () {
-//     const showMoreButton = document.getElementById("show-more-button");
-//     const showMoreButtonSecond = document.getElementById("second");
-//      const fourth = document.getElementById("fourth");
-//     const hiddenItems = document.querySelectorAll(".hidden");
-//     const elems = document.querySelectorAll(".elem");
-//     const container = document.querySelector(".support-ukraine-container");
-//     let isExpanded = false;
-
-//     showMoreButton.addEventListener("click", function () {
-//       if (!isExpanded) {
-
-//         hiddenItems.forEach(function (item) {
-//           item.style.display = "list-item";
-//         });
-
-//           showMoreButton.style.display = "none";
-//           showMoreButtonSecond.style.display = "block";
-
-//           elems.forEach(function (item) {
-//           item.style.display = "none";
-//         });
-
-
-//         const lastHiddenItem = hiddenItems[hiddenItems.length - 1];
-//         lastHiddenItem.scrollIntoView({ behavior: "smooth" });
-//         fourth.style.marginTop = "0px"
-//         isExpanded = true;
-//       }
-//     });
-
-//     showMoreButtonSecond.addEventListener("click", function () {
-//     if (isExpanded) {
-
-//       hiddenItems.forEach(function (item) {
-//         item.style.display = "none";
-//       });
-
-
-//         showMoreButtonSecond.style.display = "none";
-//         showMoreButton.style.display = "block";
-
-
-//       elems.forEach(function (item, index) {
-//         if (index < 6) {
-//             item.style.display = "list-item";
-//             item.style.display = "flex";
-//         }
-//       });
-
-//       container.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest"  });
-//        fourth.style.marginTop = "20px";
-//       isExpanded = false;
-//     }
-//   });
-  });
+  }); 
