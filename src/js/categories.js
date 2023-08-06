@@ -10,7 +10,6 @@ const categoryList = document.querySelector('.category_list');
 
 fethCategoryList()
   .then(data => {
-    console.log(data);
     categoryList.insertAdjacentHTML('beforeend', createMarkup(data));
   })
   .catch(err => console.log(err));
