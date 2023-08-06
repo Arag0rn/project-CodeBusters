@@ -1,20 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
     const showMoreButton = document.getElementById("show-more-button");
-<<<<<<< Updated upstream
-    const showMoreButtonSecond = document.getElementById("second");
-     const fourth = document.getElementById("fourth");
-    const hiddenItems = document.querySelectorAll(".hidden");
-    const elems = document.querySelectorAll(".elem");
-    const container = document.querySelector(".support-ukraine-container");
-    const block = document.querySelector(".support-ukraine-block");
-    let isExpanded = false;
-
-
-  showMoreButton.addEventListener('click', function () {
-    block.classList.toggle('expanded');
-  });
-});
-=======
   const block = document.querySelector(".support-ukraine-block");
   const button = document.querySelector('#show-more-button');
 
@@ -122,5 +107,4 @@ document.addEventListener("DOMContentLoaded", function () {
 //       isExpanded = false;
 //     }
 //   });
-//   });
->>>>>>> Stashed changes
+  });

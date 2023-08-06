@@ -1,20 +1,3 @@
-<<<<<<< Updated upstream
-// @media screen and (max-width: 767px) {
-//     .support-ukraine-block {
-//         background-color: black;
-//     }
-// }
-
-// @media screen and (min-width: 768px) {
-
-// }
-
-// @media screen and (min-width: 1440px) {
-
-// }
-
-=======
->>>>>>> Stashed changes
 .support-ukraine-block {
     // height: 474px;
     width: 356px;
@@ -23,28 +6,6 @@
     padding-bottom: 24px;
     border-radius: 3%;
 }
-<<<<<<< Updated upstream
-
-.support-ukraine-container__inner {
-  overflow: hidden;
-  height: 305px;
-}
-
-.support-ukraine-list,
-#show-more-button svg {
-  transition: all 0.25s ease;
-  fill: #4F2EE8;
-}
-
-.expanded .support-ukraine-list {
-  transform: translateY(-155px);
-}
-
-.expanded #show-more-button svg {
-  transform: rotate(180deg);
-}
-
-=======
 .support-ukraine-container__inner {
     overflow: hidden;
     height: 305px;
@@ -67,7 +28,6 @@
 .support-ukraine-item:first-child {
     margin-top: 0;
 }
->>>>>>> Stashed changes
 .support-head {
     font-family: DM Sans;
     font-size: 24px;
@@ -129,12 +89,6 @@
     max-width: 100%;
     height: 32px;
 }
-<<<<<<< Updated upstream
-.third {
-    height: 32px;
-}
-=======
->>>>>>> Stashed changes
 .seventh {
     margin-top: 18px;
 }
@@ -146,9 +100,6 @@
 }
 .hidden {
     display: none;
-<<<<<<< Updated upstream
-
-=======
     
 }
 @media screen and (min-width: 768px) {
@@ -177,5 +128,4 @@
 .expanded-third #show-more-button svg {
     transform: rotate(0deg);
 }
->>>>>>> Stashed changes
 }
