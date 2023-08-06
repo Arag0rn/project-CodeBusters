@@ -37,6 +37,10 @@ body {
   background-color: $main-background-color-light-theme;
 }
 
+main {
+  padding-top: 40px;
+}
+
 body.dark-theme {
   color: $main-color-dark-theme;
   background-color: $main-background-color-dark-theme;
@@ -76,4 +80,8 @@ body.dark-theme {
     display: flex;
     justify-content: space-between;
   }
+}
+
+aside {
+  padding-top: 40px;
 }
