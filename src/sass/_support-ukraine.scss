@@ -5,96 +5,101 @@
 // }
 
 // @media screen and (min-width: 768px) {
-   
+
 // }
 
 // @media screen and (min-width: 1440px) {
-   
+
 // }
 
 .support-ukraine-block {
-    // height: 474px;
-    width: 356px;
-    background: radial-gradient(circle at center top, #4F2EE8, #F5F5F71A);
-    padding-top: 24px;
-    padding-bottom: 24px;
-    border-radius: 3%;
+  // height: 474px;
+  width: 356px;
+  background: radial-gradient(circle at center top, #4f2ee8, #f5f5f71a);
+  padding-top: 24px;
+  padding-bottom: 24px;
+  border-radius: 3%;
 }
 .support-head {
-    font-family: DM Sans;
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 28px;
-    letter-spacing: -0.04em;
-    text-align: left;
-    color: #ffffff;
-    margin-bottom: 40px;
-    margin-left: 40px;
+  font-family: DM Sans;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: -0.04em;
+  text-align: left;
+  color: #ffffff;
+  margin-bottom: 40px;
+  margin-left: 40px;
 }
 .support-ukraine-item {
-    font-family: DM Sans;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 18px;
-    letter-spacing: -0.04em;
-    text-align: left;
-    color: #ffffff;
-    margin-top: 20px;
-    margin-left: 40px;
-    display: flex;
-    align-items: center;
+  font-family: DM Sans;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: -0.04em;
+  text-align: left;
+  color: #ffffff;
+  margin-top: 20px;
+  margin-left: 40px;
+  display: flex;
+  align-items: center;
 }
 .circle {
-    background-color: #fff;
-    border-radius: 50%;
-    width: 38px;
-    height: 38px;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    margin-top: 24px;
-    margin-bottom: 0px;
+  background-color: #fff;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  margin-top: 24px;
+  margin-bottom: 0px;
 }
 .icon-emblem {
-    fill: #ffffff;
-    width: 20px;
-    height: 32px;
-    margin-left: 12px;
-    vertical-align: middle;
+  fill: #ffffff;
+  width: 20px;
+  height: 32px;
+  margin-left: 12px;
+  vertical-align: middle;
 }
 .icon-direction {
-    width: 20px;
-    height: 20px;
+  width: 20px;
+  height: 20px;
 }
 .icon-direction-second {
-    width: 15px;
-    height: 15px;
+  width: 15px;
+  height: 15px;
 }
 .second-c {
-    display: none;
+  display: none;
 }
 .support-ukraine-img {
-    filter: brightness(0) invert(1);
-    margin-left: 16px;
-    max-width: 100%;
-    height: 32px;
+  filter: brightness(0) invert(1);
+  margin-left: 16px;
+  max-width: 100%;
+  height: 32px;
 }
 .third {
-    margin-top: 26px;
-    margin-bottom: 6px;
+  margin-top: 26px;
+  margin-bottom: 6px;
 }
 .seventh {
-    margin-top: 18px;
+  margin-top: 18px;
 }
 .third-image {
-    height: 15px;
-    filter: brightness(0) invert(1);
-    margin-left: 16px;
-    max-width: 100%;
+  height: 15px;
+  filter: brightness(0) invert(1);
+  margin-left: 16px;
+  max-width: 100%;
 }
 .hidden {
+  display: none;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+  .support-ukraine-block {
     display: none;
-    
+  }
 }
