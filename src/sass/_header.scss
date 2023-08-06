@@ -5,6 +5,10 @@
   padding-top: 18px;
   padding-bottom: 18px;
   background-color: $secondary-background-color-light-theme;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
 
   .dark-theme & {
     border: 1.5px solid #fff;
@@ -68,6 +72,7 @@
   .burger-menu {
     border: none;
     background-color: transparent;
+    transition: scale 250ms cubic-bezier(0.4, 0, 0.2, 1);
     .dark-theme & {
       #burger-svg path {
         stroke: #f3f3f3;
@@ -145,6 +150,7 @@
   .decoration {
     position: absolute;
     bottom: 0;
+    width: 425px;
   }
 
   .close-menu {
@@ -196,6 +202,7 @@
   display: flex;
   margin-left: auto;
   margin-right: 14px;
+  transition: scale 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 input:checked + .slider {
   background: url(../images/bg-dark.png) no-repeat center center;
