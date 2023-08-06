@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { onClickToShopingListAdd } from './auth'; 
 let bookData = {};
 
 const modal = document.querySelector('div#modal');
@@ -73,8 +73,13 @@ const openModal = async function (e) {
   document.body.classList.add('no-scroll');
 
   const bookId = this.getAttribute('data-book-id');
+  console.log(bookId);
 
   await modalData(bookId);
+  const addToListBtn = modal.querySelector('.modal-order-btn');
+addToListBtn.addEventListener('click', async () => {
+  await onClickToShopingListAdd(bookId);
+}, { once: true });
 
   modalDescription.innerHTML = '';
   modallinks.innerHTML = '';
@@ -110,7 +115,7 @@ const openModal = async function (e) {
       }
     });
   }
-
+  
   document.addEventListener('keydown', closeModal);
   modalOrderBtn.addEventListener('click', localStorageAppend);
 
@@ -143,3 +148,4 @@ export const modalInit = () => {
 };
 
 modalInit();
+

@@ -17,9 +17,8 @@ const userButtonCont = document.querySelector('.user-btn-container')
 const userNameField = document.querySelector(".user-name")
 const logInBtn = document.querySelector(".signIn")
 const logoutBtn = document.querySelector(".user-bar-log-out-btn")
-const addToShopBtn = document.querySelector(".addTo")
-
-
+const bookCont = document.querySelector("body > div.container.home-container > main")
+console.log(bookCont);
 
 logoutBtn.addEventListener('click', onSignOutClick)
 logInBtn.addEventListener('click', onSignInClick)
@@ -44,7 +43,7 @@ const auth = getAuth();
 const database = getDatabase(app);
 
 
-onAuthStateChanged(auth, (user) => {
+ onAuthStateChanged(auth, (user) => {
   if (user) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/auth.user
@@ -54,7 +53,7 @@ onAuthStateChanged(auth, (user) => {
     const photoURL = user.photoURL;
     const emailVerified = user.emailVerified;
     readUserData(uid)
-    readBookData(uid)
+    // readBookData(uid)
     // ...
   } else {
     // User is signed out
@@ -98,10 +97,9 @@ function writeUserData(userId, name, email, bookId) {
 }
 const productCards = document.querySelectorAll(".book-by-category-list");
 
- //addToShopBtn.addEventListener('click', onClickToShopingListAdd);
 
 
- function onClickToShopingListAdd(bookId) {
+ export function onClickToShopingListAdd(bookId) {
   const userId = auth.currentUser.uid;
 
   try {
@@ -120,14 +118,6 @@ const productCards = document.querySelectorAll(".book-by-category-list");
   }
 }
 
-productCards.forEach((card) => {
-  card.addEventListener("click", function(event) {
-    console.log(card);
-    //const bookId = card.id
-    onClickToShopingListAdd(bookId); 
-    console.log("Clicked on card with ID:", bookId);
-  });
-});
 
 function readUserData(userId){
 const dbRef = ref(getDatabase());
@@ -191,18 +181,40 @@ function onSignInClick(){
     console.log(snapshot.val());
   })
 
-  function readBookData(userId) {
-    const dbRef = ref(getDatabase(), `users/${userId}/books`);
-    get(dbRef).then((snapshot) => {
-      if (snapshot.exists()) {
-        const booksData = snapshot.val();
-       console.log((Object.values(booksData)));
-      } else {
-        console.log("No shopping list data available");
-      }
-    }).catch((error) => {
-      console.error(error);
-    });
-  }
+ 
 
+  // import { getAuth, onAuthStateChanged } from "firebase/auth";
+  // import { getDatabase, ref, get, post, child, push, update, forceLongPolling } from "firebase/database";
   
+  // const auth = getAuth();
+  // onAuthStateChanged(auth, (user) => {
+  //   if (user) {
+  //     // User is signed in, see docs for a list of available properties
+  //     // https://firebase.google.com/docs/reference/js/auth.user
+  //     const uid = user.uid;
+  //     const email = user.email;
+  //     const photoURL = user.photoURL;
+  //     const emailVerified = user.emailVerified;
+      
+  //     readBookData(uid)
+  //     // ...
+  //   } else {
+  //     // User is signed out
+  //     // ...
+  //   }
+  // });
+  
+  // function readBookData(userId) {
+  //   const dbRef = ref(getDatabase(), `users/${userId}/books`);
+  //   get(dbRef).then((snapshot) => {
+  //     if (snapshot.exists()) {
+  //       const booksData = snapshot.val();
+  //       console.log((Object.values(booksData)));
+  //     } else {
+  //       console.log("No shopping list data available");
+  //     }
+  //   }).catch((error) => {
+  //     console.error(error);
+  //   });
+  // }
+
