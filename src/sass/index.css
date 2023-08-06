@@ -637,34 +637,39 @@ img {
 
 .list-cards {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .item-link {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  border-radius: 50%;
+  color: transparent;
+  mix-blend-mode: luminosity;
+  transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@media screen and (max-width: 767px) {
-  .common {
-    font-size: 32px;
-    line-height: 1.18;
-    letter-spacing: -1.28px;
-  }
-  .main-title {
-    margin-bottom: 120px;
-  }
-  .default-text {
-    font-size: 14px;
-    line-height: 1.28;
-    letter-spacing: -0.28px;
-    margin-bottom: 14px;
-  }
+.underline {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #000;
+  transition: width 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+.item-link:hover, .item-link:focus {
+  box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.15);
+}
+
+.item-link:hover .underline {
+  width: 100%;
+  /* Show the underline on hover */
+}
+
 .thumb {
   position: relative;
   display: flex;
@@ -684,12 +689,38 @@ img {
   position: relative;
   border-radius: 16px;
   border: 2px solid rgba(79, 46, 232, 0.4);
-  background: #FFF;
+  background-color: #ffffff;
   padding: 14px;
 }
 
 .image-container {
   margin-right: 14px;
+  position: relative;
+}
+
+.quick-view {
+  color: #111111;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.28;
+  letter-spacing: -0.56px;
+  text-transform: uppercase;
+  text-align: center;
+  background-color: transparent;
+  opacity: 0;
+  border-radius: 0px 0px 8px 8px;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1), color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.image-container:hover .quick-view {
+  opacity: 1;
+  background-color: #eac645;
 }
 
 .content-container {
@@ -705,9 +736,14 @@ img {
   position: absolute;
   top: 14px;
   right: 14px;
-  background-color: #4F2EE8;
+  background-color: #4f2ee8;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 50%;
   border: none;
+}
+
+.btn-delete:hover, .btn-delete:focus {
+  background-color: #FF5733;
 }
 
 .card-title {
@@ -733,13 +769,17 @@ img {
 
 .main-card-text {
   color: #111111;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   overflow: hidden;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 1.28;
   letter-spacing: -0.56px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
 }
 
 .text-author {
@@ -748,25 +788,17 @@ img {
   font-style: italic;
   font-weight: 400;
   line-height: 1.16;
-  /* 116.667% */
   letter-spacing: -0.48px;
 }
 
-.icons-container {
+.list-icons {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
   position: absolute;
   bottom: 14px;
   right: 14px;
-  display: flex;
-}
-
-.item-images {
-  margin-left: 5px;
-  /* Додатковий відступ між зображеннями */
-}
-
-.box {
-  display: flex;
-  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .default-text {
@@ -789,11 +821,47 @@ img {
   text-align: center;
 }
 
-@media screen and (min-width: 1440) {
+@media screen and (max-width: 767px) {
+  .common {
+    font-size: 32px;
+    line-height: 1.18;
+    letter-spacing: -1.28px;
+  }
+  .main-title {
+    margin-bottom: 120px;
+  }
+  .default-text {
+    font-size: 14px;
+    line-height: 1.28;
+    letter-spacing: -0.28px;
+    margin-bottom: 14px;
+  }
+}
+@media screen and (min-width: 768px) {
   .main-title {
     display: inline-block;
     margin-left: 0 auto;
   }
+
+  .main-card-text {
+    margin-bottom: 48px;
+  }
+  .card-text {
+    margin-bottom: 14px;
+  }
+  .list-item {
+    padding: 24px;
+  }
+  .btn-delete {
+    top: 24px;
+    right: 24px;
+  }
+  .list-icons {
+    bottom: 24px;
+    right: 24px;
+    gap: 16px;
+  }
+
 }
 .support-ukraine-block {
   width: 356px;
@@ -1226,4 +1294,5 @@ body.sign-in .log-out-mob-btn {
 
 .header-link {
   color: #111;
+
 }/*# sourceMappingURL=index.css.map */
