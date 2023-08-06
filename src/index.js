@@ -9,4 +9,5 @@ import './js/auth-modal.js';
 import './js/auth.js';
 import './js/user-bar';
 import './js/scrol-to-top.js';
+import './js/modal.js';
 
