@@ -3,7 +3,6 @@ async function fethCategoryList() {
   const responce = await axios.get(
     `https://books-backend.p.goit.global/books/category-list`
   );
-
   return responce.data;
 }
 const categoryList = document.querySelector('.category_list');
