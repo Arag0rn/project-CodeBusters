@@ -61,6 +61,10 @@ body.dark-theme {
     justify-content: space-between;
   }
 }
+aside {
+  padding-top: 40px;
+}
+
 h1,
 h2,
 h3,
@@ -101,6 +105,8 @@ img {
   padding-top: 18px;
   padding-bottom: 18px;
   background-color: #ffffff;
+  top: 0;
+  left: 0;
 }
 .dark-theme .header-container {
   border: 1.5px solid #fff;
@@ -119,6 +125,7 @@ img {
   justify-content: center;
   align-items: center;
   padding-right: 24px;
+  padding-left: 24px;
   width: 100%;
 }
 @media screen and (max-width: 767px) {
@@ -150,21 +157,16 @@ img {
   display: flex;
   align-items: center;
 }
-.header-link.current {
-  background: #eac645;
-  border-radius: 36px;
-  font-weight: 700;
-}
-.header-link:focus, .header-link:hover {
-  background: #eac645;
-  border-radius: 36px;
-}
 
 .header-list {
   display: inline-flex;
   align-items: center;
   margin-left: 40px;
   text-transform: uppercase;
+}
+
+body.sign-in .signup-btn {
+  display: none;
 }
 
 @media screen and (max-width: 767px) {
@@ -192,6 +194,7 @@ img {
   .burger-menu {
     border: none;
     background-color: transparent;
+    transition: scale 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
   .dark-theme .burger-menu #burger-svg path {
     stroke: #f3f3f3;
@@ -252,6 +255,7 @@ img {
   .decoration {
     position: absolute;
     bottom: 0;
+    width: 425px;
     left: 50%;
     transform: translate(-50%, 170px);
   }
@@ -299,6 +303,7 @@ img {
   display: flex;
   margin-left: auto;
   margin-right: 14px;
+  transition: scale 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 input:checked + .slider {
@@ -387,38 +392,49 @@ input:checked + .slider:before {
     margin-left: 90px;
   }
 }
+.switcher {
+  margin-left: auto;
+}
+
 @media screen and (min-width: 1440px) {
   .header-container {
     width: 1440px;
   }
-  .header-list {
-    margin-right: 745px;
-  }
-  .switcher {
-    margin-left: 24px;
-  }
-  .link.current {
-    background-color: #eac645;
-  }
-  .shopping-link.current {
-    background: #eac645;
-    border-radius: 36px;
-  }
-  .shopping-link:focus, .shopping-link:hover {
-    background: #eac645;
-    border-radius: 36px;
-  }
 }
+.link.current.current {
+  background: #eac645;
+  border-radius: 36px;
+  font-weight: 700;
+}
+.link.current:focus, .link.current:hover {
+  background: #eac645;
+  border-radius: 36px;
+}
+
 .box {
-  border: 1px solid black;
+  overflow-y: scroll;
   height: 228px;
+  margin-bottom: 40px;
 }
 
 .category_list {
+  height: 248px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 24px;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: color #f6f6f6;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e0e0e0;
+  border-radius: 12px;
 }
 
 .category_text {
@@ -989,10 +1005,15 @@ body.dark-theme .best-sellers-btn {
   left: 0;
   opacity: 0;
   visibility: hidden;
+  transition: visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
-.modal__auth .modal__auth.open {
+
+.modal__auth.open {
   opacity: 1;
   visibility: visible;
+  transition: visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .modal__body {
@@ -1005,6 +1026,7 @@ body.dark-theme .best-sellers-btn {
 .modal__content {
   position: relative;
   display: flex;
+  z-index: 1000;
   flex-direction: column;
   background-color: #fff;
   color: #000;
@@ -1061,11 +1083,60 @@ body.dark-theme .best-sellers-btn {
   position: absolute;
   top: 24px;
   right: 24px;
+  stroke: black;
   cursor: pointer;
 }
 .modal-close:hover {
   scale: 120%;
   transition: scale 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.upButton {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+}
+
+.visually-hidden {
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  -webkit-clip-path: inset(50%);
+          clip-path: inset(50%);
+  margin: -1px;
+}
+
+body.dark-theme .modal__content {
+  background-color: #202024;
+  border: solid 2px white;
+}
+body.dark-theme .auth-input {
+  border: solid 2px white;
+  background-color: #202024;
+}
+body.dark-theme .SignUpBtn {
+  border: solid 2px white;
+  background-color: #202024;
+  color: #F3F3F3;
+}
+body.dark-theme .SignUpBtn:hover {
+  scale: 105%;
+  transition: scale 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+body.dark-theme .signIn, body.dark-theme .signUp {
+  background-color: transparent;
+  color: #F6F6F6;
+}
+body.dark-theme .checkbox-label {
+  color: #F6F6F6;
+}
+body.dark-theme .modal-close {
+  stroke: #F6F6F6;
 }
 
 .user-btn-container {

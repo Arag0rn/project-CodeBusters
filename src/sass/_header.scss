@@ -5,8 +5,6 @@
   padding-top: 18px;
   padding-bottom: 18px;
   background-color: $secondary-background-color-light-theme;
-  position: fixed;
-  z-index: 2;
   top: 0;
   left: 0;
 
@@ -60,16 +58,6 @@
   justify-content: center;
   display: flex;
   align-items: center;
-  &.current {
-    background: $secondary-accent-color;
-    border-radius: 36px;
-    font-weight: 700;
-  }
-  &:focus,
-  &:hover {
-    background: $secondary-accent-color;
-    border-radius: 36px;
-  }
 }
 
 .header-list {
@@ -195,7 +183,6 @@ body.sign-in .signup-btn {
     left: 50%;
 
     transform: translate(-50%, 170px);
-
   }
 
   .close-menu {
@@ -357,19 +344,18 @@ input:checked + .slider:before {
   .header-container {
     width: 1440px;
   }
+}
 
-  .link.current {
-    background-color: $secondary-accent-color;
+.link.current {
+  &.current {
+    background: $secondary-accent-color;
+    border-radius: 36px;
+    font-weight: 700;
   }
-  .shopping-link {
-    &.current {
-      background: $secondary-accent-color;
-      border-radius: 36px;
-    }
-    &:focus,
-    &:hover {
-      background: $secondary-accent-color;
-      border-radius: 36px;
-    }
+
+  &:focus,
+  &:hover {
+    background: $secondary-accent-color;
+    border-radius: 36px;
   }
 }
