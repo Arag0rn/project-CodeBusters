@@ -16,6 +16,7 @@
 //   const response = await axios.get()
 // }
 
+import { modalInit } from './modal.js';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import axios from 'axios';
@@ -79,6 +80,7 @@ export async function loadCategoriesAndBooks() {
     markup += `</ul>`;
 
     mainContainerRef.innerHTML = markup;
+    modalInit();
     Loading.remove();
   } catch (error) {
     Notify.failure('Oops! Something went wrong! Try to reload the page!');
