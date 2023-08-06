@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     
   
-});
+
   
 // document.addEventListener("DOMContentLoaded", function () {
 //     const showMoreButton = document.getElementById("show-more-button");
