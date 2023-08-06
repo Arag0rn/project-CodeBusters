@@ -1,21 +1,29 @@
 .box {
-  border: 1px solid black;
+  // border: 1px solid black;
+  overflow-y: scroll;
   height: 228px;
+  margin-bottom: 40px;
 }
-// .sidebar {
-// }
 
 .category_list {
+  height: 248px;
   display: flex;
-  // width: 307px;
   flex-direction: column;
   align-items: flex-start;
   gap: 24px;
-
-  // overflow-y: scroll;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
-// .category_item {
-// }
+::-webkit-scrollbar {
+  width: 8px;
+
+  background: color #f6f6f6;
+}
+::-webkit-scrollbar-thumb {
+  background: #e0e0e0;
+  border-radius: 12px;
+}
+
 .category_text {
   color: rgba(17, 17, 17, 0.6);
   text-align: justify;
@@ -34,7 +42,6 @@
   font-family: DM Sans;
   font-size: 18px;
   font-weight: 700;
-
   text-transform: uppercase;
 }
 
