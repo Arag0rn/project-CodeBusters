@@ -12,11 +12,6 @@ document.addEventListener('DOMContentLoaded', function () {
     event.stopPropagation();
   });
 
-  if (switcherBtn.checked) {
-    document.body.classList.add('dark-theme');
-    switcherBtn.style.transform = 'translateX(20px)';
-  }
-
   switcherBtn.addEventListener('change', function () {
     document.body.classList.toggle('dark-theme');
     const theme = document.body.classList.contains('dark-theme')
