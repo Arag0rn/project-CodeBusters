@@ -143,6 +143,7 @@ img {
 @media screen and (max-width: 767px) {
   .header-menu {
     width: 100%;
+    padding-left: 0;
   }
 }
 
@@ -153,7 +154,7 @@ img {
   align-items: center;
   gap: 8px;
 }
-.dark-theme .logo-svg #text-logo path {
+.dark-theme .logo-svg .text-logo {
   fill: #fff;
 }
 
@@ -168,6 +169,9 @@ img {
   justify-content: center;
   display: flex;
   align-items: center;
+}
+.dark-theme .header-link {
+  color: #fff;
 }
 
 .header-list {
@@ -190,15 +194,16 @@ body.sign-in .signup-btn {
   }
   .swtcher {
     display: flex;
+    margin-right: -12px;
   }
   .mob-menu {
-    display: flex;
     align-items: center;
-    position: relative;
     gap: 14px;
     width: 28px;
     height: 28px;
-    margin-right: 18px;
+    display: flex;
+    position: relative;
+    padding-left: 20px;
   }
   .mob-menu.is-open .burger-menu {
     display: none;
@@ -282,14 +287,15 @@ body.sign-in .signup-btn {
     margin-left: auto;
     justify-content: center;
     background-color: transparent;
+    stroke: #111;
   }
   .js-mob-menu.is-open .close-menu {
     display: inline-block;
   }
-  .dark-theme .close-menu #close-btn path {
+  .dark-theme .close-menu .close-btn {
     stroke: #f3f3f3;
   }
-  .close-menu:hover #close-btn path, .close-menu:focus #close-btn path {
+  .close-menu:hover .close-btn, .close-menu:focus .close-btn {
     stroke: #4f2ee8;
   }
 }
@@ -317,6 +323,11 @@ body.sign-in .signup-btn {
   margin-right: 14px;
   transition: scale 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+@media screen and (max-width: 767px) {
+  .switcher {
+    margin-right: -10px;
+  }
+}
 
 input:checked + .slider {
   background: url(../images/bg-dark.png) no-repeat center center;
@@ -328,7 +339,7 @@ input:checked + .slider:before {
 
 .slider {
   cursor: pointer;
-  color: rgb(79, 46, 232), rgb(220, 220, 220);
+  transition: all 0.4s;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -357,11 +368,15 @@ input:checked + .slider:before {
   }
   .header-container {
     padding: 0;
-    height: 72px;
+  }
+  .header-menu {
+    min-height: 72px;
+    padding: 11px;
   }
   .header-item {
     display: flex;
-    padding: 8px 10px;
+    padding: 8px 0px;
+    align-items: flex-start;
     gap: 10px;
     border-radius: 36px;
   }
@@ -377,8 +392,8 @@ input:checked + .slider:before {
     gap: 8px;
     display: flex;
   }
-  .dark-theme .shopping-link #cart path {
-    stroke: #f3f3f3;
+  .dark-theme .shopping-link .cart {
+    fill: #f3f3f3;
   }
   .shopping-link:focus, .shopping-link:hover {
     background: #eac645;
@@ -412,11 +427,24 @@ input:checked + .slider:before {
   .header-container {
     width: 1440px;
   }
+  .logo {
+    margin-right: 76px;
+  }
+  .signup-btn {
+    margin-left: 14px;
+    margin-right: 14px;
+  }
 }
 .link.current.current {
   background: #eac645;
   border-radius: 36px;
   font-weight: 700;
+}
+.dark-theme .link.current {
+  color: #111;
+}
+.dark-theme .link.current .cart {
+  fill: #111;
 }
 .link.current:focus, .link.current:hover {
   background: #eac645;
@@ -924,6 +952,8 @@ body.dark-theme .no-books-message {
     gap: 16px;
   }
 
+
+
   .amazon-icon {
     width: 48px;
     height: 15px;
@@ -937,6 +967,7 @@ body.dark-theme .no-books-message {
   .thumb {
     max-width: 70%;
   }
+
 
 }
 .support-ukraine-block {
@@ -1466,6 +1497,8 @@ body.sign-in .log-out-mob-btn {
 
 .header-link {
   color: #111;
+
+
 }
 
 body.no-scroll {
