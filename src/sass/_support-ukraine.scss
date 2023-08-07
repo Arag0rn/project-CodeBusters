@@ -103,11 +103,25 @@
     
 }
 @media screen and (min-width: 768px) {
+
     .support-ukraine-block {
         width:335px;
     }
 }
+@media screen and (max-width: 1439px) {
+#shopping-list .support-ukraine-block {
+<<<<<<< Updated upstream
+        display: none;
+    }
+}
+=======
+    display: none;
+}
+}
+
+>>>>>>> Stashed changes
 @media screen and (max-width: 767px) {
+
 .support-ukraine-block {
     width: 335px;
 }
