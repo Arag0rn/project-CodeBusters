@@ -8,14 +8,53 @@
   .book-by-category-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
 
+    column-gap: 24px;
     row-gap: 40px;
   }
 }
 
 @media screen and (min-width: 1440px) {
-  .book-by-category-list {
+  .book-by-category-list,
+  .no-books-message-container {
     width: 996px;
+  }
+}
+
+.books-category-title-active {
+  margin-bottom: 40px;
+
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -1.92px;
+
+  @media screen and (min-width: 768px) {
+    font-size: 48px;
+    line-height: 1.08;
+  }
+}
+
+.category-title-accent {
+  color: $main-accent-color;
+}
+
+.no-books-message {
+  margin-top: 120px;
+
+  color: rgba(0, 0, 0, 0.6);
+  text-align: center;
+
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.33;
+  letter-spacing: -0.36px;
+
+  body.dark-theme & {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  @media screen and (min-width: 1440px) {
+    margin-top: 140px;
   }
 }
