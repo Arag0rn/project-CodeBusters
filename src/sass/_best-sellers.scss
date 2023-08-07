@@ -9,7 +9,6 @@
   gap: 10px;
   border-radius: 40px;
   border: 2px solid $main-accent-color;
-  color: #111;
   font-size: 14px;
   font-style: normal;
   font-weight: 700;
@@ -29,6 +28,10 @@
 
   &:focus {
     box-shadow: 0px 4px 18px 0px rgba(0, 0, 0, 0.15);
+  }
+
+  body.dark-theme & {
+    color: $main-color-dark-theme;
   }
 }
 
@@ -90,9 +93,9 @@
   }
 }
 
-body.dark-theme {
-  .title-books,
-  .best-sellers-btn {
-    color: $main-color-dark-theme;
-  }
-}
+// body.dark-theme {
+//   .title-books,
+//   .best-sellers-btn {
+//     color: $main-color-dark-theme;
+//   }
+// }
