@@ -95,8 +95,8 @@ function renderBooks(array, currentCategory) {
       <img
         class="home-book-card-img js-book-card"
         src="${book_image}"
-        alt=""
-        data-book-id="${_id}"
+        alt="book cover"
+        data-book-id="${_id}" loading="lazy"
       />
       <div class="overlay-book-card" data-book-id="${_id}">
         <p class="overlay-book-card-text" data-book-id="${_id}">quick view</p>

@@ -30,15 +30,13 @@
 
 .category_text {
   color: rgba(17, 17, 17, 0.6);
-  text-align: justify;
-  font-family: DM Sans;
   font-size: 16px;
   font-weight: 400px;
   line-height: 1.12;
   letter-spacing: -0.32px;
 
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
   .dark-theme & {
     color: rgba(255, 255, 255, 0.6);
   }
@@ -48,8 +46,6 @@
 .category_text:hover,
 .category_text:focus {
   color: #4f2ee8;
-  text-align: justify;
-  font-family: DM Sans;
   font-size: 18px;
   font-weight: 700;
   line-height: 1.33;
