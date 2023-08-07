@@ -20,6 +20,8 @@ import { modalInit } from './modal.js';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import axios from 'axios';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 Loading.init({
   backgroundColor: 'rgba(0,0,0,0.1)',
@@ -43,7 +45,7 @@ export async function loadCategoriesAndBooks() {
     const books = await fetchBooks(categoriesResponse.data);
 
     books.map(category => {
-      markup += `<li class="home-books-container">
+      markup += `<li class="home-books-container" data-aos="fade-up">
                    <h2 class="books-best">${category[0].list_name}</h2>
                    <ul class="book-by-category-list">`;
 
@@ -53,7 +55,7 @@ export async function loadCategoriesAndBooks() {
             .map(({ _id, author, book_image, title }) => {
               return `<li class="home-book-card js-book-card" data-book-id="${_id}">
                       <div class="img-container js-book-card" data-book-id="${_id}">
-                        <img class="home-book-card-img js-book-card" src="${book_image}" alt="" data-book-id="${_id}" />
+                        <img class="home-book-card-img js-book-card" src="${book_image}" alt="book cover" data-book-id="${_id}" loading="lazy"/>
                         <div class="overlay-book-card" data-book-id="${_id}">
                           <p class="overlay-book-card-text" data-book-id="${_id}">quick view</p>
                         </div>
@@ -81,6 +83,7 @@ export async function loadCategoriesAndBooks() {
 
     mainContainerRef.innerHTML = markup;
     modalInit();
+    AOS.init();
     Loading.remove();
   } catch (error) {
     Notify.failure('Oops! Something went wrong! Try to reload the page!');
