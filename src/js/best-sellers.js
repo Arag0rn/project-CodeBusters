@@ -1,20 +1,4 @@
-// import axios from "axios";
-// async function loadCategories() {
-//   const response = await axios.get("https://books-backend.p.goit.global/books/category-list");
-//   return response.data;
-// }
 
-// async function renderCategories() {
-//   try{
-//     const categories = await loadCategories();
-//     const markup = categories.map(({list_name})=> {return ``})
-//   }
-// }
-// renderCategories();
-
-// async function fetchbooks() {
-//   const response = await axios.get()
-// }
 
 import { modalInit } from './modal.js';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
@@ -31,6 +15,7 @@ Loading.init({
 const mainContainerRef = document.querySelector('.js-books');
 
 let markup = `<h1 class="books-category-title-active">Best Sellers <span class="category-title-accent">Books</span></h1><ul class="best-sellers-container">`;
+
 
 loadCategoriesAndBooks();
 
