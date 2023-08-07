@@ -1,10 +1,32 @@
 import axios from 'axios';
+import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { loadCategoriesAndBooks } from './best-sellers';
+import { modalInit } from './modal.js';
+
+Loading.init({
+  backgroundColor: 'rgba(0,0,0,0.1)',
+  svgColor: '#4f2ee8',
+});
 
 const categoriesContainerRef = document.querySelector('.category_list');
 const booksContainerRef = document.querySelector('.js-books');
+const allCategoriesRef = document.querySelector('.all-categories');
 
 categoriesContainerRef.addEventListener('click', onCategoryClick);
+booksContainerRef.addEventListener('click', onCategoryBtnClick);
+
+function onCategoryBtnClick(e) {
+  if (e.target.nodeName === 'BUTTON') {
+    removeStylesForCurrentCategory();
+
+    [...categoriesContainerRef.children]
+      .filter(({ outerText }) => outerText === e.target.dataset.category)[0]
+      .children[0].classList.add('current');
+
+    loadBooksByCurrentCategory(e.target.dataset.category);
+  }
+}
 
 function onCategoryClick(e) {
   if (e.target.nodeName === 'P') {
@@ -14,6 +36,7 @@ function onCategoryClick(e) {
 
     if (e.target.innerHTML !== 'All categories') {
       loadBooksByCurrentCategory(e.target.innerHTML);
+      allCategoriesRef.addEventListener('click', loadCategoriesAndBooks);
     }
   }
 }
@@ -26,9 +49,12 @@ function removeStylesForCurrentCategory() {
 }
 
 async function loadBooksByCurrentCategory(currentCategory) {
+  booksContainerRef.innerHTML = '';
   try {
+    Loading.pulse();
     const books = await fetchBooks(currentCategory);
     renderBooks(books, currentCategory);
+    Loading.remove();
   } catch {
     Notify.failure('Oops! Something went wrong! Try to reload the page!');
   }
@@ -43,7 +69,7 @@ async function fetchBooks(currentCategory) {
 }
 
 function renderBooks(array, currentCategory) {
-  const indexOfFirstSpace = currentCategory.indexOf(' ');
+  const indexOfFirstSpace = currentCategory.lastIndexOf(' ');
   const firstPartOfTitle = currentCategory.slice(0, indexOfFirstSpace);
   const secondPartOfTitle = currentCategory.slice(
     indexOfFirstSpace,
@@ -69,8 +95,8 @@ function renderBooks(array, currentCategory) {
       <img
         class="home-book-card-img js-book-card"
         src="${book_image}"
-        alt=""
-        data-book-id="${_id}"
+        alt="book cover"
+        data-book-id="${_id}" loading="lazy"
       />
       <div class="overlay-book-card" data-book-id="${_id}">
         <p class="overlay-book-card-text" data-book-id="${_id}">quick view</p>
@@ -89,4 +115,5 @@ function renderBooks(array, currentCategory) {
   }
 
   booksContainerRef.innerHTML = markup;
+  modalInit();
 }

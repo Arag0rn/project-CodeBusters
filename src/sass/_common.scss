@@ -39,6 +39,11 @@ body {
 
 main {
   padding-top: 40px;
+  padding-bottom: 100px;
+
+  @media screen and (min-width: 768px) and (max-width: 1439px) {
+    padding-top: 100px;
+  }
 }
 
 body.dark-theme {
@@ -78,10 +83,15 @@ body.dark-theme {
 
   .home-container {
     display: flex;
-    justify-content: space-between;
+    gap: 40px;
   }
 }
 
 aside {
   padding-top: 40px;
+
+  @media screen and (min-width: 768px) and (max-width: 1439px) {
+    display: flex;
+    gap: 32px;
+  }
 }

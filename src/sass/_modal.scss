@@ -1,0 +1,291 @@
+body.no-scroll {
+    overflow: hidden;
+}
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(17, 17, 17, 0.40);;
+    z-index: 1;
+    transition: opacity 300ms linear, visibility 300ms linear;
+    overflow-y: auto;
+  }
+  .backdrop.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+  }
+  .modal-window {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    width: 335px;
+    // height: 762px;
+    flex-shrink: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    // max-width: 450px;
+    // height: 609px;
+    background: #ffffff;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+      0px 2px 1px rgba(15, 7, 7, 0.2);
+    border-radius: 18px;
+    border: 2px solid #111;
+    transform: translate(-50%, -50%) scale(1);
+    transition: transform 300ms;
+    padding: 40px 24px;
+  }
+  body.dark-theme .modal-window{
+    border: 2px solid #FFF;
+    background: #202024;
+  }
+  .backdrop.is-hidden .modal-window {
+    transform: translate(-50%, -50%) scale(0);
+  }
+  .modal-close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    svg {
+    fill: #000;
+    stroke: #111;
+    // background-color: #fff;
+    width: 28px;
+    height: 28px;
+  
+    transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  };
+  &:hover svg, &:focus svg{
+    fill: #4F2EE8;
+    stroke: #4F2EE8;
+  };
+  }
+  body.dark-theme .modal-close-btn{
+    svg{
+    fill: #FFFFFF;
+    stroke: #ffffff;width: 28px;
+    height: 28px;
+  
+    transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  };
+  &:hover svg, &:focus svg{
+    fill: #4F2EE8;
+    stroke: #4F2EE8;
+  };
+  }
+  .modal-image-container{
+    border-radius: 8px;
+    // background: url(<path-to-image>), lightgray 50% / cover no-repeat;
+    margin-bottom: 14px;
+    width: 287px;
+    height: 408px;
+    overflow: hidden;
+    object-fit: cover;
+    img{
+        width: 100%;
+        object-position: center;
+    }
+  }
+  .modal-description-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    width: 100%;
+  }
+  .modal-title{
+    color: #111;
+    font-family: DM Sans;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.125em;
+    letter-spacing: -0.64px; 
+    margin-bottom: 4px;
+    width: 100%;
+  }
+  body.dark-theme .modal-title{
+    color: #FFFFFF;
+  }
+  .modal-sub-title{
+    color: #B4AFAF;
+    font-family: DM Sans;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.167em;
+    letter-spacing: -0.48px;
+    margin-bottom: 18px;
+  }
+  body.dark-theme .modal-sub-title{
+    color:#B4AFAF;
+  }
+  .modal-description{
+    color: #111;
+    font-family: DM Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.286em;
+    letter-spacing: -0.56px;
+    margin-bottom: 14px;
+  }
+  body.dark-theme .modal-description{
+    color: #ffffff;
+  }
+  .modal-links{
+    display: flex;
+    width: 100%;
+    flex: 1 1 100%;
+    flex-wrap: nowrap;
+    margin-bottom: 40px;
+    align-items: center;
+    justify-content: start;
+
+    a{
+        display: inline-block; 
+        background-size: contain;
+        background-repeat: no-repeat;
+        filter:grayscale(100%);
+        transition: filter linear 250ms cubic-bezier(0.4, 0, 0.2, 1);
+        &:hover, &:focus{
+          filter:grayscale(0%);
+        };
+        &:not(:last-child) {
+          margin-right: 20px;
+        }
+        &.modal-link-amazon{
+            width:62px;
+            height: 19px;
+            background-image: url(../images/png_amazon.png);
+        };
+        &.modal-link-apple-books{
+            width:32px;
+            height: 32px;
+            background-image: url(../images/pngyellow.png);
+        };
+        &.modal-link-bookshop{
+            width:38px;
+            height: 36px;
+            background-image: url(../images/pngbook.png);
+        };
+      };
+}
+// body.dark-theme .modal-links{
+//   a{
+//     &.modal-link-amazon{
+//       width:62px;
+//       height: 19px;
+//       background-image: url(../images/svgamazon.svg);
+//       background-color: white;
+//       mix-blend-mode: luminosity;
+
+//   };
+//   }
+// }
+.modal-order-btn{
+    color: #111;
+    background-color: #FFFFFF;
+    font-family: DM Sans;
+    font-size: 13.5px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.286em;
+    letter-spacing: -0.14px;
+    text-transform: uppercase;
+    border-radius: 40px;
+    border: 2px solid #4F2EE8;
+    padding: 14px 23px;
+    margin-bottom: 8px;
+    display: inline-block;
+    width: 100%;
+    transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
+    &:hover, &:focus{
+      background-color: #4F2EE8;
+      color: #FFFFFF;
+    }
+  }
+  body.dark-theme .modal-order-btn{
+    background-color: #202024;
+    color: #FFFFFF;
+    transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
+    &:hover, &:focus{
+      background-color: #4F2EE8;
+      color: #FFFFFF;
+    }
+  }
+  .modal-success-mesage{
+    color: rgba(17, 17, 17, 0.50);
+    text-align: center;
+    font-family: DM Sans;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.2em;
+    letter-spacing: -0.4px;
+    &.is-hidden {
+        display: none;
+    };
+  }
+  body.dark-theme .modal-success-mesage{
+    color: #FFFFFF80;
+  }
+  @media screen and (min-width: 768px) {
+ 
+  .modal-window {
+    display: flex;
+    align-items: start;
+    justify-content: space-around;
+    padding: 40px;
+    width: 579px;
+    min-height: 465px;
+  };
+  .modal-desctop-container{
+    display: flex;
+    margin-bottom: 20px;
+  }
+  .modal-image-container{
+    max-width: 35%;
+    height: 280px;
+    margin-right: 24px;
+    img{
+      width: 192px;
+      height: 280px;
+      flex-shrink: 0;
+      object-fit: contain;
+    };
+  };
+  .modal-description-container{
+    width: 60%;
+    &.modal-title{
+      margin-bottom: 8px;
+      font-size: 24px;
+      line-height: 1.17em;
+      letter-spacing: -0.96px;
+    };
+    &.modal-sub-title{
+      margin-bottom: 20px;
+      font-size: 14px;
+      line-height: 1.29em;
+    };
+  };
+  .modal-order-btn{
+font-size: 18px;
+  };
+  .modal-success-mesage{
+    font-size: 12px;
+  }
+}

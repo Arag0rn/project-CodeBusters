@@ -8,7 +8,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { signOut } from "firebase/auth";
 import { getDatabase, onValue, get } from "firebase/database";
 import { getDatabase, ref, set, post, child, push, update } from "firebase/database";
-
+import axios from 'axios';
 
 const form = document.querySelector("form")
 
@@ -17,9 +17,8 @@ const userButtonCont = document.querySelector('.user-btn-container')
 const userNameField = document.querySelector(".user-name")
 const logInBtn = document.querySelector(".signIn")
 const logoutBtn = document.querySelector(".user-bar-log-out-btn")
-const addToShopBtn = document.querySelector(".addTo")
-
-
+const bookCont = document.querySelector("body > div.container.home-container > main")
+console.log(bookCont);
 
 logoutBtn.addEventListener('click', onSignOutClick)
 logInBtn.addEventListener('click', onSignInClick)
@@ -44,7 +43,7 @@ const auth = getAuth();
 const database = getDatabase(app);
 
 
-onAuthStateChanged(auth, (user) => {
+ onAuthStateChanged(auth, (user) => {
   if (user) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/auth.user
@@ -98,10 +97,9 @@ function writeUserData(userId, name, email, bookId) {
 }
 const productCards = document.querySelectorAll(".book-by-category-list");
 
- //addToShopBtn.addEventListener('click', onClickToShopingListAdd);
 
 
- function onClickToShopingListAdd(bookId) {
+ export function onClickToShopingListAdd(bookId) {
   const userId = auth.currentUser.uid;
 
   try {
@@ -120,14 +118,6 @@ const productCards = document.querySelectorAll(".book-by-category-list");
   }
 }
 
-productCards.forEach((card) => {
-  card.addEventListener("click", function(event) {
-    console.log(card);
-    //const bookId = card.id
-    onClickToShopingListAdd(bookId); 
-    console.log("Clicked on card with ID:", bookId);
-  });
-});
 
 function readUserData(userId){
 const dbRef = ref(getDatabase());
@@ -191,18 +181,174 @@ function onSignInClick(){
     console.log(snapshot.val());
   })
 
-  function readBookData(userId) {
+ 
+
+  
+  function readBookData(userId,bookIds) {
     const dbRef = ref(getDatabase(), `users/${userId}/books`);
-    get(dbRef).then((snapshot) => {
+  return  get(dbRef).then((snapshot) => {
       if (snapshot.exists()) {
         const booksData = snapshot.val();
-       console.log((Object.values(booksData)));
+        console.log((Object.values(booksData)));
+        const books = bookIds.map(id => booksData[id]); // Отримуємо список книг за id
+            console.log(books);
+            return books;
+        // const listIds = Object.values(booksData)
+        // return listIds
       } else {
         console.log("No shopping list data available");
+        return [];
       }
     }).catch((error) => {
       console.error(error);
     });
   }
 
+
+  const refs = {
+    defaultPage : document.querySelector('.default-message'),
+    showElement: document.querySelector('.js-container'),
+    shopLink: document.querySelector('.shopping-link')
+}
+
+
+async function serviceBooks(userId,bookIds) {
+    try {
+
+        const BASE_URL = 'https://books-backend.p.goit.global/books/'
+        //  const { data: bookIds } = await readBookData(userId);
+   
+      const booksData = await readBookData(userId, bookIds); 
+   
+      
+          if (!booksData || booksData.length === 0) {
+      refs.defaultPage.classList.remove('.hidden');
+      return; 
+    }
+
+   
+   const books = [];
+     for (const id of booksData) {
+
+       const { data } = await axios.get(`${BASE_URL}${id}`)
+       console.log(data);
+        books.push(data)
+
+       refs.defaultPage.classList.add('hidden')
+       const markup = createMarkup(books)
+         refs.showElement.insertAdjacentHTML("beforeend",markup)
+
+   }       
+        
+    }
+    catch (error) {
+        console.log(error.message)
+        throw new Error(error.message, 'Something went wrong')
+        
+   }
+
+}
+       
+
+
+
+function createMarkup(arr) {
+    return arr.map(({book_image,title,description,author,buy_links: { name, url},_id}) => {
+        
+
+        return `               
+        <div class="main">
+
+        <ul class="list-cards">
+     
+         
+            <li class="js-item list-item">
+           
+                <div class="image-container">
+
+                    <img src="${book_image}" alt="${title}" id="${_id}">
+                    
+                <div class="quick-view">
+                     Quick View
+            </div>
+                </div>  
+
+                <div class="content-container">
+                    <h2 class="card-title">${title}</h2>
+                    <p class="card-text">${description}</p>   //тут має бути категорія
+                    
+                    <p class="main-card-text">${description}</p>
+                    
+                    <p class="text-author">${author}</p>
+ 
+                     <button type="button" class="btn-delete">
+                        <svg class="icon-trash">
+                            <use href="./images/icons.svg#icon-trash"></use>
+                          </svg>
+                        </button>  
+                     </div>
+           
+            </li>
+        </ul>
+       
+                <ul class="list-icons">
+                <li class="item-images">
+                    <a href="${url}" class="item-link">
+                        <img src="./images/png_amazon.png" alt="${name}">
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li class="item-images">
+                    <a href="${url}" class="item-link">
+                        <img src="./images/pngyellow.png" alt="${name}">
+                        <span class="underline"></span>
+                    </a>
+                </li>
+                <li class="item-images">
+                    <a href="${url}" class="item-link">
+                        <img src="./images/pngbook.png" alt="${name}">
+                        <span class="underline"></span>
+                    </a>
+                </li>
+            
+            </ul>
+       
+        </div> `
+    }).join('')
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
+  // import { getAuth, onAuthStateChanged } from "firebase/auth";
+  // import { getDatabase, ref, get, post, child, push, update, forceLongPolling } from "firebase/database";
+  
+  // const auth = getAuth();
+  // onAuthStateChanged(auth, (user) => {
+  //   if (user) {
+  //     // User is signed in, see docs for a list of available properties
+  //     // https://firebase.google.com/docs/reference/js/auth.user
+  //     const uid = user.uid;
+  //     const email = user.email;
+  //     const photoURL = user.photoURL;
+  //     const emailVerified = user.emailVerified;
+      
+  //     readBookData(uid)
+  //     // ...
+  //   } else {
+  //     // User is signed out
+  //     // ...
+  //   }
+  // });
