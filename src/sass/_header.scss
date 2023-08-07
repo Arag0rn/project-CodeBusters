@@ -58,6 +58,9 @@
   justify-content: center;
   display: flex;
   align-items: center;
+  .dark-theme &{
+    color: #fff;
+  }
 }
 
 .header-list {
@@ -244,8 +247,8 @@ input:checked + .slider:before {
 }
 .slider {
   cursor: pointer;
-  color: rgba(79, 46, 232, 1), rgba(220, 220, 220, 1);
-  //   transition: all 0.4s;
+  
+  transition: all 0.4s;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -266,6 +269,8 @@ input:checked + .slider:before {
   box-shadow: 0 0 15px rgba(32, 32, 32, 0.24);
   border-radius: 50%;
 }
+
+
 
 @media screen and (min-width: 768px) {
   .mob-menu {

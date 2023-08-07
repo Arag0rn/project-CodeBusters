@@ -157,6 +157,9 @@ img {
   display: flex;
   align-items: center;
 }
+.dark-theme .header-link {
+  color: #fff;
+}
 
 .header-list {
   display: inline-flex;
@@ -316,7 +319,7 @@ input:checked + .slider:before {
 
 .slider {
   cursor: pointer;
-  color: rgb(79, 46, 232), rgb(220, 220, 220);
+  transition: all 0.4s;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -858,7 +861,6 @@ img {
     display: inline-block;
     margin-left: 0 auto;
   }
-
   .main-card-text {
     margin-bottom: 48px;
   }
@@ -877,7 +879,6 @@ img {
     right: 24px;
     gap: 16px;
   }
-
 }
 .support-ukraine-block {
   width: 356px;
@@ -1365,5 +1366,4 @@ body.sign-in .log-out-mob-btn {
 
 .header-link {
   color: #111;
-
 }/*# sourceMappingURL=index.css.map */
