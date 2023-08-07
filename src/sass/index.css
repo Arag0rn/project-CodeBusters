@@ -141,7 +141,7 @@ img {
   align-items: center;
   gap: 8px;
 }
-.dark-theme .logo-svg #text-logo path {
+.dark-theme .logo-svg .text-logo {
   fill: #fff;
 }
 
@@ -273,14 +273,15 @@ body.sign-in .signup-btn {
     margin-left: auto;
     justify-content: center;
     background-color: transparent;
+    stroke: #111;
   }
   .js-mob-menu.is-open .close-menu {
     display: inline-block;
   }
-  .dark-theme .close-menu #close-btn path {
+  .dark-theme .close-menu .close-btn {
     stroke: #f3f3f3;
   }
-  .close-menu:hover #close-btn path, .close-menu:focus #close-btn path {
+  .close-menu:hover .close-btn, .close-menu:focus .close-btn {
     stroke: #4f2ee8;
   }
 }
@@ -368,8 +369,8 @@ input:checked + .slider:before {
     gap: 8px;
     display: flex;
   }
-  .dark-theme .shopping-link #cart path {
-    stroke: #f3f3f3;
+  .dark-theme .shopping-link .cart {
+    fill: #f3f3f3;
   }
   .shopping-link:focus, .shopping-link:hover {
     background: #eac645;
@@ -408,6 +409,12 @@ input:checked + .slider:before {
   background: #eac645;
   border-radius: 36px;
   font-weight: 700;
+}
+.dark-theme .link.current {
+  color: #111;
+}
+.dark-theme .link.current .cart {
+  fill: #111;
 }
 .link.current:focus, .link.current:hover {
   background: #eac645;
