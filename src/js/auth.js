@@ -7,7 +7,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
 import { signOut } from "firebase/auth";
 import { getDatabase, onValue, get } from "firebase/database";
-import { getDatabase, ref, set, post, child, push, update } from "firebase/database";
+import { getDatabase, ref, set, remove, child, push, update } from "firebase/database";
 import axios from 'axios';
 
 const form = document.querySelector("form")
@@ -190,81 +190,73 @@ function onSignInClick(){
       if (snapshot.exists()) {
         const booksData = snapshot.val();
         console.log((Object.values(booksData)));
-        const books = bookIds.map(id => booksData[id]); // Отримуємо список книг за id
-            console.log(books);
-            return books;
-        // const listIds = Object.values(booksData)
-        // return listIds
+        const books = (Object.values(booksData)) // Отримуємо список книг за id
+         books.forEach(({bookId}) => {
+          console.log(bookId);
+          serviceBooks(bookId)
+        })
       } else {
         console.log("No shopping list data available");
         return [];
-      }
+      } 
     }).catch((error) => {
-      console.error(error);
+      console.log(error);
     });
   }
 
 
   const refs = {
+    deleteBtn : document.querySelector(".btn-delete"),
     defaultPage : document.querySelector('.default-message'),
     showElement: document.querySelector('.js-container'),
     shopLink: document.querySelector('.shopping-link')
 }
 
 
-async function serviceBooks(userId,bookIds) {
+async function serviceBooks(bookId) {
     try {
 
         const BASE_URL = 'https://books-backend.p.goit.global/books/'
         //  const { data: bookIds } = await readBookData(userId);
    
-      const booksData = await readBookData(userId, bookIds); 
+    //   const booksData = await readBookData( bookId); 
    
       
-          if (!booksData || booksData.length === 0) {
-      refs.defaultPage.classList.remove('.hidden');
-      return; 
-    }
+    //       if (!booksData || booksData.length === 0) {
+    //   refs.defaultPage.classList.remove('.hidden');
+    //   return; 
+    // }
 
    
-   const books = [];
-     for (const id of booksData) {
+    const books = [];
 
-       const { data } = await axios.get(`${BASE_URL}${id}`)
+       const { data } = await axios.get(`${BASE_URL}${bookId}`)
        console.log(data);
         books.push(data)
 
        refs.defaultPage.classList.add('hidden')
        const markup = createMarkup(books)
          refs.showElement.insertAdjacentHTML("beforeend",markup)
-
-   }       
-        
     }
     catch (error) {
         console.log(error.message)
         throw new Error(error.message, 'Something went wrong')
-        
    }
 
 }
-       
-
 
 
 function createMarkup(arr) {
     return arr.map(({book_image,title,description,author,buy_links: { name, url},_id}) => {
-        
 
-        return `               
+        return `
         <div class="main">
 
         <ul class="list-cards">
-     
-         
+
             <li class="js-item list-item">
-           
-                <div class="image-container">
+  
+               <div class="image-container">
 
                     <img src="${book_image}" alt="${title}" id="${_id}">
                     
@@ -317,9 +309,27 @@ function createMarkup(arr) {
     }).join('')
 }
 
+// function removeBookData(userId,bookIds) {
+//   const dbRef = ref(getDatabase(), `users/${userId}/books`);
+// return  get(dbRef).then((snapshot) => {
+//     if (snapshot.exists()) {
+//       const booksData = snapshot.val();
+//       console.log((Object.values(booksData)));
+//       const books = (Object.values(booksData)) // Отримуємо список книг за id
+//        books.forEach(({bookId}) => {
+//         console.log(bookId);
+//         serviceBooks(bookId)
+//       })
+//     } else {
+//       console.log("No shopping list data available");
+//       return [];
+//     }
+//   }).catch((error) => {
+//     console.log(error);
+//   });
+// }
 
-
-
+// remove()
 
 
 
