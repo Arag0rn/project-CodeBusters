@@ -5,12 +5,16 @@ let bookData = {};
 const modal = document.querySelector('div#modal');
 
 const modalCloseBtn = modal.querySelector('.modal-close-btn');
+const modalCloseBtnSVG = modal.querySelector('.modal-close-btn svg');
+const modalCloseBtnPath = modal.querySelector('.modal-close-btn svg path');
 const modalOrderBtn = modal.querySelector('button.modal-order-btn');
 const modalImageContainer = modal.querySelector('.modal-image-container');
 const modalTitle = modal.querySelector('.modal-title');
 const modalSubTitle = modal.querySelector('.modal-sub-title');
 const modalDescription = modal.querySelector('.modal-description');
 const modallinks = modal.querySelector('.modal-links');
+const modalSuccessMesage = modal.querySelector('.modal-success-mesage');
+
 
 const modalData = async id => {
   await axios
@@ -22,58 +26,53 @@ const modalData = async id => {
     .then(response => {
       bookData = response.data;
     })
-    .catch(error => {
-      // console.log(error);
-
-      bookData = {
-        _id: '642fd89ac8cf5ee957f12361',
-        list_name: 'Middle Grade Paperback Monthly',
-        author: "Barbara O'Connor",
-        book_image:
-          'https://storage.googleapis.com/du-prd/books/images/9781250144058.jpg',
-        book_image_width: 330,
-        book_image_height: 485,
-        book_uri: 'nyt://book/46604242-8624-57d1-bdd4-424c21cde273',
-        title: 'WISH',
-        description: 'Lorem ipsum dolor sit amet est laborum practic',
-        buy_links: [
-          {
-            name: 'Amazon',
-            url: 'https://www.amazon.com/Wish-Barbara-OConnor/dp/1250144051?tag=NYTBSREV-20',
-          },
-          {
-            name: 'Apple Books',
-            url: 'https://goto.applebooks.apple/9781250144058?at=10lIEQ',
-          },
-          {
-            name: 'Bookshop',
-            url: 'https://du-gae-books-dot-nyt-du-prd.appspot.com/redirect?url1=https%3A%2F%2Fbookshop.org%2Fa%2F3546%2F9781250144058&url2=https%3A%2F%2Fbookshop.org%2Fbooks%3Faffiliate%3D3546%26keywords%3DWISH',
-          },
-        ],
-      };
-    });
 };
-const localStorageAppend = () => {
+
+const getLocalList = () => {
   let localList = localStorage.getItem('list');
   if (localList === null) {
     localList = {};
   } else {
     localList = JSON.parse(localList);
   }
+  return localList;
+};
 
-  localList[bookData._id] = bookData;
+const localStorageAppend = () => {
+  const localList = getLocalList();
+
+  console.log(bookData._id, typeof localList[bookData._id]);
+  if (typeof localList[bookData._id] !== "undefined"){
+    delete localList[bookData._id];
+    modalOrderBtn.innerText="Add to shopping list";
+    modalSuccessMesage.classList.add('is-hidden');
+  }
+  else {
+    localList[bookData._id] = bookData;
+    modalOrderBtn.innerText="Remove from the shopping list";
+    modalSuccessMesage.classList.remove('is-hidden');
+  }
 
   localStorage.setItem('list', JSON.stringify(localList));
 };
+
 const openModal = async function (e) {
   e.preventDefault();
-
+  
   modal.classList.remove('is-hidden');
+  modalSuccessMesage.classList.add('is-hidden');
 
   document.body.classList.add('no-scroll');
 
   const bookId = this.getAttribute('data-book-id');
   console.log(bookId);
+
+  const localList = getLocalList();
+  
+  console.log(bookId, typeof localList[bookId]);
+  if (typeof localList[bookId] !== "undefined"){
+    modalOrderBtn.innerText="Remove from the shopping list";
+  }
 
   await modalData(bookId);
   const addToListBtn = modal.querySelector('.modal-order-btn');
@@ -118,16 +117,16 @@ addToListBtn.addEventListener('click', async () => {
   
   document.addEventListener('keydown', closeModal);
   modalOrderBtn.addEventListener('click', localStorageAppend);
-
-  // TODO: fill data elements
-  // TODO: add listener on Checkout button
 };
 const closeModal = function (e) {
-  if (
-    (typeof e.target !== 'undefined' &&
-      (e.target === modal || e.target === modalCloseBtn)) ||
-    (typeof e.key !== 'undefined' && e.key === 'Escape')
-  ) {
+  
+    if (
+        (typeof e.target !== 'undefined' &&
+        (
+            e.target === modal || 
+            e.target === modalCloseBtn || e.target === modalCloseBtnSVG || e.target === modalCloseBtnPath)) ||
+        (typeof e.key !== 'undefined' && e.key === 'Escape')
+    ) {
     e.preventDefault();
     modal.classList.add('is-hidden');
     document.body.classList.remove('no-scroll');
@@ -136,6 +135,11 @@ const closeModal = function (e) {
     // TODO: clear listener on Checkout button
     document.removeEventListener('keydown', closeModal);
     modalOrderBtn.removeEventListener('click', localStorageAppend);
+    modalOrderBtn.innerText="Add to shopping list";
+    modalImageContainer.innerHTML="";
+    modalDescription.innerText="";
+    modalTitle.innerText="";
+    modalSubTitle.innerText="";
   }
 };
 export const modalInit = () => {
