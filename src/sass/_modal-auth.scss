@@ -1,0 +1,138 @@
+.modal__auth{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: #4F2EE8;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.modal__auth.open {
+    opacity: 1;
+    visibility:visible;
+    transition: visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+}
+.modal__body {
+        min-height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+.modal__content {
+    position: relative;
+    display: flex;
+    z-index: 1000;
+    flex-direction: column;
+    background-color: #fff;
+    color: #000;
+    width: 579px;
+    height: 516px;
+    border: solid 2px black;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 40px 40px 40px;
+}
+.signIn-form{
+    width: 100%;
+    display: grid;
+    row-gap: 28px;
+}
+.auth-input{
+    border: solid 2px black;
+    border-radius: 40px;
+    width: 100%;
+    height: 64px;
+    padding-left: 40px;
+}
+.SignUpBtn{
+    border-radius: 40px;
+    width: 100%;
+    height: 64px;
+    padding-left: 40px;
+    background-color:black ;
+    color: #F3F3F3;
+    &:hover{
+        scale: 105%;
+        transition: scale 250ms cubic-bezier(0.4, 0, 0.2, 1)
+    }
+}
+.button-box{
+    margin-top: 20px;
+}
+.signIn, .signUp {
+    border: none;
+    background-color: white;
+    &:hover {
+        text-decoration: underline;
+        color: #4F2EE8;
+    }
+}
+.modal-close{
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    stroke: black;
+    cursor: pointer;
+    &:hover{
+        scale: 120%;
+        transition: scale 250ms cubic-bezier(0.4, 0, 0.2, 1)
+    }
+
+}
+
+.upButton {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    
+}
+
+.visually-hidden {
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    border: 0;
+    padding: 0;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    margin: -1px;
+}
+
+body.dark-theme {
+    .modal__content {
+        background-color: #202024;
+        border: solid 2px white;
+
+    }
+    .auth-input{
+        border: solid 2px white;
+        background-color: #202024;
+    }
+    .SignUpBtn{
+        border: solid 2px white;
+        background-color:#202024 ;
+        color: #F3F3F3;
+        &:hover{
+            scale: 105%;
+            transition: scale 250ms cubic-bezier(0.4, 0, 0.2, 1)
+        }
+    }
+    .signIn, .signUp {
+        background-color: transparent;
+        color: #F6F6F6; 
+    }
+    .checkbox-label{
+        color:#F6F6F6;
+    }
+    .modal-close{
+        stroke: #F6F6F6;
+    }
+    }
