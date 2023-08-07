@@ -9,88 +9,89 @@ Loading.init({
   svgColor: '#4f2ee8',
 });
 
-const categoriesContainerRef = document.querySelector('.category_list');
-const booksContainerRef = document.querySelector('.js-books');
-const allCategoriesRef = document.querySelector('.all-categories');
+document.addEventListener('DOMContentLoaded', function () {
+  const categoriesContainerRef = document.querySelector('.category_list');
+  const booksContainerRef = document.querySelector('.js-books');
+  const allCategoriesRef = document.querySelector('.all-categories');
 
-categoriesContainerRef.addEventListener('click', onCategoryClick);
-booksContainerRef.addEventListener('click', onCategoryBtnClick);
+  categoriesContainerRef.addEventListener('click', onCategoryClick);
+  booksContainerRef.addEventListener('click', onCategoryBtnClick);
 
-function onCategoryBtnClick(e) {
-  if (e.target.nodeName === 'BUTTON') {
-    removeStylesForCurrentCategory();
+  function onCategoryBtnClick(e) {
+    if (e.target.nodeName === 'BUTTON') {
+      removeStylesForCurrentCategory();
 
-    [...categoriesContainerRef.children]
-      .filter(({ outerText }) => outerText === e.target.dataset.category)[0]
-      .children[0].classList.add('current');
+      [...categoriesContainerRef.children]
+        .filter(({ outerText }) => outerText === e.target.dataset.category)[0]
+        .children[0].classList.add('current');
 
-    loadBooksByCurrentCategory(e.target.dataset.category);
-  }
-}
-
-function onCategoryClick(e) {
-  if (e.target.nodeName === 'P') {
-    removeStylesForCurrentCategory();
-
-    e.target.classList.add('current');
-
-    if (e.target.innerHTML !== 'All categories') {
-      loadBooksByCurrentCategory(e.target.innerHTML);
-      allCategoriesRef.addEventListener('click', loadCategoriesAndBooks);
+      loadBooksByCurrentCategory(e.target.dataset.category);
     }
   }
-}
 
-function removeStylesForCurrentCategory() {
-  const allCategoriesRef = document.querySelectorAll('.category_text');
-  for (const category of allCategoriesRef) {
-    category.classList.remove('current');
+  function onCategoryClick(e) {
+    if (e.target.nodeName === 'P') {
+      removeStylesForCurrentCategory();
+
+      e.target.classList.add('current');
+
+      if (e.target.innerHTML !== 'All categories') {
+        loadBooksByCurrentCategory(e.target.innerHTML);
+        allCategoriesRef.addEventListener('click', loadCategoriesAndBooks);
+      }
+    }
   }
-}
 
-async function loadBooksByCurrentCategory(currentCategory) {
-  booksContainerRef.innerHTML = '';
-  try {
-    Loading.pulse();
-    const books = await fetchBooks(currentCategory);
-    renderBooks(books, currentCategory);
-    Loading.remove();
-  } catch {
-    Notify.failure('Oops! Something went wrong! Try to reload the page!');
+  function removeStylesForCurrentCategory() {
+    const allCategoriesRef = document.querySelectorAll('.category_text');
+    for (const category of allCategoriesRef) {
+      category.classList.remove('current');
+    }
   }
-}
 
-async function fetchBooks(currentCategory) {
-  const responce = await axios.get(
-    `https://books-backend.p.goit.global/books/category?category=${currentCategory}`
-  );
+  async function loadBooksByCurrentCategory(currentCategory) {
+    booksContainerRef.innerHTML = '';
+    try {
+      Loading.pulse();
+      const books = await fetchBooks(currentCategory);
+      renderBooks(books, currentCategory);
+      Loading.remove();
+    } catch {
+      Notify.failure('Oops! Something went wrong! Try to reload the page!');
+    }
+  }
 
-  return responce.data;
-}
+  async function fetchBooks(currentCategory) {
+    const responce = await axios.get(
+      `https://books-backend.p.goit.global/books/category?category=${currentCategory}`
+    );
 
-function renderBooks(array, currentCategory) {
-  const indexOfFirstSpace = currentCategory.lastIndexOf(' ');
-  const firstPartOfTitle = currentCategory.slice(0, indexOfFirstSpace);
-  const secondPartOfTitle = currentCategory.slice(
-    indexOfFirstSpace,
-    currentCategory.length
-  );
+    return responce.data;
+  }
 
-  let markup = '';
+  function renderBooks(array, currentCategory) {
+    const indexOfFirstSpace = currentCategory.lastIndexOf(' ');
+    const firstPartOfTitle = currentCategory.slice(0, indexOfFirstSpace);
+    const secondPartOfTitle = currentCategory.slice(
+      indexOfFirstSpace,
+      currentCategory.length
+    );
 
-  if (!array.length) {
-    markup = `<h1 class="books-category-title-active">${firstPartOfTitle}<span class="category-title-accent">${secondPartOfTitle}</span></h1><ul class="book-by-category-list js-books-container">
+    let markup = '';
+
+    if (!array.length) {
+      markup = `<h1 class="books-category-title-active">${firstPartOfTitle}<span class="category-title-accent">${secondPartOfTitle}</span></h1><ul class="book-by-category-list js-books-container">
     <div class="no-books-message-container">
     <p class="no-books-message">
       Sorry, there are no books matching your search query.
     </p>
   </div>`;
-  } else {
-    markup =
-      `<h1 class="books-category-title-active">${firstPartOfTitle}<span class="category-title-accent">${secondPartOfTitle}</span></h1><ul class="book-by-category-list js-books-container">` +
-      array
-        .map(({ _id, author, book_image, title }) => {
-          return `<li class="home-book-card js-book-card" data-book-id="${_id}">
+    } else {
+      markup =
+        `<h1 class="books-category-title-active">${firstPartOfTitle}<span class="category-title-accent">${secondPartOfTitle}</span></h1><ul class="book-by-category-list js-books-container">` +
+        array
+          .map(({ _id, author, book_image, title }) => {
+            return `<li class="home-book-card js-book-card" data-book-id="${_id}">
     <div class="img-container js-book-card" data-book-id="${_id}">
       <img
         class="home-book-card-img js-book-card"
@@ -109,11 +110,12 @@ function renderBooks(array, currentCategory) {
       ${author}
     </p>
   </li>`;
-        })
-        .join('') +
-      `</ul>`;
-  }
+          })
+          .join('') +
+        `</ul>`;
+    }
 
-  booksContainerRef.innerHTML = markup;
-  modalInit();
-}
+    booksContainerRef.innerHTML = markup;
+    modalInit();
+  }
+});
