@@ -484,14 +484,11 @@ input:checked + .slider:before {
 
 .category_text {
   color: rgba(17, 17, 17, 0.6);
-  text-align: justify;
-  font-family: DM Sans;
   font-size: 16px;
   font-weight: 400px;
   line-height: 1.12;
   letter-spacing: -0.32px;
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .dark-theme .category_text {
   color: rgba(255, 255, 255, 0.6);
@@ -501,8 +498,6 @@ input:checked + .slider:before {
 .category_text:hover,
 .category_text:focus {
   color: #4f2ee8;
-  text-align: justify;
-  font-family: DM Sans;
   font-size: 18px;
   font-weight: 700;
   line-height: 1.33;
@@ -951,9 +946,6 @@ body.dark-theme .no-books-message {
     right: 24px;
     gap: 16px;
   }
-
-
-
   .amazon-icon {
     width: 48px;
     height: 15px;
@@ -968,11 +960,10 @@ body.dark-theme .no-books-message {
     max-width: 70%;
   }
 
-
 }
 .support-ukraine-block {
   width: 356px;
-  background: radial-gradient(circle at center top, #4f2ee8, rgba(245, 245, 247, 0.1019607843));
+  background: radial-gradient(circle at center top, #4F2EE8, rgba(245, 245, 247, 0.1019607843));
   padding-top: 24px;
   padding-bottom: 24px;
   border-radius: 3%;
@@ -1084,10 +1075,14 @@ body.dark-theme .no-books-message {
   display: none;
 }
 
-
 @media screen and (min-width: 768px) {
   .support-ukraine-block {
     width: 335px;
+  }
+}
+@media screen and (max-width: 1439px) {
+  #shopping-list .support-ukraine-block {
+    display: none;
   }
 }
 @media screen and (max-width: 767px) {
@@ -1109,7 +1104,6 @@ body.dark-theme .no-books-message {
   }
   .expanded-third #show-more-button svg {
     transform: rotate(0deg);
-
   }
 }
 .home-books-container {
@@ -1199,7 +1193,7 @@ body.dark-theme .no-books-message {
   position: fixed;
   height: 100%;
   width: 100%;
-  background-color: #4F2EE8;
+  background-color: #4f2ee8;
   top: 0;
   left: 0;
   opacity: 0;
@@ -1258,7 +1252,7 @@ body.dark-theme .no-books-message {
   height: 64px;
   padding-left: 40px;
   background-color: black;
-  color: #F3F3F3;
+  color: #f3f3f3;
 }
 .SignUpBtn:hover {
   scale: 105%;
@@ -1269,13 +1263,15 @@ body.dark-theme .no-books-message {
   margin-top: 20px;
 }
 
-.signIn, .signUp {
+.signIn,
+.signUp {
   border: none;
   background-color: white;
 }
-.signIn:hover, .signUp:hover {
+.signIn:hover,
+.signUp:hover {
   text-decoration: underline;
-  color: #4F2EE8;
+  color: #4f2ee8;
 }
 
 .modal-close {
@@ -1292,6 +1288,7 @@ body.dark-theme .no-books-message {
 
 .upButton {
   position: fixed;
+  z-index: 100;
   bottom: 10px;
   right: 10px;
 }
@@ -1321,21 +1318,22 @@ body.dark-theme .auth-input {
 body.dark-theme .SignUpBtn {
   border: solid 2px white;
   background-color: #202024;
-  color: #F3F3F3;
+  color: #f3f3f3;
 }
 body.dark-theme .SignUpBtn:hover {
   scale: 105%;
   transition: scale 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
-body.dark-theme .signIn, body.dark-theme .signUp {
+body.dark-theme .signIn,
+body.dark-theme .signUp {
   background-color: transparent;
-  color: #F6F6F6;
+  color: #f6f6f6;
 }
 body.dark-theme .checkbox-label {
-  color: #F6F6F6;
+  color: #f6f6f6;
 }
 body.dark-theme .modal-close {
-  stroke: #F6F6F6;
+  stroke: #f6f6f6;
 }
 
 .user-btn-container {
@@ -1515,7 +1513,6 @@ body.no-scroll {
   z-index: 1;
   transition: opacity 300ms linear, visibility 300ms linear;
   overflow-y: auto;
-
 }
 
 .backdrop.is-hidden {
@@ -1531,25 +1528,18 @@ body.no-scroll {
   width: 100vw;
   width: 335px;
   flex-shrink: 0;
-
-  background: #ffffff;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.2);
-
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   background: #ffffff;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(15, 7, 7, 0.2);
-
   border-radius: 18px;
   border: 2px solid #111;
   transform: translate(-50%, -50%) scale(1);
   transition: transform 300ms;
   padding: 40px 24px;
 }
-
-
 
 body.dark-theme .modal-window {
   border: 2px solid #FFF;
@@ -1569,32 +1559,20 @@ body.dark-theme .modal-window {
   display: flex;
   align-items: center;
   justify-content: center;
-
-  background-color: #fff;
-  border: none;
-
   background: transparent;
   border: none;
   border-radius: 50%;
-
   cursor: pointer;
 }
 .modal-close-btn svg {
   fill: #000;
-
-  background-color: #fff;
-  width: 24px;
-  height: 24px;
-
   stroke: #111;
   width: 28px;
   height: 28px;
-
   transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .modal-close-btn:hover svg, .modal-close-btn:focus svg {
   fill: #4F2EE8;
-
   stroke: #4F2EE8;
 }
 
@@ -1613,8 +1591,6 @@ body.dark-theme .modal-close-btn:hover svg, body.dark-theme .modal-close-btn:foc
 .modal-image-container {
   border-radius: 8px;
   margin-bottom: 14px;
-
-
   width: 287px;
   height: 408px;
   overflow: hidden;
@@ -1632,7 +1608,6 @@ body.dark-theme .modal-close-btn:hover svg, body.dark-theme .modal-close-btn:foc
   flex-wrap: wrap;
   justify-content: start;
   width: 100%;
-
 }
 
 .modal-title {
@@ -1644,14 +1619,11 @@ body.dark-theme .modal-close-btn:hover svg, body.dark-theme .modal-close-btn:foc
   line-height: 1.125em;
   letter-spacing: -0.64px;
   margin-bottom: 4px;
-
-
   width: 100%;
 }
 
 body.dark-theme .modal-title {
   color: #FFFFFF;
-
 }
 
 .modal-sub-title {
@@ -1664,33 +1636,6 @@ body.dark-theme .modal-title {
   letter-spacing: -0.48px;
   margin-bottom: 18px;
 }
-
-
-.modal-description {
-  color: #111;
-  font-family: DM Sans;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1.286em;
-  letter-spacing: -0.56px;
-  margin-bottom: 14px;
-}
-
-.modal-links {
-  display: flex;
-  flex-wrap: nowrap;
-  margin-bottom: 40px;
-}
-.modal-links:not-last-child {
-  margin-right: 20px;
-}
-
-.modal-order-btn {
-  color: #111;
-  font-family: DM Sans;
-  font-size: 14px;
-
 
 body.dark-theme .modal-sub-title {
   color: #B4AFAF;
@@ -1722,13 +1667,11 @@ body.dark-theme .modal-description {
 }
 .modal-links a {
   display: inline-block;
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   filter: grayscale(100%);
-  transition: filter linear 250ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-.modal-links a:hover, .modal-links a:focus {
-  filter: grayscale(0%);
+  box-shadow: none;
+  transition: box-shadow linear 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .modal-links a:not(:last-child) {
   margin-right: 20px;
@@ -1738,15 +1681,36 @@ body.dark-theme .modal-description {
   height: 19px;
   background-image: url(../images/png_amazon.png);
 }
+.modal-links a.modal-link-amazon:hover, .modal-links a.modal-link-amazon:focus {
+  background-image: url(../images/png_amazon_hover.png);
+}
 .modal-links a.modal-link-apple-books {
   width: 32px;
   height: 32px;
-  background-image: url(../images/pngyellow.png);
+  background-image: url(../images/apple_books.png);
+}
+.modal-links a.modal-link-apple-books:hover, .modal-links a.modal-link-apple-books:focus {
+  background-image: url(../images/apple_books_hover.png);
 }
 .modal-links a.modal-link-bookshop {
   width: 38px;
   height: 36px;
-  background-image: url(../images/pngbook.png);
+  background-image: url(../images/bookshop.png);
+}
+.modal-links a.modal-link-bookshop:hover, .modal-links a.modal-link-bookshop:focus {
+  background-image: url(../images/bookshop_hover.png);
+}
+
+body.dark-theme .modal-links a {
+  transition: box-shadow linear 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+body.dark-theme .modal-links a:hover, body.dark-theme .modal-links a:focus {
+  box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.15);
+}
+body.dark-theme .modal-links a.modal-link-amazon {
+  width: 62px;
+  height: 19px;
+  background-image: url(../images/pngdarkamazon.png);
 }
 
 .modal-order-btn {
@@ -1754,7 +1718,6 @@ body.dark-theme .modal-description {
   background-color: #FFFFFF;
   font-family: DM Sans;
   font-size: 13.5px;
-
   font-style: normal;
   font-weight: 700;
   line-height: 1.286em;
@@ -1764,8 +1727,6 @@ body.dark-theme .modal-description {
   border: 2px solid #4F2EE8;
   padding: 14px 23px;
   margin-bottom: 8px;
-
-
   display: inline-block;
   width: 100%;
   transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -1783,7 +1744,6 @@ body.dark-theme .modal-order-btn {
 body.dark-theme .modal-order-btn:hover, body.dark-theme .modal-order-btn:focus {
   background-color: #4F2EE8;
   color: #FFFFFF;
-
 }
 
 .modal-success-mesage {
@@ -1798,7 +1758,6 @@ body.dark-theme .modal-order-btn:hover, body.dark-theme .modal-order-btn:focus {
 }
 .modal-success-mesage.is-hidden {
   display: none;
-
 }
 
 body.dark-theme .modal-success-mesage {
@@ -1850,5 +1809,4 @@ body.dark-theme .modal-success-mesage {
   .modal-success-mesage {
     font-size: 12px;
   }
-
 }/*# sourceMappingURL=index.css.map */
