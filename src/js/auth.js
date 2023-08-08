@@ -7,8 +7,8 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
 import { signOut } from "firebase/auth";
-import { getDatabase, onValue, get } from "firebase/database";
-import { getDatabase, ref, set, remove, child, push, update } from "firebase/database";
+import { onValue, get, update } from "firebase/database";
+import { getDatabase, ref, set, remove, child, push } from "firebase/database";
 import axios from 'axios';
 
 
@@ -25,7 +25,7 @@ const userNameField = document.querySelector(".user-name")
 const logInBtn = document.querySelector(".signIn")
 const logoutBtn = document.querySelector(".user-bar-log-out-btn")
 const bookCont = document.querySelector("body > div.container.home-container > main")
-console.log(bookCont);
+
 
 logoutBtn.addEventListener('click', onSignOutClick)
 logInBtn.addEventListener('click', onSignInClick)
@@ -50,23 +50,28 @@ const auth = getAuth();
 const database = getDatabase(app);
 
 
+
+
  onAuthStateChanged(auth, (user) => {
   if (user) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/auth.user
-    const uid = user.uid;
-    console.log(user);
+    const userUid = user.uid;
+    console.log(userUid);
     const email = user.email;
     const photoURL = user.photoURL;
     const emailVerified = user.emailVerified;
-    readUserData(uid)
-    readBookData(uid)
+    readUserData(userUid);
+    readBookData(userUid);
+    removeBookData(userUid);
+
     // ...
   } else {
     // User is signed out
     // ...
   }
 });
+
 
  function onSubmitReg(e){
   e.preventDefault()
@@ -97,7 +102,7 @@ function writeUserData(userId, name, email, bookId) {
     displayName: name,
     email: email,
   }).then(() => {
-    console.log("Name added to the database successfully.");
+    Notify.success("Name added to the database successfully.");
   }).catch((error) => {
     console.error("Error adding name to the database:", error);
   });
@@ -111,7 +116,6 @@ const productCards = document.querySelectorAll(".book-by-category-list");
 
   try {
     const dbRef = ref(database, `users/${userId}/books`);
-    console.log(dbRef);
     push(dbRef, {
       bookId: bookId
     }
@@ -131,7 +135,6 @@ const dbRef = ref(getDatabase());
 get(child(dbRef, `users/${userId}`)).then((snapshot) => {
   if (snapshot.exists()) {
     const userData = (snapshot.val());
-    console.log(userData.displayName);
     userButtonCont.style.display = "block"
     userNameField.textContent = `${userData.displayName}`
     //userNameField.textContent = userData.displayName
@@ -157,8 +160,6 @@ function onSignOutClick() {
       location.reload();
     });
 }
-
-console.log(user);
 
 function onSignInClick(){
   const displayName = form.name.value;
@@ -191,15 +192,14 @@ function onSignInClick(){
  
 
   
-  function readBookData(userId,bookIds) {
+  function readBookData(userId,bookId) {
     const dbRef = ref(getDatabase(), `users/${userId}/books`);
   return  get(dbRef).then((snapshot) => {
       if (snapshot.exists()) {
         const booksData = snapshot.val();
-        console.log((Object.values(booksData)));
+
         const books = (Object.values(booksData)) // Отримуємо список книг за id
          books.forEach(({bookId}) => {
-          console.log(bookId);
           serviceBooks(bookId)
         })
       } else {
@@ -215,7 +215,7 @@ function onSignInClick(){
   const refs = {
     deleteBtn : document.querySelector(".btn-delete"),
     defaultPage : document.querySelector('.default-message'),
-    showElement: document.querySelector('.js-container'),
+    showElement: document.querySelector('.list-cards'),
     shopLink: document.querySelector('.shopping-link')
 }
 
@@ -231,14 +231,23 @@ async function serviceBooks(bookId) {
     const books = [];
 
        const { data } = await axios.get(`${BASE_URL}${bookId}`)
-       console.log(data);
         books.push(data)
+
 
   
     const markup = createMarkup(books)
     
       refs.showElement.insertAdjacentHTML("beforeend", markup)
        Loading.remove();
+
+       refs.defaultPage.classList.add('hidden')
+       const markup = createMarkup(books)
+         refs.showElement.insertAdjacentHTML("beforeend",markup)
+         const deleteButtons = document.querySelectorAll('.btn-delete');
+         deleteButtons.forEach(button => {
+    button.addEventListener('click', handleDeleteClick);
+});
+
     }
     catch (error) {
         console.log(error.message)
@@ -251,6 +260,7 @@ async function serviceBooks(bookId) {
 
 
 function createMarkup(arr) {
+
     return arr.map(({book_image,title,description,author,buy_links}) => {
 
       return `
@@ -295,4 +305,67 @@ function createMarkup(arr) {
             `
     }).join('')
 }
+
+
+   
+
+let cardId;
+
+function handleDeleteClick(event) {
+    const listItem = event.currentTarget.closest('.list-item');
+    if (listItem) {
+       cardId = listItem.id;
+        removeBookData(cardId);
+      
+        listItem.remove();
+    }
+}
+
+
+function removeBookData(userUid, cardId) {
+  const db = getDatabase(app);
+  const dbRef = ref(db, `users/${userUid}/books/`);
+  console.log(cardId);
+
+  get(dbRef)
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const booksData = snapshot.val();
+
+        for (const key in booksData) {
+          if (booksData.hasOwnProperty(key)) {
+            const book = booksData[key];
+            
+            if (book.bookId === cardId) {
+              const bookToDeleteRef = child(dbRef, key);
+              
+              remove(bookToDeleteRef)
+                .then(() => {
+                  console.log("Книга удалена из базы данных");
+                  Notify.success("Книга успешно удалена.");
+                })
+                .catch((error) => {
+                  console.error("Ошибка удаления книги из базы данных:", error);
+                  Notify.failure("Ошибка удаления книги.");
+                });
+            }
+          }
+        }
+      } else {
+        console.log("Данные о книгах не найдены");
+      }
+    })
+    .catch((error) => {
+      console.error("Ошибка получения данных о книгах:", error);
+      Notify.failure("Ошибка получения данных о книгах.");
+    });
+}
+
+
+
+
+
+
+
+  
 
