@@ -313,7 +313,7 @@ function handleDeleteClick(event) {
     const listItem = event.currentTarget.closest('.list-item');
     if (listItem) {
        cardId = listItem.id;
-        removeBookData(userUid, cardId);
+        removeBookData(cardId);
       
         listItem.remove();
     }
