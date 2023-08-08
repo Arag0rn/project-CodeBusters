@@ -2,7 +2,6 @@ import './js/theme-switcher';
 import './js/categories';
 import './js/best-sellers';
 import './js/mobile-menu';
-import './js/main-shop-list';
 import './js/support-ukraine';
 import './js/book-by-category';
 import './js/auth-modal.js';
