@@ -135,10 +135,6 @@ body.sign-in .mob-signup-btn {
 
   text-transform: uppercase;
 
-  .header-item:not(:last-child) {
-    margin-bottom: 25px;
-  }
-
   .shopping-link {
     display: flex;
     align-items: center;
@@ -177,6 +173,11 @@ body.sign-in .mob-signup-btn {
   }
 }
 
-.header-link {
-  color: #111;
+.header-list-mob .header-link,
+.header-list-mob .shopping-link {
+  color: #fff;
+
+  &.current {
+    color: #111;
+  }
 }

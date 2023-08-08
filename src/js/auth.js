@@ -1,58 +1,53 @@
-"use strict";
+'use strict';
 import { onCloseClick, onSignOnclick } from './auth-modal';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { initializeApp } from 'firebase/app';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { onAuthStateChanged } from "firebase/auth";
-import { signOut } from "firebase/auth";
-import { onValue, get, update } from "firebase/database";
-import { getDatabase, ref, set, remove, child, push } from "firebase/database";
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
+import { signOut } from 'firebase/auth';
+import { onValue, get, update } from 'firebase/database';
+import { getDatabase, ref, set, remove, child, push } from 'firebase/database';
 import axios from 'axios';
-
 
 Loading.init({
   backgroundColor: 'rgba(0,0,0,0.1)',
   svgColor: '#4f2ee8',
 });
 
-const form = document.querySelector("form")
+const form = document.querySelector('form');
 
-const body = document.querySelector("body")
-const userButtonCont = document.querySelector('.user-btn-container')
-const userNameField = document.querySelector(".user-name")
-const logInBtn = document.querySelector(".signIn")
-const logoutBtn = document.querySelector(".user-bar-log-out-btn")
-const bookCont = document.querySelector("body > div.container.home-container > main")
+const body = document.querySelectorAll('body');
+const userButtonCont = document.querySelector('.user-btn-container');
+const userNameField = document.querySelectorAll('.user-name');
+const logInBtn = document.querySelector('.signIn');
+const logoutBtn = document.querySelector('.user-bar-log-out-btn');
+const logoutMobileBtn = document.querySelector('.log-out-mob-btn');
+const bookCont = document.querySelector(
+  'body > div.container.home-container > main'
+);
 
-
-logoutBtn.addEventListener('click', onSignOutClick)
-logInBtn.addEventListener('click', onSignInClick)
-form.addEventListener("submit", onSubmitReg)
-
-
-
-
+logoutBtn.addEventListener('click', onSignOutClick);
+logoutMobileBtn.addEventListener('click', onSignOutClick);
+logInBtn.addEventListener('click', onSignInClick);
+form.addEventListener('submit', onSubmitReg);
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAQxsm1fVLslhxTiwQ3FCGOtjW_RrvvnpE",
-  authDomain: "bookshelf-b7b0a.firebaseapp.com",
-  projectId: "bookshelf-b7b0a",
-  storageBucket: "bookshelf-b7b0a.appspot.com",
-  messagingSenderId: "435762232768",
-  appId: "1:435762232768:web:c27015f9ad01edd0675c25",
-  databaseURL: "https://bookshelf-b7b0a-default-rtdb.firebaseio.com/",
+  apiKey: 'AIzaSyAQxsm1fVLslhxTiwQ3FCGOtjW_RrvvnpE',
+  authDomain: 'bookshelf-b7b0a.firebaseapp.com',
+  projectId: 'bookshelf-b7b0a',
+  storageBucket: 'bookshelf-b7b0a.appspot.com',
+  messagingSenderId: '435762232768',
+  appId: '1:435762232768:web:c27015f9ad01edd0675c25',
+  databaseURL: 'https://bookshelf-b7b0a-default-rtdb.firebaseio.com/',
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const database = getDatabase(app);
 
-
-
-
- onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, user => {
   if (user) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/auth.user
@@ -71,28 +66,25 @@ const database = getDatabase(app);
   }
 });
 
-
- function onSubmitReg(e){
-  e.preventDefault()
+function onSubmitReg(e) {
+  e.preventDefault();
   const displayName = form.name.value;
-  const email = form.email.value
-  const password = form.password.value
-createUserWithEmailAndPassword(auth, email, password, )
-  .then((userCredential) => {
-    const user = userCredential.user;
+  const email = form.email.value;
+  const password = form.password.value;
+  createUserWithEmailAndPassword(auth, email, password)
+    .then(userCredential => {
+      const user = userCredential.user;
       const email = user.email;
       const imageUrl = user.photoURL;
       writeUserData(user.uid, displayName, email);
-      e.target.reset()
+      e.target.reset();
       onCloseClick();
-
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ..
-  });
-
+    })
+    .catch(error => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // ..
+    });
 }
 
 function writeUserData(userId, name, email, bookId) {
@@ -100,160 +92,158 @@ function writeUserData(userId, name, email, bookId) {
   set(dbRef, {
     displayName: name,
     email: email,
-  }).then(() => {
-    Notify.success("Name added to the database successfully.");
-  }).catch((error) => {
-    console.error("Error adding name to the database:", error);
-  });
+  })
+    .then(() => {
+      Notify.success('Name added to the database successfully.');
+    })
+    .catch(error => {
+      console.error('Error adding name to the database:', error);
+    });
 }
-const productCards = document.querySelectorAll(".book-by-category-list");
+const productCards = document.querySelectorAll('.book-by-category-list');
 
-
-
- export function onClickToShopingListAdd(bookId) {
+export function onClickToShopingListAdd(bookId) {
   const userId = auth.currentUser.uid;
 
   try {
     const dbRef = ref(database, `users/${userId}/books`);
     push(dbRef, {
-      bookId: bookId
-    }
-    ).then(() => {
-      Notify.success("Book added to user's shopping list successfully.");
-    }).catch((error) => {
-      console.error("Error adding book to user's shopping list:", error);
-    });
+      bookId: bookId,
+    })
+      .then(() => {
+        Notify.success("Book added to user's shopping list successfully.");
+      })
+      .catch(error => {
+        console.error("Error adding book to user's shopping list:", error);
+      });
   } catch (error) {
     console.error("Error adding book to user's shopping list:", error);
   }
 }
 
-
-function readUserData(userId){
-const dbRef = ref(getDatabase());
-get(child(dbRef, `users/${userId}`)).then((snapshot) => {
-  if (snapshot.exists()) {
-    const userData = (snapshot.val());
-    userButtonCont.style.display = "block"
-    userNameField.textContent = `${userData.displayName}`
-    //userNameField.textContent = userData.displayName
-  } else {
-    console.log("No data available");
-  }
-}).catch((error) => {
-  console.error(error);
-});
+function readUserData(userId) {
+  const dbRef = ref(getDatabase());
+  get(child(dbRef, `users/${userId}`))
+    .then(snapshot => {
+      if (snapshot.exists()) {
+        const userData = snapshot.val();
+        userButtonCont.style.display = 'block';
+        for (const user of userNameField) {
+          user.textContent = `${userData.displayName}`;
+        }
+        for (const item of body) {
+          item.classList.add('sign-in');
+        }
+        //userNameField.textContent = userData.displayName
+      } else {
+        console.log('No data available');
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    });
 }
 const user = auth.currentUser;
-
 
 function onSignOutClick() {
   signOut(auth)
     .then(() => {
       Notify.success('Sign-out successful');
     })
-    .catch((error) => {
-      Notify.failure("An error happened")
+    .catch(error => {
+      Notify.failure('An error happened');
     })
     .finally(() => {
       location.reload();
     });
 }
 
-function onSignInClick(){
+function onSignInClick() {
   const displayName = form.name.value;
-  const email = form.email.value
-  const password = form.password.value
- signInWithEmailAndPassword(auth, email, password)
-   .then((userCredential) => {
-    const user = userCredential.user;
-   })
-   .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
+  const email = form.email.value;
+  const password = form.password.value;
+  signInWithEmailAndPassword(auth, email, password)
+    .then(userCredential => {
+      const user = userCredential.user;
+    })
+    .catch(error => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
 
-    if (errorCode === 'auth/wrong-password') {
-      Notify.failure('Wrong password. Please try again.');
-    } else if (errorCode === 'auth/user-not-found') {
-      Notify.failure('User not found. Please check your email or sign up.');
-    } 
-  })
-  .finally(()=>{
-    Notify.success ("Glad you're back again") 
-    onCloseClick()
-  })
-  }
+      if (errorCode === 'auth/wrong-password') {
+        Notify.failure('Wrong password. Please try again.');
+      } else if (errorCode === 'auth/user-not-found') {
+        Notify.failure('User not found. Please check your email or sign up.');
+      }
+    })
+    .finally(() => {
+      Notify.success("Glad you're back again");
+      onCloseClick();
+    });
+}
 
-  onValue(ref(database, "users"), function(snapshot){
-    console.log(snapshot.val());
-  })
+onValue(ref(database, 'users'), function (snapshot) {
+  console.log(snapshot.val());
+});
 
- 
-
-  
-  function readBookData(userId,bookId) {
-    const dbRef = ref(getDatabase(), `users/${userId}/books`);
-  return  get(dbRef).then((snapshot) => {
+function readBookData(userId, bookId) {
+  const dbRef = ref(getDatabase(), `users/${userId}/books`);
+  return get(dbRef)
+    .then(snapshot => {
       if (snapshot.exists()) {
         const booksData = snapshot.val();
 
-        const books = (Object.values(booksData)) // Отримуємо список книг за id
-         books.forEach(({bookId}) => {
-          serviceBooks(bookId)
-        })
+        const books = Object.values(booksData); // Отримуємо список книг за id
+        books.forEach(({ bookId }) => {
+          serviceBooks(bookId);
+        });
       } else {
-        console.log("No shopping list data available");
+        console.log('No shopping list data available');
         return [];
-      } 
-    }).catch((error) => {
+      }
+    })
+    .catch(error => {
       console.log(error);
     });
-  }
-
-
-  const refs = {
-    deleteBtn : document.querySelector(".btn-delete"),
-    defaultPage : document.querySelector('.default-message'),
-    showElement: document.querySelector('.js-container'),
-    shopLink: document.querySelector('.shopping-link')
 }
 
+const refs = {
+  deleteBtn: document.querySelector('.btn-delete'),
+  defaultPage: document.querySelector('.default-message'),
+  showElement: document.querySelector('.js-container'),
+  shopLink: document.querySelector('.shopping-link'),
+};
 
 async function serviceBooks(bookId) {
   try {
-    refs.defaultPage.classList.add('visually-hidden')
-    
-      Loading.pulse();
-      
-        const BASE_URL = 'https://books-backend.p.goit.global/books/'
-  
+    refs.defaultPage.classList.add('visually-hidden');
+
+    Loading.pulse();
+
+    const BASE_URL = 'https://books-backend.p.goit.global/books/';
+
     const books = [];
 
-       const { data } = await axios.get(`${BASE_URL}${bookId}`)
-        books.push(data)
-       const markup = createMarkup(books)
-        refs.showElement.insertAdjacentHTML("beforeend",markup)
-        Loading.remove();
-        const deleteButtons = document.querySelectorAll('.btn-delete');
-        deleteButtons.forEach(button => {
-    button.addEventListener('click', handleDeleteClick);
-});
-
-    }
-    catch (error) {
-        console.log(error.message)
-        throw new Error(error.message, 'Something went wrong')
+    const { data } = await axios.get(`${BASE_URL}${bookId}`);
+    books.push(data);
+    const markup = createMarkup(books);
+    refs.showElement.insertAdjacentHTML('beforeend', markup);
+    Loading.remove();
+    const deleteButtons = document.querySelectorAll('.btn-delete');
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', handleDeleteClick);
+    });
+  } catch (error) {
+    console.log(error.message);
+    throw new Error(error.message, 'Something went wrong');
   } finally {
-     Loading.remove();
-   }
-
+    Loading.remove();
+  }
 }
 
-
 function createMarkup(arr) {
-
-    return arr.map(({book_image,title,description,author,buy_links, _id}) => {
-
+  return arr
+    .map(({ book_image, title, description, author, buy_links, _id }) => {
       return `
       
      
@@ -293,23 +283,20 @@ function createMarkup(arr) {
                     </ul>
                 </div>
          
-            `
-    }).join('')
+            `;
+    })
+    .join('');
 }
-
-
-
 
 function handleDeleteClick(event) {
-    const listItem = event.currentTarget.closest('.list-cards');
-    if (listItem) {
-      const cardId = listItem.id;
-        removeBookData(cardId);
-      
-        listItem.remove();
-    }
-}
+  const listItem = event.currentTarget.closest('.list-cards');
+  if (listItem) {
+    const cardId = listItem.id;
+    removeBookData(cardId);
 
+    listItem.remove();
+  }
+}
 
 function removeBookData(cardId) {
   const userId = auth.currentUser.uid;
@@ -318,7 +305,7 @@ function removeBookData(cardId) {
   console.log(cardId);
 
   get(dbRef)
-    .then((snapshot) => {
+    .then(snapshot => {
       if (snapshot.exists()) {
         const booksData = snapshot.val();
 
@@ -328,34 +315,25 @@ function removeBookData(cardId) {
             console.log(cardId);
             if (book.bookId === cardId) {
               const bookToDeleteRef = child(dbRef, key);
-              
+
               remove(bookToDeleteRef)
                 .then(() => {
-                  console.log("The book has been removed from the database");
-                  Notify.success("Book deleted successfully.");
+                  console.log('The book has been removed from the database');
+                  Notify.success('Book deleted successfully.');
                 })
-                .catch((error) => {
-                  console.error("Ошибка удаления книги из базы данных:", error);
-                  Notify.failure("Ошибка удаления книги.");
+                .catch(error => {
+                  console.error('Ошибка удаления книги из базы данных:', error);
+                  Notify.failure('Ошибка удаления книги.');
                 });
             }
           }
         }
       } else {
-        console.log("Данные о книгах не найдены");
+        console.log('Данные о книгах не найдены');
       }
     })
-    .catch((error) => {
-      console.error("Ошибка получения данных о книгах:", error);
-      Notify.failure("Error getting data about books.");
+    .catch(error => {
+      console.error('Ошибка получения данных о книгах:', error);
+      Notify.failure('Error getting data about books.');
     });
 }
-
-
-
-
-
-
-
-  
-
