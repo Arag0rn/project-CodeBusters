@@ -215,7 +215,7 @@ function onSignInClick(){
   const refs = {
     deleteBtn : document.querySelector(".btn-delete"),
     defaultPage : document.querySelector('.default-message'),
-    showElement: document.querySelector('.list-cards'),
+    showElement: document.querySelector('.js-container'),
     shopLink: document.querySelector('.shopping-link')
 }
 
