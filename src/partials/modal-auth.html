@@ -1,33 +1,70 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="modal__auth">
-        <div class="modal__body">
-            <div class="modal__content">
-                <svg class="modal-close"
-                     width="28" height="28" viewBox="0 0 28 28" fill="black" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M21 7L7 21M7 7L21 21" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+      <div class="modal__body">
+        <div class="modal__content">
+          <svg class="modal-close" width="20" height="20">
+            <use href="./images/icons.svg#icon-close"></use>
+          </svg>
 
-                <form action="submit" class="signIn-form">
-                    <input type="text" name="name" required class="auth-input" minlength="3" maxlength="10" placeholder="NAME">
-                    <input type="text" name="email" required pattern="\S+@[a-z]+.[a-z]+" class="auth-input" placeholder="EMAIL">
-                    <input type="password" id="password" required name="password" class="auth-input" placeholder="PASSWORD">
-                    <label class="checkbox-label"><input type="checkbox" class="password-checkbox"> Show password</label>
-                    <button type="submit" name="regist" class="SignUpBtn">SIGN UP</button>
-                </form>
-
-                    <div class="button-box">
-                        <button class="signUp" name="signUp">SIGN UP</button>
-                        <button class="signIn" name="signIn">SIGN IN</button>
-                    </div>
-                <div class="userName" style="font-size: 30px;"></div>
+          <form data-action="up" action="submit" class="signIn-form">
+            <div>
+              <input
+                type="text"
+                name="name"
+                required
+                class="auth-input"
+                minlength="3"
+                maxlength="10"
+                placeholder="NAME"
+              />
+              <input
+                type="text"
+                name="email"
+                required
+                pattern="\S+@[a-z]+.[a-z]+"
+                class="auth-input"
+                placeholder="EMAIL"
+              />
+              <input
+                type="password"
+                id="password"
+                required
+                name="password"
+                class="auth-input"
+                placeholder="PASSWORD"
+              />
             </div>
+            <label class="checkbox-label"
+              ><input type="checkbox" class="password-checkbox" /> Show
+              password</label
+            >
+            <button type="submit" name="regist" class="SignUpBtn">
+              SIGN UP
+            </button>
+          </form>
+
+          <div class="button-box">
+            <button
+              data-action="up"
+              type="button"
+              class="signUp active"
+              name="signUp"
+            >
+              SIGN UP
+            </button>
+            <button data-action="in" type="button" class="signIn" name="signIn">
+              SIGN IN
+            </button>
+          </div>
+          <div class="userName" style="font-size: 30px"></div>
         </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>

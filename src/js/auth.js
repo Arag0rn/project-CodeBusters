@@ -16,22 +16,26 @@ Loading.init({
   svgColor: '#4f2ee8',
 });
 
-const form = document.querySelector('form');
+const form = document.querySelector('.signIn-form');
 
 const body = document.querySelectorAll('body');
 const userButtonCont = document.querySelector('.user-btn-container');
 const userNameField = document.querySelectorAll('.user-name');
 const logInBtn = document.querySelector('.signIn');
+const logUpBtn = document.querySelector('.signUp');
 const logoutBtn = document.querySelector('.user-bar-log-out-btn');
 const logoutMobileBtn = document.querySelector('.log-out-mob-btn');
 const bookCont = document.querySelector(
   'body > div.container.home-container > main'
 );
+const formBtn = document.querySelector(".SignUpBtn");
 
 logoutBtn.addEventListener('click', onSignOutClick);
 logoutMobileBtn.addEventListener('click', onSignOutClick);
-logInBtn.addEventListener('click', onSignInClick);
-form.addEventListener('submit', onSubmitReg);
+// logInBtn.addEventListener('click', onSignInClick);
+logInBtn.addEventListener('click', onSignSwitherClick);
+logUpBtn.addEventListener('click', onSignSwitherClick);
+form.addEventListener('submit', formSubmit);
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAQxsm1fVLslhxTiwQ3FCGOtjW_RrvvnpE',
@@ -46,6 +50,38 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const database = getDatabase(app);
+
+function formSubmit(e) {
+  e.preventDefault();
+    switch (e.currentTarget.dataset.action) {
+      case "up":
+        onSubmitReg();
+        break;
+      case "in":
+        onSignInClick();
+        break;
+    }
+}
+
+function onSignSwitherClick (e) {
+   changeBtn(e.currentTarget.dataset.action);
+
+   switch (e.currentTarget.dataset.action) {
+    case "in":
+      logUpBtn.classList.remove("active");
+      logInBtn.classList.add("active");
+      break;
+    case "up":
+      logUpBtn.classList.add("active");
+      logInBtn.classList.remove("active");
+      break;
+   }
+}
+
+function changeBtn(option) {
+formBtn.innerText = `sign ${option}`
+form.dataset.action = option;
+}
 
 onAuthStateChanged(auth, user => {
   if (user) {
@@ -67,7 +103,6 @@ onAuthStateChanged(auth, user => {
 });
 
 function onSubmitReg(e) {
-  e.preventDefault();
   const displayName = form.name.value;
   const email = form.email.value;
   const password = form.password.value;
