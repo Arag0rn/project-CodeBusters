@@ -712,6 +712,8 @@ body.dark-theme .no-books-message {
 .list-cards {
   display: flex;
   gap: 8px;
+  width: 100%;
+  height: 100%;
 }
 
 .amazon-icon {
@@ -724,14 +726,17 @@ body.dark-theme .no-books-message {
   height: 16px;
 }
 
+.item-images {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
 .item-link {
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  border-radius: 50%;
-  color: transparent;
-  mix-blend-mode: luminosity;
   transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -748,13 +753,25 @@ body.dark-theme .no-books-message {
   background-color: #ffffff;
 }
 
+.base:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.item-link {
+  box-shadow: none;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 .item-link:hover, .item-link:focus {
   box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.15);
 }
 
+.container {
+  width: 100%;
+}
+
 .item-link:hover .underline {
   width: 100%;
-  /* Show the underline on hover */
 }
 
 .thumb {
@@ -778,24 +795,48 @@ body.dark-theme .no-books-message {
   border: 2px solid rgba(79, 46, 232, 0.4);
   background-color: #ffffff;
   padding: 14px;
-  width: auto;
 }
 .dark-theme .list-item {
   background-color: #111111;
 }
 
-.image-container img {
+.card-image {
   max-width: 100%;
-  height: auto;
-}
-
-.image-container {
+  border-radius: 8px;
   margin-right: 14px;
   position: relative;
 }
 
+.amazon {
+  width: 62px;
+  height: 19px;
+  background-image: url(../images/png_amazon.png);
+}
+.amazon:hover, .amazon:focus {
+  background-image: url(../images/png_amazon_hover.png);
+}
+
+.apple-books {
+  width: 32px;
+  height: 32px;
+  background-image: url(../images/apple_books.png);
+}
+.apple-books:hover, .apple-books:focus {
+  background-image: url(../images/apple_books_hover.png);
+}
+
+.bookshop {
+  width: 38px;
+  height: 36px;
+  background-image: url(../images/bookshop.png);
+}
+.bookshop:hover, .bookshop:focus {
+  background-image: url(../images/bookshop_hover.png);
+}
+
 .content-container {
   flex: 1;
+  width: 100%;
 }
 
 .btn-delete {
@@ -903,6 +944,11 @@ body.dark-theme .no-books-message {
   text-align: center;
 }
 
+.text-author {
+  position: absolute;
+  bottom: 14px;
+}
+
 @media screen and (max-width: 767px) {
   .common {
     font-size: 32px;
@@ -921,6 +967,14 @@ body.dark-theme .no-books-message {
     line-height: 1.28;
     letter-spacing: -0.28px;
     margin-bottom: 14px;
+  }
+  .amazon {
+    width: 32px;
+    height: 11px;
+  }
+  .apple-books, .bookshop {
+    width: 16px;
+    height: 16px;
   }
 }
 @media screen and (min-width: 768px) {
@@ -954,16 +1008,18 @@ body.dark-theme .no-books-message {
     width: 28px;
     height: 28px;
   }
+  .text-author {
+    bottom: 24px;
+  }
 }
 @media screen and (min-width: 1440px) {
   .thumb {
-    max-width: 70%;
+    width: 70%;
   }
-
 }
 .support-ukraine-block {
   width: 356px;
-  background: radial-gradient(circle at center top, #4F2EE8, rgba(245, 245, 247, 0.1019607843));
+  background: radial-gradient(circle at center top, #4f2ee8, rgba(245, 245, 247, 0.1019607843));
   padding-top: 24px;
   padding-bottom: 24px;
   border-radius: 3%;
@@ -975,7 +1031,8 @@ body.dark-theme .no-books-message {
 }
 
 #show-more-button {
-  fill: #4F2EE8;
+  fill: #4f2ee8;
+  padding: 0;
 }
 
 .support-ukraine-list,
@@ -1117,7 +1174,6 @@ body.dark-theme .no-books-message {
   gap: 10px;
   border-radius: 40px;
   border: 2px solid #4f2ee8;
-  color: #111;
   font-size: 14px;
   font-style: normal;
   font-weight: 700;
@@ -1135,6 +1191,9 @@ body.dark-theme .no-books-message {
 }
 .best-sellers-btn:focus {
   box-shadow: 0px 4px 18px 0px rgba(0, 0, 0, 0.15);
+}
+body.dark-theme .best-sellers-btn {
+  color: #ffffff;
 }
 
 .title-books {
@@ -1495,8 +1554,6 @@ body.sign-in .log-out-mob-btn {
 
 .header-link {
   color: #111;
-
-
 }
 
 body.no-scroll {
