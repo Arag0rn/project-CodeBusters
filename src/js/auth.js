@@ -232,18 +232,11 @@ async function serviceBooks(bookId) {
 
        const { data } = await axios.get(`${BASE_URL}${bookId}`)
         books.push(data)
-
-
-
-    
-      refs.showElement.insertAdjacentHTML("beforeend", markup)
-       Loading.remove();
-
-       refs.defaultPage.classList.add('hidden')
        const markup = createMarkup(books)
-         refs.showElement.insertAdjacentHTML("beforeend",markup)
-         const deleteButtons = document.querySelectorAll('.btn-delete');
-         deleteButtons.forEach(button => {
+        refs.showElement.insertAdjacentHTML("beforeend",markup)
+        Loading.remove();
+        const deleteButtons = document.querySelectorAll('.btn-delete');
+        deleteButtons.forEach(button => {
     button.addEventListener('click', handleDeleteClick);
 });
 
