@@ -25,14 +25,20 @@
   justify-content: center;
   align-items: center;
 
-  padding-right: 24px;
-  padding-left: 24px;
   width: 100%;
 
   @media screen and (max-width: 767px) {
     // margin-top: 18px;
     width: 100%;
-    padding-left: 0;
+    padding: 0 20px;
+  }
+
+  @media screen and (min-width: 768px) {
+    padding: 0 32px;
+  }
+
+  @media screen and (min-width: 1440px) {
+    padding: 0 24px;
   }
 }
 .logo-svg {
@@ -48,22 +54,6 @@
   }
 }
 
-.header-link {
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 18px;
-  letter-spacing: -0.56px;
-  height: 34px;
-  width: 72px;
-  justify-content: center;
-  display: flex;
-  align-items: center;
-  .dark-theme & {
-    color: #fff;
-  }
-}
-
 .header-list {
   display: none;
 
@@ -72,6 +62,10 @@
     align-items: center;
     margin-left: 40px;
     text-transform: uppercase;
+
+    @media screen and (min-width: 1440px) {
+      margin-left: 76px;
+    }
   }
 }
 
@@ -98,7 +92,6 @@
     height: 28px;
     display: flex;
     position: relative;
-    padding-left: 20px;
     &.is-open {
       .burger-menu {
         display: none;
@@ -242,8 +235,8 @@
   margin-left: auto;
   margin-right: 14px;
   transition: scale 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  @media screen and (max-width: 767px) {
-    margin-right: -10px;
+  @media screen and (min-width: 768px) {
+    margin-right: 208px;
   }
 }
 input:checked + .slider {
@@ -277,16 +270,16 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-.shopping-link {
-  padding: 7px 16px;
+.shopping-link,
+.header-link {
+  width: fit-content;
+  padding: 8px 16px;
   justify-content: center;
   align-items: center;
   font-weight: 500;
   line-height: 18px;
   font-size: 14px;
-  font-style: normal;
   text-transform: uppercase;
-  gap: 8px;
   display: flex;
   .dark-theme & {
     .cart {
@@ -312,7 +305,6 @@ input:checked + .slider:before {
   }
   .header-menu {
     min-height: 72px;
-    padding: 11px;
   }
   .header-item {
     display: flex;
@@ -323,6 +315,8 @@ input:checked + .slider:before {
   }
 
   .signup-btn {
+    position: absolute;
+    right: 0;
     width: 184px;
     height: 45px;
     border-radius: 18px;
@@ -337,26 +331,20 @@ input:checked + .slider:before {
     font-weight: 500;
     line-height: 18px;
     letter-spacing: -0.56px;
+    margin-right: 32px;
   }
   .arrow {
     margin-left: 90px;
   }
 }
 
-.switcher {
-  margin-left: auto;
-}
-
 @media screen and (min-width: 1440px) {
   .header-container {
     width: 1440px;
   }
-  .logo {
-    margin-right: 76px;
-  }
+
   .signup-btn {
-    margin-left: 14px;
-    margin-right: 14px;
+    margin-right: 24px;
   }
 }
 
@@ -379,4 +367,8 @@ input:checked + .slider:before {
     background: $secondary-accent-color;
     border-radius: 36px;
   }
+}
+
+.shopping-icon-svg {
+  margin-left: 4px;
 }

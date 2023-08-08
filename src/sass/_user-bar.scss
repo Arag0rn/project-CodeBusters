@@ -149,6 +149,10 @@ body.sign-in .mob-signup-btn {
   body.sign-in & {
     display: inline-block;
   }
+
+  & .header-item:not(:last-child) {
+    margin-bottom: 10px;
+  }
 }
 
 .log-out-mob-btn {
@@ -176,8 +180,10 @@ body.sign-in .mob-signup-btn {
 .header-list-mob .header-link,
 .header-list-mob .shopping-link {
   color: #fff;
+  padding-left: 0;
 
   &.current {
     color: #111;
+    padding-left: 16px;
   }
 }
