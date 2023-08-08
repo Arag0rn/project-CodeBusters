@@ -234,8 +234,7 @@ async function serviceBooks(bookId) {
         books.push(data)
 
 
-  
-    const markup = createMarkup(books)
+
     
       refs.showElement.insertAdjacentHTML("beforeend", markup)
        Loading.remove();
