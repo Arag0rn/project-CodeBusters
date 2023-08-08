@@ -683,13 +683,18 @@ body.dark-theme .no-books-message {
   text-transform: uppercase;
 }
 
-.shopping-list {
-  padding-top: 40px;
-  padding-bottom: 302px;
+.hide {
+  display: none;
 }
 
-.js-container {
+.main-shopping-conteiner {
   width: 100%;
+}
+
+.js-container .thumb {
+  width: 100%;
+  margin-bottom: 0;
+  margin-top: 0;
 }
 
 .common {
@@ -702,10 +707,29 @@ body.dark-theme .no-books-message {
 
 .main-title {
   color: #111111;
-  margin-bottom: 140px;
 }
 .dark-theme .main-title {
   color: #ffffff;
+}
+
+.default-page {
+  margin-top: 140px;
+}
+
+.has-cards .main-title {
+  margin-bottom: 40px;
+}
+
+.has-cards .default-message {
+  margin-top: 0;
+}
+
+.has-cards {
+  margin-top: 40px;
+}
+
+.default-page .has-cards {
+  margin-top: 0;
 }
 
 .add-list-color {
@@ -713,10 +737,12 @@ body.dark-theme .no-books-message {
 }
 
 .list-cards {
-  display: flex;
-  gap: 8px;
   width: 100%;
   height: 100%;
+}
+
+.list-cards:not(:last-child) {
+  margin-bottom: 20px;
 }
 
 .amazon-icon {
@@ -778,23 +804,8 @@ body.dark-theme .no-books-message {
   box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.15);
 }
 
-.container {
-  width: 100%;
-}
-
 .item-link:hover .underline {
   width: 100%;
-}
-
-.thumb {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-end;
-  max-width: 100%;
-  height: 100%;
-  gap: 20px;
 }
 
 .list-item {
@@ -880,6 +891,7 @@ body.dark-theme .no-books-message {
   line-height: 1.12;
   letter-spacing: -0.64px;
   text-transform: uppercase;
+  word-wrap: break-word;
 }
 .dark-theme .card-title {
   color: #ffffff;
@@ -898,7 +910,6 @@ body.dark-theme .no-books-message {
 .main-card-text {
   color: #111111;
   margin-bottom: 14px;
-  overflow: hidden;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -969,6 +980,12 @@ body.dark-theme .no-books-message {
   }
   .main-title {
     margin-bottom: 120px;
+  }
+  .reset {
+    margin-bottom: 0;
+  }
+  .thumb {
+    margin-top: 40px;
   }
   .text-author {
     position: absolute;
