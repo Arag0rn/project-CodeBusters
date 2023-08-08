@@ -56,6 +56,7 @@ const database = getDatabase(app);
     const emailVerified = user.emailVerified;
     readUserData(userUid);
     readBookData(userUid);
+    removeBookData(userUid);
 
     // ...
   } else {
