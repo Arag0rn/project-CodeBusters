@@ -1,5 +1,4 @@
 
-
 import { modalInit } from './modal.js';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
