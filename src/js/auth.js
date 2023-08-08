@@ -215,25 +215,45 @@ function onSignInClick(){
     deleteBtn : document.querySelector(".btn-delete"),
     defaultPage : document.querySelector('.default-message'),
     showElement: document.querySelector('.js-container'),
-    shopLink: document.querySelector('.shopping-link')
+    shopLink: document.querySelector('.shopping-link'),
+    resetMargin: document.querySelector('h1')
 }
+
 
 
 async function serviceBooks(bookId) {
   try {
-    refs.defaultPage.classList.add('visually-hidden')
-    
-      Loading.pulse();
+ 
+     
+     
       
         const BASE_URL = 'https://books-backend.p.goit.global/books/'
   
     const books = [];
 
        const { data } = await axios.get(`${BASE_URL}${bookId}`)
-        books.push(data)
-       const markup = createMarkup(books)
+    books.push(data)
+    const isBookAlreadyAdded = books.some(book => book.id === data.id);
+
+    if (!isBookAlreadyAdded) {
+      books.push(data)
+    }
+
+      
+    if (books.length === 0) {
+
+      refs.defaultPage.classList.remove('hide')
+           refs.showElement.innerHTML = ''; 
+    }
+    else {
+      refs.defaultPage.classList.add('hide')
+          const markup = createMarkup(books)
         refs.showElement.insertAdjacentHTML("beforeend",markup)
-        Loading.remove();
+    }
+       
+    Loading.remove();
+    
+
         const deleteButtons = document.querySelectorAll('.btn-delete');
         deleteButtons.forEach(button => {
     button.addEventListener('click', handleDeleteClick);

@@ -1,32 +1,33 @@
 $main-add-color: #B4AFAF;
 $main-color-text-darl-theme: rgba(255, 255, 255, 0.60);
 
-.shopping-list {
-    padding-top: 40px;
-    padding-bottom: 302px;
+.hide {
+    display: none;
+}
 
+.main-shopping-conteiner {
+    width: 100%
 }
 
 
-.js-container {
+.js-container .thumb {
     width: 100%;
+    margin-bottom: 0;
+    margin-top: 0;
 }
 
 
 
 .common {
-
     font-size: 48px;
     font-style: normal;
     font-weight: 700;
     line-height: 1.08;
-
     letter-spacing: -1.92px;
 }
 
 .main-title {
     color: $main-color-light-theme;
-    margin-bottom: 140px;
     .dark-theme & {
             color: $main-color-dark-theme;
         }
@@ -34,17 +35,44 @@ $main-color-text-darl-theme: rgba(255, 255, 255, 0.60);
 }
 
 
+.default-page  {
+    margin-top: 140px;
+}
+
+
+.has-cards .main-title {
+    margin-bottom: 40px;
+}
+
+.has-cards .default-message {
+    margin-top: 0;
+}
+
+
+.has-cards {
+    margin-top: 40px;
+}
+
+
+.default-page .has-cards {
+    margin-top: 0;
+}
+
 
 .add-list-color {
     color: $main-accent-color;
 
 }
 
+
+
 .list-cards {
-    display: flex;
-    gap: 8px;
-width: 100%;
+    width: 100%;
     height: 100%;
+}
+
+.list-cards:not(:last-child) {
+    margin-bottom: 20px;
 }
 
 
@@ -82,11 +110,6 @@ height: 16px;
     justify-content: center;
     align-items: center;
     position: relative;
-    // border-radius: 50%;
-
-
-    // color: transparent;
-    // mix-blend-mode: luminosity;
     transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
 }
@@ -131,28 +154,10 @@ height: 16px;
 }
 
 
-.container {
-    width: 100%;
-}
 .item-link:hover .underline {
     width: 100%;
 
 }
-
-
-
-
-.thumb {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-end;
-    max-width: 100%;
-    height: 100%;
-    gap: 20px;
-}
-
 
 
 .list-item {
@@ -258,6 +263,7 @@ width: 62px;
     line-height: 1.12;
     letter-spacing: -0.64px;
     text-transform: uppercase;
+    word-wrap: break-word;
     .dark-theme & {
         color: $main-color-dark-theme;
     }
@@ -282,7 +288,7 @@ width: 62px;
     color: $main-color-light-theme;
     margin-bottom: 14px;
 
-    overflow: hidden;
+ 
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -369,6 +375,13 @@ width: 62px;
         margin-bottom: 120px;
     }
 
+                .reset {
+                    margin-bottom: 0;
+                }
+
+                .thumb {
+                    margin-top: 40px;
+                }
     .text-author {
             position: absolute;
                 bottom: 14px;
@@ -395,6 +408,7 @@ width: 62px;
 
 
 @media screen and (min-width: 768px) {
+
     .main-title {
         display: inline-block;
         margin-left: 0 auto;
@@ -403,6 +417,8 @@ width: 62px;
     .main-card-text {
         margin-bottom: 48px;
     }
+
+
 
     .card-text {
         margin-bottom: 14px;
@@ -439,11 +455,5 @@ width: 62px;
         bottom: 24px;
     }
 }
-
-
-
-
-
-
 
 
