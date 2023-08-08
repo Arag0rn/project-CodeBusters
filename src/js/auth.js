@@ -63,7 +63,6 @@ const database = getDatabase(app);
     const emailVerified = user.emailVerified;
     readUserData(userUid);
     readBookData(userUid);
-    removeBookData(userUid);
 
     // ...
   } else {
@@ -253,13 +252,13 @@ async function serviceBooks(bookId) {
 
 function createMarkup(arr) {
 
-    return arr.map(({book_image,title,description,author,buy_links}) => {
+    return arr.map(({book_image,title,description,author,buy_links, _id}) => {
 
       return `
       
      
-      <div class="list-cards">
-                <div class="js-item list-item">
+      <div class="list-cards" id="${_id}">
+                <div class="js-item list-item id="${_id}"">
                     <div class="image-container">
                         <img class="card-image" src="${book_image}" width="116" height="165" alt="${title}" >
                     </div>
@@ -299,14 +298,12 @@ function createMarkup(arr) {
 }
 
 
-   
 
-let cardId;
 
 function handleDeleteClick(event) {
-    const listItem = event.currentTarget.closest('.list-item');
+    const listItem = event.currentTarget.closest('.list-cards');
     if (listItem) {
-       cardId = listItem.id;
+      const cardId = listItem.id;
         removeBookData(cardId);
       
         listItem.remove();
@@ -314,9 +311,10 @@ function handleDeleteClick(event) {
 }
 
 
-function removeBookData(userUid, cardId) {
+function removeBookData(cardId) {
+  const userId = auth.currentUser.uid;
   const db = getDatabase(app);
-  const dbRef = ref(db, `users/${userUid}/books/`);
+  const dbRef = ref(db, `users/${userId}/books/`);
   console.log(cardId);
 
   get(dbRef)
@@ -327,14 +325,14 @@ function removeBookData(userUid, cardId) {
         for (const key in booksData) {
           if (booksData.hasOwnProperty(key)) {
             const book = booksData[key];
-            
+            console.log(cardId);
             if (book.bookId === cardId) {
               const bookToDeleteRef = child(dbRef, key);
               
               remove(bookToDeleteRef)
                 .then(() => {
-                  console.log("Книга удалена из базы данных");
-                  Notify.success("Книга успешно удалена.");
+                  console.log("The book has been removed from the database");
+                  Notify.success("Book deleted successfully.");
                 })
                 .catch((error) => {
                   console.error("Ошибка удаления книги из базы данных:", error);
@@ -349,7 +347,7 @@ function removeBookData(userUid, cardId) {
     })
     .catch((error) => {
       console.error("Ошибка получения данных о книгах:", error);
-      Notify.failure("Ошибка получения данных о книгах.");
+      Notify.failure("Error getting data about books.");
     });
 }
 
