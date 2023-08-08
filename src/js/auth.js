@@ -49,7 +49,7 @@ const database = getDatabase(app);
   if (user) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/auth.user
-    userUid = user.uid;
+    const userUid = user.uid;
     console.log(userUid);
     const email = user.email;
     const photoURL = user.photoURL;
