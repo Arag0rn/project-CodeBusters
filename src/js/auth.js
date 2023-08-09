@@ -212,11 +212,6 @@ function onSignInClick() {
         Notify.failure('User not found. Please check your email or sign up.');
       }
     })
-    .finally(() => {
-     // Notify.success("Glad you're back again")
-     // onCloseClick()
-      
-    })
 }
 
 export let shopingList = [];
