@@ -16,7 +16,7 @@ export function onSignOnclick(e) {
 }
 
 export function onCloseClick(e) {
-  if (e.type === 'keydown' && e.code !== 'Escape') {
+  if (e && e.type === 'keydown' && e.code !== 'Escape') {
     return;
   }
   modal.style.opacity = 0;

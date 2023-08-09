@@ -1,5 +1,3 @@
-
-'use strict';
 import { shopingList } from './modal';
 import { onCloseClick, onSignOnclick } from './auth-modal';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
@@ -90,13 +88,11 @@ onAuthStateChanged(auth, user => {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/auth.user
     const userUid = user.uid;
-    console.log(userUid);
     const email = user.email;
     const photoURL = user.photoURL;
     const emailVerified = user.emailVerified;
     readUserData(userUid);
     readBookData(userUid);
-
     // ...
   } else {
     // User is signed out
@@ -218,6 +214,7 @@ function onSignInClick() {
     });
 }
 
+export let shopingList = [];
 onValue(ref(database, 'users'), function (snapshot) {
   console.log(snapshot.val());
 });
@@ -228,6 +225,7 @@ function readBookData(userId, bookId) {
     .then(snapshot => {
       if (snapshot.exists()) {
         const booksData = snapshot.val();
+
         const books = Object.values(booksData);
         books.forEach(({ bookId }) => {
           shopingList.push(bookId);
@@ -253,33 +251,28 @@ const refs = {
 
 async function serviceBooks(bookId) {
   try {
+    const BASE_URL = 'https://books-backend.p.goit.global/books/';
 
-    const BASE_URL = 'https://books-backend.p.goit.global/books/'
-  
     const books = [];
 
-       const { data } = await axios.get(`${BASE_URL}${bookId}`)
-    books.push(data)
+    const { data } = await axios.get(`${BASE_URL}${bookId}`);
+    books.push(data);
     const isBookAlreadyAdded = books.some(book => book.id === data.id);
 
     if (!isBookAlreadyAdded) {
-      books.push(data)
+      books.push(data);
     }
 
-      
     if (books.length === 0) {
-
       refs.defaultPage.classList.remove('hide');
       refs.showElement.innerHTML = '';
     } else {
       refs.defaultPage.classList.add('hide');
       const markup = createMarkup(books);
       refs.showElement.insertAdjacentHTML('beforeend', markup);
-
     }
 
     Loading.remove();
-
     refs.defaultPage.classList.add('visually-hidden');
     const deleteButtons = document.querySelectorAll('.btn-delete');
     deleteButtons.forEach(button => {
@@ -289,7 +282,6 @@ async function serviceBooks(bookId) {
     console.error('An error occurred:', error);
   }
 }
-
 
 //Loading.pulse();
 
@@ -350,13 +342,10 @@ function handleDeleteClick(event) {
   }
 }
 
-function removeBookData(cardId) {
+export function removeBookData(cardId) {
   const userId = auth.currentUser.uid;
   const db = getDatabase(app);
   const dbRef = ref(db, `users/${userId}/books/`);
-
-
-
 
   get(dbRef)
     .then(snapshot => {
@@ -390,6 +379,4 @@ function removeBookData(cardId) {
       console.error('Ошибка получения данных о книгах:', error);
       Notify.failure('Error getting data about books.');
     });
-
 }
-
