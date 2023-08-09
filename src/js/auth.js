@@ -10,11 +10,9 @@ import { signOut } from 'firebase/auth';
 import { onValue, get, update } from 'firebase/database';
 import { getDatabase, ref, set, remove, child, push } from 'firebase/database';
 import axios from 'axios';
+import { createMarkup } from './markup-shopping-list';
 
-Loading.init({
-  backgroundColor: 'rgba(0,0,0,0.1)',
-  svgColor: '#4f2ee8',
-});
+
 
 const form = document.querySelector('.signIn-form');
 
@@ -230,7 +228,10 @@ function readBookData(userId, bookId) {
 
         const books = Object.values(booksData); // Отримуємо список книг за id
         books.forEach(({ bookId }) => {
+          refs.defaultPage.innerHTML = ''
+          Loading.pulse()
           serviceBooks(bookId);
+          Loading.remove()
         });
       } else {
         console.log('No shopping list data available');
@@ -246,7 +247,7 @@ function readBookData(userId, bookId) {
 
   const refs = {
     deleteBtn : document.querySelector(".btn-delete"),
-    defaultPage : document.querySelector('.default-message'),
+    defaultPage : document.querySelector('.default-page'),
     showElement: document.querySelector('.js-container'),
     shopLink: document.querySelector('.shopping-link'),
     resetMargin: document.querySelector('h1')
@@ -255,92 +256,64 @@ function readBookData(userId, bookId) {
 
 
 
+Loading.init({
+  backgroundColor: 'rgba(0,0,0,0.1)',
+  svgColor: '#4f2ee8',
+});
+
+
 
 async function serviceBooks(bookId) {
+
+
   try {
-    const BASE_URL = 'https://books-backend.p.goit.global/books/'
-  
-    const books = [];
+      refs.defaultPage.innerHTML = '';
+      Loading.pulse();
+    
+      const BASE_URL = 'https://books-backend.p.goit.global/books/'
+      const books = [];
 
        const { data } = await axios.get(`${BASE_URL}${bookId}`)
     books.push(data)
-    const isBookAlreadyAdded = books.some(book => book.id === data.id);
+    console.log(books);
+    const isBookAlreadyAdded = books.every(book => book.id === data.id);
 
+    //* піде в main
     if (!isBookAlreadyAdded) {
       books.push(data)
     }
-
       
-    if (books.length === 0) {
+    //* піде і main
+    if (books.length !== 0) {
+      console.log('Adding cards...');
+      refs.defaultPage.classList.add('visually-hidden');
 
-      refs.defaultPage.classList.remove('hide')
-           refs.showElement.innerHTML = ''; 
+        const markup = createMarkup(books)
+      refs.showElement.insertAdjacentHTML("beforeend", markup)
+          Loading.remove();
     }
-    else {
-      refs.defaultPage.classList.add('hide')
-          const markup = createMarkup(books)
-        refs.showElement.insertAdjacentHTML("beforeend",markup)
+              if (books.length === 0) {
+      refs.defaultPage.classList.remove('visually-hidden');
+      Loading.remove()
     }
-       
-    Loading.remove();
-    
+    const deleteButtons = document.querySelectorAll('.btn-delete');
 
-        const deleteButtons = document.querySelectorAll('.btn-delete');
-        deleteButtons.forEach(button => {
+  deleteButtons.forEach(button => {
     button.addEventListener('click', handleDeleteClick);
-});
+  });
+    
+  } catch (error) {
+    console.log(error.message);
+    throw new Error(error)
+  } finally {
+    Loading.remove()
+  }      
 
-refs.defaultPage.classList.add('visually-hidden');
- 
-   Loading.pulse();  
-
-
-function createMarkup(arr) {
-  return arr
-    .map(({ book_image, title, description, author, buy_links, _id }) => {
-      return `
-      
-     
-      <div class="list-cards" id="${_id}">
-                <div class="js-item list-item id="${_id}"">
-                    <div class="image-container">
-                        <img class="card-image" src="${book_image}" width="116" height="165" alt="${title}" >
-                    </div>
-                    <div class="content-container ">
-                        <h2 class="card-title">${title}</h2>
-                        <p class="card-text">Description</p>
-                        <p class="main-card-text">${description}
-                        </p>
-                        <p class="text-author">${author}</p>
-                        <button type="button" class="btn-delete">
-                            <svg class="icon-trash" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M6 2H10M2 4H14M12.6667 4L12.1991 11.0129C12.129 12.065 12.0939 12.5911 11.8667 12.99C11.6666 13.3412 11.3648 13.6235 11.0011 13.7998C10.588 14 10.0607 14 9.00623 14H6.99377C5.93927 14 5.41202 14 4.99889 13.7998C4.63517 13.6235 4.33339 13.3412 4.13332 12.99C3.90607 12.5911 3.871 12.065 3.80086 11.0129L3.33333 4M6.66667 7V10.3333M9.33333 7V10.3333" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-                        </button>
-                    </div>
-                    <ul class="main-list-icon">
-                    <li class="item-images">
-                        <a href="${buy_links[0].url}" class="item-link amazon">
-                            <span class="underline"></span>
-                        </a>
-                    </li>
-                    <li class="item-images">
-                        <a href="${buy_links[1].url}" class="item-link apple-books">
-                    <span class="underline"></span>
-                        </a>
-                    </li>
-                    <li class="item-images">
-                        <a href="${buy_links[2].url}" class="item-link bookshop">
-                        <span class="underline"></span>
-                        </a>
-                    </li>
-                    </ul>
-                </div>
-         
-            `;
-    })
-    .join('');
 }
+
+
+
+
 
 function handleDeleteClick(event) {
   const listItem = event.currentTarget.closest('.list-cards');
@@ -362,6 +335,7 @@ function removeBookData(cardId) {
     .then(snapshot => {
       if (snapshot.exists()) {
         const booksData = snapshot.val();
+        console.log("booksData:", booksData)
 
         for (const key in booksData) {
           if (booksData.hasOwnProperty(key)) {
