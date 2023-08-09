@@ -201,6 +201,8 @@ function onSignInClick() {
   signInWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
       const user = userCredential.user;
+      Notify.success("Glad you're back again");
+      onCloseClick(); 
     })
     .catch(error => {
       const errorCode = error.code;
@@ -211,7 +213,7 @@ function onSignInClick() {
       } else if (errorCode === 'auth/user-not-found') {
         Notify.failure('User not found. Please check your email or sign up.');
       }
-    })
+    });
 }
 
 export let shopingList = [];
