@@ -213,7 +213,7 @@ function onSignInClick() {
       } else if (errorCode === 'auth/user-not-found') {
         Notify.failure('User not found. Please check your email or sign up.');
       }
-    }); 
+    });
 }
 
 export let shopingList = [];
