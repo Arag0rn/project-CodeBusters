@@ -1,5 +1,3 @@
-'use strict';
-
 export const close = document.querySelector('.modal-close');
 export const modal = document.querySelector('.modal__auth');
 
