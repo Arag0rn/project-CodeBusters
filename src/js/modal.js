@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-
-import { onClickToShopingListAdd, removeBookData } from './auth';
-
+import axios from 'axios';
+import { onClickToShopingListAdd, removeBookData } from './auth'; 
+export let shopingList = [];
 let bookData = {};
 
 const modal = document.querySelector('div#modal');
@@ -31,15 +31,15 @@ const modalData = async id => {
     });
 };
 
-const getLocalList = () => {
-  let localList = localStorage.getItem('list');
-  if (localList === null) {
-    localList = {};
-  } else {
-    localList = JSON.parse(localList);
-  }
-  return localList;
-};
+// const getLocalList = () => {
+//   let localList = localStorage.getItem('list');
+//   if (localList === null) {
+//     localList = {};
+//   } else {
+//     localList = JSON.parse(localList);
+//   }
+//   return localList;
+// };
 
 
 const localStorageAppend = () => {
