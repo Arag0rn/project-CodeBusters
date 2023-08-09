@@ -357,9 +357,9 @@ input:checked + .slider:before {
   .dark-theme & {
     color: #111;
   }
-  .dark-theme &{
-    .shopping-icon-svg {
-      fill: #111;
+  .dark-theme & {
+    .cart {
+      fill: #fff;
     }
   }
   &:focus,
