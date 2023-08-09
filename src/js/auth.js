@@ -215,6 +215,7 @@ function onSignInClick() {
     .finally(() => {
       Notify.success("Glad you're back again")
       onCloseClick()
+      ;
     })
 }
 
