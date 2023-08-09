@@ -213,9 +213,9 @@ function onSignInClick() {
       }
     })
     .finally(() => {
-      Notify.success("Glad you're back again")
-      onCloseClick()
-      ;
+     // Notify.success("Glad you're back again")
+     // onCloseClick()
+      
     })
 }
 
