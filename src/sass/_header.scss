@@ -359,7 +359,7 @@ input:checked + .slider:before {
   }
   .dark-theme & {
     .cart {
-      fill: #111;
+      fill: #fff;
     }
   }
   &:focus,
@@ -371,4 +371,7 @@ input:checked + .slider:before {
 
 .shopping-icon-svg {
   margin-left: 4px;
+  .dark-theme &{
+    fill: #fff;
+  }
 }
