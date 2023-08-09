@@ -9,17 +9,22 @@ for (const link of links) {
   link.addEventListener('click', onSignOnclick);
 }
 
-close.addEventListener('click', onCloseClick);
-
 export function onSignOnclick(e) {
   e.preventDefault();
   modal.style.opacity = 1;
   modal.style.visibility = 'visible';
+  close.addEventListener('click', onCloseClick);
+  window.addEventListener('keydown', onCloseClick);
 }
 
-export function onCloseClick() {
+export function onCloseClick(e) {
+  if (e.type === 'keydown' && e.code !== 'Escape') {
+    return;
+  }
   modal.style.opacity = 0;
   modal.style.visibility = 'hidden';
+  close.removeEventListener('click', onCloseClick);
+  window.removeEventListener('keydown', onCloseClick);
 }
 
 const password = document.querySelector('#password');
