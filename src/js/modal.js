@@ -61,15 +61,15 @@ const openModal = async function (e) {
   
   modal.classList.remove('is-hidden');
   modalSuccessMesage.classList.add('is-hidden');
+  console.log(document.body.classList.contains("sign-in"));
+  modalOrderBtn.disabled = !document.body.classList.contains("sign-in");
 
   document.body.classList.add('no-scroll');
 
   const bookId = this.getAttribute('data-book-id');
-  console.log(bookId);
 
   const localList = getLocalList();
   
-  console.log(bookId, typeof localList[bookId]);
   if (typeof localList[bookId] !== "undefined"){
     modalOrderBtn.innerText="Remove from the shopping list";
   }
