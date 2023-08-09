@@ -29,7 +29,7 @@ const logoutMobileBtn = document.querySelector('.log-out-mob-btn');
 const bookCont = document.querySelector(
   'body > div.container.home-container > main'
 );
-const formBtn = document.querySelector(".SignUpBtn");
+const formBtn = document.querySelector('.SignUpBtn');
 
 logoutBtn.addEventListener('click', onSignOutClick);
 logoutMobileBtn.addEventListener('click', onSignOutClick);
@@ -54,36 +54,35 @@ const database = getDatabase(app);
 
 function formSubmit(e) {
   e.preventDefault();
-    switch (e.currentTarget.dataset.action) {
-      case "up":
-        onSubmitReg();
-        break;
-      case "in":
-        onSignInClick();
-        break;
-    }
+  switch (e.currentTarget.dataset.action) {
+    case 'up':
+      onSubmitReg();
+      break;
+    case 'in':
+      onSignInClick();
+      break;
+  }
 }
 
-function onSignSwitherClick (e) {
-   changeBtn(e.currentTarget.dataset.action);
+function onSignSwitherClick(e) {
+  changeBtn(e.currentTarget.dataset.action);
 
-   switch (e.currentTarget.dataset.action) {
-    case "in":
-      logUpBtn.classList.remove("active");
-      logInBtn.classList.add("active");
+  switch (e.currentTarget.dataset.action) {
+    case 'in':
+      logUpBtn.classList.remove('active');
+      logInBtn.classList.add('active');
       break;
-    case "up":
-      logUpBtn.classList.add("active");
-      logInBtn.classList.remove("active");
+    case 'up':
+      logUpBtn.classList.add('active');
+      logInBtn.classList.remove('active');
       break;
-   }
+  }
 }
 
 function changeBtn(option) {
-formBtn.innerText = `sign ${option}`
-form.dataset.action = option;
+  formBtn.innerText = `sign ${option}`;
+  form.dataset.action = option;
 }
-
 
 onAuthStateChanged(auth, user => {
   if (user) {
@@ -180,7 +179,6 @@ function readUserData(userId) {
 }
 const user = auth.currentUser;
 
-
 function onSignOutClick() {
   signOut(auth)
     .then(() => {
@@ -202,7 +200,7 @@ function onSignInClick() {
     .then(userCredential => {
       const user = userCredential.user;
       Notify.success("Glad you're back again");
-      onCloseClick(); 
+      onCloseClick();
     })
     .catch(error => {
       const errorCode = error.code;
@@ -228,9 +226,9 @@ function readBookData(userId, bookId) {
       if (snapshot.exists()) {
         const booksData = snapshot.val();
 
-       const books = Object.values(booksData); 
+        const books = Object.values(booksData);
         books.forEach(({ bookId }) => {
-          shopingList.push(bookId)
+          shopingList.push(bookId);
           serviceBooks(bookId);
         });
       } else {
@@ -241,26 +239,20 @@ function readBookData(userId, bookId) {
     .catch(error => {
       console.log(error);
     });
-
-  }
-
-
-  const refs = {
-    deleteBtn : document.querySelector(".btn-delete"),
-    defaultPage : document.querySelector('.default-message'),
-    showElement: document.querySelector('.js-container'),
-    shopLink: document.querySelector('.shopping-link'),
-    resetMargin: document.querySelector('h1')
-
 }
 
-
-
+const refs = {
+  deleteBtn: document.querySelector('.btn-delete'),
+  defaultPage: document.querySelector('.default-message'),
+  showElement: document.querySelector('.js-container'),
+  shopLink: document.querySelector('.shopping-link'),
+  resetMargin: document.querySelector('h1'),
+};
 
 async function serviceBooks(bookId) {
   try {
     const BASE_URL = 'https://books-backend.p.goit.global/books/';
-  
+
     const books = [];
 
     const { data } = await axios.get(`${BASE_URL}${bookId}`);
@@ -277,11 +269,11 @@ async function serviceBooks(bookId) {
     } else {
       refs.defaultPage.classList.add('hide');
       const markup = createMarkup(books);
-      refs.showElement.insertAdjacentHTML("beforeend", markup);
+      refs.showElement.insertAdjacentHTML('beforeend', markup);
     }
-       
+
     Loading.remove();
-refs.defaultPage.classList.add('visually-hidden');
+    refs.defaultPage.classList.add('visually-hidden');
     const deleteButtons = document.querySelectorAll('.btn-delete');
     deleteButtons.forEach(button => {
       button.addEventListener('click', handleDeleteClick);
@@ -290,11 +282,8 @@ refs.defaultPage.classList.add('visually-hidden');
     console.error('An error occurred:', error);
   }
 }
-  
 
- 
-   //Loading.pulse();  
-
+//Loading.pulse();
 
 function createMarkup(arr) {
   return arr
@@ -358,7 +347,6 @@ export function removeBookData(cardId) {
   const db = getDatabase(app);
   const dbRef = ref(db, `users/${userId}/books/`);
 
-
   get(dbRef)
     .then(snapshot => {
       if (snapshot.exists()) {
@@ -390,5 +378,5 @@ export function removeBookData(cardId) {
     .catch(error => {
       console.error('Ошибка получения данных о книгах:', error);
       Notify.failure('Error getting data about books.');
-    })
+    });
 }
