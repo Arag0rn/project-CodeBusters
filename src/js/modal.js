@@ -1,6 +1,5 @@
-'use strict';
 import axios from 'axios';
-import { onClickToShopingListAdd, removeBookData } from './auth'; 
+import { onClickToShopingListAdd, removeBookData } from './auth';
 let bookData = {};
 export let shopingList = [];
 const modal = document.querySelector('div#modal');
@@ -26,7 +25,7 @@ const modalData = async id => {
     })
     .then(response => {
       bookData = response.data;
-    })
+    });
 };
 
 // const getLocalList = () => {
@@ -39,57 +38,49 @@ const modalData = async id => {
 //   return localList;
 // };
 
-
-
 // const localStorageAppend = () => {
 //   const localList = getLocalList();
 //   console.log(shopingList)
-
-
-
- 
 
 //   // localStorage.setItem('list', JSON.stringify(localList));
 // };
 
 const openModal = async function (e) {
   e.preventDefault();
-  
+
   modal.classList.remove('is-hidden');
   modalSuccessMesage.classList.add('is-hidden');
-  console.log(document.body.classList.contains("sign-in"));
-  modalOrderBtn.disabled = !document.body.classList.contains("sign-in");
+  console.log(document.body.classList.contains('sign-in'));
+  modalOrderBtn.disabled = !document.body.classList.contains('sign-in');
 
   document.body.classList.add('no-scroll');
 
   const bookId = this.getAttribute('data-book-id');
-  if (!shopingList.includes(bookId)){
-    modalOrderBtn.innerText="Add to shopping list";
+  if (!shopingList.includes(bookId)) {
+    modalOrderBtn.innerText = 'Add to shopping list';
     modalSuccessMesage.classList.add('is-hidden');
-  }
-  else {
-    modalOrderBtn.innerText="Remove from the shopping list";
+  } else {
+    modalOrderBtn.innerText = 'Remove from the shopping list';
     modalSuccessMesage.classList.remove('is-hidden');
   }
-  
+
   // if (typeof localList[bookId] !== "undefined"){
   //   modalOrderBtn.innerText="Remove from the shopping list";
   // }
 
-   await modalData(bookId);
-//   const addToListBtn = modal.querySelector('.modal-order-btn');
-// addToListBtn.addEventListener('click', async () => {
-//   await onClickToShopingListAdd(bookId);
-//   modalOrderBtn.innerText="Remove from the shopping list";
- 
-// }, );
-//  if(modalOrderBtn.innerText ==="Remove from the shopping list"){
-  
-//      removeBookData(bookId)
-//       modalOrderBtn.innerText="Add to shopping list";
-     
-    
-//   }
+  await modalData(bookId);
+  //   const addToListBtn = modal.querySelector('.modal-order-btn');
+  // addToListBtn.addEventListener('click', async () => {
+  //   await onClickToShopingListAdd(bookId);
+  //   modalOrderBtn.innerText="Remove from the shopping list";
+
+  // }, );
+  //  if(modalOrderBtn.innerText ==="Remove from the shopping list"){
+
+  //      removeBookData(bookId)
+  //       modalOrderBtn.innerText="Add to shopping list";
+
+  //   }
 
   const addToListBtn = modal.querySelector('.modal-order-btn');
 
@@ -97,18 +88,18 @@ const openModal = async function (e) {
     console.log(bookId);
     const action = addToListBtn.dataset.action;
     //const bookId = addToListBtn.dataset.bookId;
-  
-    if (action === "add") {
+
+    if (action === 'add') {
       await onClickToShopingListAdd(bookId);
-      addToListBtn.dataset.action = "remove";
-      addToListBtn.innerText = "Remove from the shopping list";
-    } else if (action === "remove") {
+      addToListBtn.dataset.action = 'remove';
+      addToListBtn.innerText = 'Remove from the shopping list';
+    } else if (action === 'remove') {
       await removeBookData(bookId);
-      addToListBtn.dataset.action = "add";
-      addToListBtn.innerText = "Add to shopping list";
+      addToListBtn.dataset.action = 'add';
+      addToListBtn.innerText = 'Add to shopping list';
     }
   });
-  
+
   modalDescription.innerHTML = '';
   modallinks.innerHTML = '';
 
@@ -143,19 +134,19 @@ const openModal = async function (e) {
       }
     });
   }
-  
+
   document.addEventListener('keydown', closeModal);
   // modalOrderBtn.addEventListener('click', localStorageAppend);
 };
 const closeModal = function (e) {
-  
-    if (
-        (typeof e.target !== 'undefined' &&
-        (
-            e.target === modal || 
-            e.target === modalCloseBtn || e.target === modalCloseBtnSVG || e.target === modalCloseBtnPath)) ||
-        (typeof e.key !== 'undefined' && e.key === 'Escape')
-    ) {
+  if (
+    (typeof e.target !== 'undefined' &&
+      (e.target === modal ||
+        e.target === modalCloseBtn ||
+        e.target === modalCloseBtnSVG ||
+        e.target === modalCloseBtnPath)) ||
+    (typeof e.key !== 'undefined' && e.key === 'Escape')
+  ) {
     e.preventDefault();
     modal.classList.add('is-hidden');
     document.body.classList.remove('no-scroll');
@@ -164,11 +155,11 @@ const closeModal = function (e) {
     // TODO: clear listener on Checkout button
     document.removeEventListener('keydown', closeModal);
     // modalOrderBtn.removeEventListener('click', localStorageAppend);
-    modalOrderBtn.innerText="Add to shopping list";
-    modalImageContainer.innerHTML="";
-    modalDescription.innerText="";
-    modalTitle.innerText="";
-    modalSubTitle.innerText="";
+    modalOrderBtn.innerText = 'Add to shopping list';
+    modalImageContainer.innerHTML = '';
+    modalDescription.innerText = '';
+    modalTitle.innerText = '';
+    modalSubTitle.innerText = '';
   }
 };
 export const modalInit = () => {
@@ -181,4 +172,3 @@ export const modalInit = () => {
 };
 
 modalInit();
-

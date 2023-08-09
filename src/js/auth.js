@@ -1,4 +1,3 @@
-'use strict';
 import { shopingList } from './modal';
 import { onCloseClick, onSignOnclick } from './auth-modal';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
@@ -196,6 +195,7 @@ function onSignInClick() {
   const displayName = form.name.value;
   const email = form.email.value;
   const password = form.password.value;
+
   signInWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
       const user = userCredential.user;
