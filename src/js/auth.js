@@ -249,7 +249,6 @@ function readBookData(userId, bookId) {
     deleteBtn : document.querySelector(".btn-delete"),
     defaultPage : document.querySelector('.default-page'),
     showElement: document.querySelector('.js-container'),
-    shopLink: document.querySelector('.shopping-link'),
 }
 
 
@@ -276,22 +275,21 @@ async function serviceBooks(bookId) {
     console.log(books);
     const isBookAlreadyAdded = books.every(book => book.id === data.id);
 
-    //* піде в main
+
     if (!isBookAlreadyAdded) {
       books.push(data)
     }
       
-    //* піде і main
+
     if (books.length !== 0) {
-      console.log('Adding cards...');
       refs.defaultPage.classList.add('visually-hidden');
 
         const markup = createMarkup(books)
       refs.showElement.insertAdjacentHTML("beforeend", markup)
- 
+
           Loading.remove();
     }
-              if (books.length === 0) {
+    if (books.length === 0) {
       refs.defaultPage.classList.remove('visually-hidden');
       Loading.remove()
     }
@@ -300,7 +298,7 @@ async function serviceBooks(bookId) {
   deleteButtons.forEach(button => {
     button.addEventListener('click', handleDeleteClick);
   });
-    
+ 
   } catch (error) {
     console.log(error.message);
     throw new Error(error)
@@ -309,9 +307,6 @@ async function serviceBooks(bookId) {
   }      
 
 }
-
-
-
 
 
 function handleDeleteClick(event) {
