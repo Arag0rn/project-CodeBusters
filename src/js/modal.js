@@ -1,6 +1,10 @@
 'use strict';
 import axios from 'axios';
-import { onClickToShopingListAdd, removeBookData } from './auth'; 
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { auth, removeBookData, database } from './auth';
+import { ref, push } from 'firebase/database';
+import { getBooks, shoppingList } from './shopping-list';
+
 let bookData = {};
 export let shopingList = [];
 const modal = document.querySelector('div#modal');
@@ -15,7 +19,9 @@ const modalSubTitle = modal.querySelector('.modal-sub-title');
 const modalDescription = modal.querySelector('.modal-description');
 const modallinks = modal.querySelector('.modal-links');
 const modalSuccessMesage = modal.querySelector('.modal-success-mesage');
-console.log(shopingList);
+
+const addToListBtn = modal.querySelector('.modal-order-btn');
+let bookId = '';
 
 const modalData = async id => {
   await axios
@@ -26,7 +32,7 @@ const modalData = async id => {
     })
     .then(response => {
       bookData = response.data;
-    })
+    });
 };
 
 // const getLocalList = () => {
@@ -39,61 +45,32 @@ const modalData = async id => {
 //   return localList;
 // };
 
-
-
 // const localStorageAppend = () => {
 //   const localList = getLocalList();
 //   console.log(shopingList)
-
-
-
- 
 
 //   // localStorage.setItem('list', JSON.stringify(localList));
 // };
 
 const openModal = async function (e) {
   e.preventDefault();
-  
+
+  bookId = this.getAttribute('data-book-id');
+
+  await getBooks();
+  updateBtn(bookId);
+
   modal.classList.remove('is-hidden');
   modalSuccessMesage.classList.add('is-hidden');
-  console.log(document.body.classList.contains("sign-in"));
-  modalOrderBtn.disabled = !document.body.classList.contains("sign-in");
+
+  modalOrderBtn.disabled = !document.body.classList.contains('sign-in');
 
   document.body.classList.add('no-scroll');
 
-  const bookId = this.getAttribute('data-book-id');
-  if (!shopingList.includes(bookId)){
-    modalOrderBtn.innerText="Add to shopping list";
-    modalSuccessMesage.classList.add('is-hidden');
-  }
-  else {
-    modalOrderBtn.innerText="Remove from the shopping list";
-    modalSuccessMesage.classList.remove('is-hidden');
-  }
-  
-   await modalData(bookId);
+  addToListBtn.addEventListener('click', onButtonToShopingClick);
 
-  const addToListBtn = modal.querySelector('.modal-order-btn');
+  await modalData(bookId);
 
-  addToListBtn.addEventListener('click', onButtonToShopingClick)
-  
-  async function onButtonToShopingClick () {
-   
-      console.log(bookId);
-      const action = addToListBtn.dataset.action;
-      //const bookId = addToListBtn.dataset.bookId;
-  
-      if (action === "add") {
-        await onClickToShopingListAdd(bookId);
-        addToListBtn.dataset.action = "remove";
-        addToListBtn.innerText = "Remove from the shopping list";
-      } else if (action === "remove") {
-        await removeBookData(bookId);
-        addToListBtn.dataset.action = "add";
-        addToListBtn.innerText = "Add to shopping list";
-      }
-    };
   modalDescription.innerHTML = '';
   modallinks.innerHTML = '';
 
@@ -128,30 +105,48 @@ const openModal = async function (e) {
       }
     });
   }
-  
+
   document.addEventListener('keydown', closeModal);
-
 };
-const closeModal = function (e) {
 
-    if (
-        (typeof e.target !== 'undefined' &&
-        (
-            e.target === modal || 
-            e.target === modalCloseBtn || e.target === modalCloseBtnSVG || e.target === modalCloseBtnPath)) ||
-        (typeof e.key !== 'undefined' && e.key === 'Escape')
-    ) {
+async function onButtonToShopingClick() {
+  const action = addToListBtn.dataset.action;
+  //const bookId = addToListBtn.dataset.bookId;
+
+  if (action === 'add') {
+    addToListBtn.dataset.action = 'remove';
+    addToListBtn.innerHTML = 'Remove from the shopping list';
+    await onClickToShopingListAdd(bookId);
+  } else if (action === 'remove') {
+    addToListBtn.dataset.action = 'add';
+    addToListBtn.innerHTML = 'Add to shopping list';
+    await removeBookData(bookId);
+  }
+
+  addToListBtn.blur();
+}
+
+const closeModal = function (e) {
+  if (
+    (typeof e.target !== 'undefined' &&
+      (e.target === modal ||
+        e.target === modalCloseBtn ||
+        e.target === modalCloseBtnSVG ||
+        e.target === modalCloseBtnPath)) ||
+    (typeof e.key !== 'undefined' && e.key === 'Escape')
+  ) {
     e.preventDefault();
+
     modal.classList.add('is-hidden');
     document.body.classList.remove('no-scroll');
 
     document.removeEventListener('keydown', closeModal);
-    addToListBtn.removeEventListener('click', onClickToShopingListAdd)
-    modalOrderBtn.innerText="Add to shopping list";
-    modalImageContainer.innerHTML="";
-    modalDescription.innerText="";
-    modalTitle.innerText="";
-    modalSubTitle.innerText="";
+    addToListBtn.removeEventListener('click', onClickToShopingListAdd);
+
+    modalImageContainer.innerHTML = '';
+    modalDescription.innerText = '';
+    modalTitle.innerText = '';
+    modalSubTitle.innerText = '';
   }
 };
 export const modalInit = () => {
@@ -164,3 +159,32 @@ export const modalInit = () => {
 };
 
 modalInit();
+
+function onClickToShopingListAdd(bookId) {
+  const userId = auth.currentUser.uid;
+
+  try {
+    const dbRef = ref(database, `users/${userId}/books`);
+    push(dbRef, {
+      bookId: bookId,
+    })
+      .then(() => {
+        Notify.success("Book added to user's shopping list successfully.");
+      })
+      .catch(error => {
+        console.error("Error adding book to user's shopping list:", error);
+      });
+  } catch (error) {
+    console.error("Error adding book to user's shopping list:", error);
+  }
+}
+
+async function updateBtn(bookId) {
+  if ([...shoppingList].includes(bookId)) {
+    addToListBtn.dataset.action = 'remove';
+    addToListBtn.innerHTML = 'Remove from the shopping list';
+  } else {
+    addToListBtn.dataset.action = 'add';
+    addToListBtn.innerHTML = 'Add to shopping list';
+  }
+}
