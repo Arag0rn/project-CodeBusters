@@ -37,8 +37,9 @@ function createMarkup(arr) {
                         </a>
                     </li>
                     </ul>
+
                 </div>
-         
+                               
             `;
     })
     .join('');
