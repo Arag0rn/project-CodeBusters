@@ -12,6 +12,13 @@ document.addEventListener('DOMContentLoaded', function () {
     event.stopPropagation();
   });
 
+  const userTheme = localStorage.getItem('theme');
+  if (userTheme) {
+    document.body.classList.toggle('dark-theme', userTheme === 'dark');
+    switcherBtn.checked = userTheme === 'dark';
+    switcherBtn.style.transform = userTheme === 'dark' ? 'translateX(20px)' : 'translateX(0)';
+  }
+
   switcherBtn.addEventListener('change', function () {
     document.body.classList.toggle('dark-theme');
     const theme = document.body.classList.contains('dark-theme')
@@ -25,4 +32,5 @@ document.addEventListener('DOMContentLoaded', function () {
       switcherBtn.style.transform = 'translateX(0)';
     }
   });
+  document.body.classList.remove('preload');
 });

@@ -1,7 +1,6 @@
 {
   "name": "parcel-project-template",
   "version": "2.0.0",
-  "description": "",
   "homepage": "https://Arag0rn.github.io/project-CodeBusters",
   "scripts": {
     "start": "parcel src/*.html",
