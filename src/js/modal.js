@@ -63,54 +63,37 @@ const openModal = async function (e) {
   document.body.classList.add('no-scroll');
 
   const bookId = this.getAttribute('data-book-id');
-  // if (!shopingList.includes(bookId)){
-  //   addToListBtn.dataset.action = "add";
-  //   addToListBtn.innerText = "Add to shopping list";
-  //   modalSuccessMesage.classList.add('is-hidden');
-  // }
-  // else {
-  //   addToListBtn.dataset.action = "remove";
-  //   modalOrderBtn.innerText="Remove from the shopping list";
-  //   modalSuccessMesage.classList.remove('is-hidden');
-  // }
-  
-  // if (typeof localList[bookId] !== "undefined"){
-  //   modalOrderBtn.innerText="Remove from the shopping list";
-  // }
-
-   await modalData(bookId);
-  const addToListBtn = modal.querySelector('.modal-order-btn');
-addToListBtn.addEventListener('click', async () => {
-  await onClickToShopingListAdd(bookId);
-  modalOrderBtn.innerText="Remove from the shopping list";
- 
-}, );
-//  if(modalOrderBtn.innerText ==="Remove from the shopping list"){
-  
-//      removeBookData(bookId)
-//       modalOrderBtn.innerText="Add to shopping list";
-     
-    
+  if (!shopingList.includes(bookId)){
+    modalOrderBtn.innerText="Add to shopping list";
+    modalSuccessMesage.classList.add('is-hidden');
   }
-
-  // const addToListBtn = modal.querySelector('.modal-order-btn');
-
-  addToListBtn.addEventListener('click', async () => {
-    console.log(bookId);
-    const action = addToListBtn.dataset.action;
-    //const bookId = addToListBtn.dataset.bookId;
+  else {
+    modalOrderBtn.innerText="Remove from the shopping list";
+    modalSuccessMesage.classList.remove('is-hidden');
+  }
   
-    if (action === "add") {
-      await onClickToShopingListAdd(bookId);
-      addToListBtn.dataset.action = "remove";
-      addToListBtn.innerText = "Remove from the shopping list";
-    } else if (action === "remove") {
-      await removeBookData(bookId);
-      addToListBtn.dataset.action = "add";
-      addToListBtn.innerText = "Add to shopping list";
-    }
-  });
+   await modalData(bookId);
+
+  const addToListBtn = modal.querySelector('.modal-order-btn');
+
+  addToListBtn.addEventListener('click', onButtonToShopingClick)
   
+  async function onButtonToShopingClick () {
+   
+      console.log(bookId);
+      const action = addToListBtn.dataset.action;
+      //const bookId = addToListBtn.dataset.bookId;
+  
+      if (action === "add") {
+        await onClickToShopingListAdd(bookId);
+        addToListBtn.dataset.action = "remove";
+        addToListBtn.innerText = "Remove from the shopping list";
+      } else if (action === "remove") {
+        await removeBookData(bookId);
+        addToListBtn.dataset.action = "add";
+        addToListBtn.innerText = "Add to shopping list";
+      }
+    };
   modalDescription.innerHTML = '';
   modallinks.innerHTML = '';
 
@@ -147,10 +130,10 @@ addToListBtn.addEventListener('click', async () => {
   }
   
   document.addEventListener('keydown', closeModal);
-  // modalOrderBtn.addEventListener('click', localStorageAppend);
 
+};
 const closeModal = function (e) {
-  
+
     if (
         (typeof e.target !== 'undefined' &&
         (
@@ -162,10 +145,8 @@ const closeModal = function (e) {
     modal.classList.add('is-hidden');
     document.body.classList.remove('no-scroll');
 
-    // TODO: clear data elements
-    // TODO: clear listener on Checkout button
     document.removeEventListener('keydown', closeModal);
-    // modalOrderBtn.removeEventListener('click', localStorageAppend);
+    addToListBtn.removeEventListener('click', onClickToShopingListAdd)
     modalOrderBtn.innerText="Add to shopping list";
     modalImageContainer.innerHTML="";
     modalDescription.innerText="";
