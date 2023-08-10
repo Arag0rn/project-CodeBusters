@@ -40,7 +40,5 @@
     "url": "^0.11.1",
     "util": "^0.12.5"
   },
-  "browserslist": "> 0.5%, last 2 versions, not dead",
-  "main": "index.js",
-  "description": ""
+  "browserslist": "> 0.5%, last 2 versions, not dead"
 }
