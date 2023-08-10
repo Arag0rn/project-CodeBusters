@@ -3,14 +3,12 @@ function createMarkup(arr) {
   return arr
     .map(({ book_image, title, description, author, buy_links, _id }) => {
       return `
-      
-     
       <div class="list-cards" id="${_id}">
-                <div class="js-item list-item id="${_id}"">
+                <div class="js-item list-item "  id="${_id}" >
                     <div class="image-container">
                         <img class="card-image" src="${book_image}" width="116" height="165" alt="${title}" >
                     </div>
-                    <div class="content-container ">
+                    <div class="content-container">
                         <h2 class="card-title">${title}</h2>
                         <p class="card-text">Description</p>
                         <p class="main-card-text">${description}

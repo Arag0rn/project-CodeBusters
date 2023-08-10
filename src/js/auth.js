@@ -250,8 +250,6 @@ function readBookData(userId, bookId) {
     defaultPage : document.querySelector('.default-page'),
     showElement: document.querySelector('.js-container'),
     shopLink: document.querySelector('.shopping-link'),
-    resetMargin: document.querySelector('h1')
-
 }
 
 
@@ -290,6 +288,7 @@ async function serviceBooks(bookId) {
 
         const markup = createMarkup(books)
       refs.showElement.insertAdjacentHTML("beforeend", markup)
+ 
           Loading.remove();
     }
               if (books.length === 0) {
