@@ -57,8 +57,10 @@ const openModal = async function (e) {
 
   bookId = this.getAttribute('data-book-id');
 
-  await getBooks();
-  updateBtn(bookId);
+  if (auth.currentUser) {
+    await getBooks();
+    updateBtn(bookId);
+  }
 
   modal.classList.remove('is-hidden');
   modalSuccessMesage.classList.add('is-hidden');
