@@ -440,7 +440,7 @@ input:checked + .slider:before {
 .dark-theme .link.current {
   color: #111;
 }
-.dark-theme .link.current .cart {
+.dark-theme .link.current .shopping-icon-svg {
   fill: #111;
 }
 .link.current:focus, .link.current:hover {
@@ -450,6 +450,9 @@ input:checked + .slider:before {
 
 .shopping-icon-svg {
   margin-left: 4px;
+}
+.dark-theme .shopping-icon-svg {
+  fill: #fff;
 }
 
 .box {
@@ -685,10 +688,6 @@ body.dark-theme .no-books-message {
   text-transform: uppercase;
 }
 
-.hide {
-  display: none;
-}
-
 .main-shopping-conteiner {
   width: 100%;
 }
@@ -832,6 +831,15 @@ body.dark-theme .no-books-message {
   position: relative;
 }
 
+.dark-theme .amazon {
+  background-image: url(../images/pngdarkamazon.png);
+  width: 62px;
+  height: 19px;
+}
+.dark-theme .amazon:hover, .dark-theme .amazon:focus {
+  background-image: url(../images/pngdarkamazon.png);
+}
+
 .amazon {
   width: 62px;
   height: 19px;
@@ -933,6 +941,7 @@ body.dark-theme .no-books-message {
   font-weight: 400;
   line-height: 1.16;
   letter-spacing: -0.48px;
+  word-wrap: break-word;
 }
 
 .list-icons {
@@ -992,6 +1001,11 @@ body.dark-theme .no-books-message {
   .text-author {
     position: absolute;
     bottom: 14px;
+    max-width: 100px;
+    white-space: pre-wrap;
+  }
+  .card-title {
+    max-width: 140px;
   }
   .default-text {
     font-size: 14px;
@@ -1006,6 +1020,14 @@ body.dark-theme .no-books-message {
   .apple-books, .bookshop {
     width: 16px;
     height: 16px;
+  }
+  .dark-theme .amazon {
+    background-image: url(../images/pngdarkamazon.png);
+    width: 32px;
+    height: 11px;
+  }
+  .dark-theme .amazon:hover, .dark-theme .amazon:focus {
+    background-image: url(../images/pngdarkamazon.png);
   }
 }
 @media screen and (min-width: 768px) {
@@ -1336,10 +1358,15 @@ body.dark-theme .best-sellers-btn {
   font-weight: 700;
   line-height: 1.13;
   letter-spacing: -0.16px;
-  text-transform: uppercase;
 }
 .auth-input:not(:last-child) {
   margin-bottom: 24px;
+}
+.auth-input:not(:-moz-placeholder-shown):invalid {
+  border-color: rgb(220, 0, 0);
+}
+.auth-input:not(:placeholder-shown):invalid {
+  border-color: rgb(220, 0, 0);
 }
 @media screen and (min-width: 768px) {
   .auth-input {

@@ -1,9 +1,7 @@
 $main-add-color: #B4AFAF;
 $main-color-text-darl-theme: rgba(255, 255, 255, 0.60);
 
-.hide {
-    display: none;
-}
+
 
 .main-shopping-conteiner {
     width: 100%
@@ -185,6 +183,20 @@ height: 16px;
 
 
 .amazon {
+    .dark-theme & {
+            background-image: url(../images/pngdarkamazon.png);
+                width: 62px;
+                height: 19px;
+                &:hover,
+                    &:focus {
+                        background-image: url(../images/pngdarkamazon.png);
+                    }
+        }
+}
+
+
+
+.amazon {
 width: 62px;
     height: 19px;
     background-image: url(../images/png_amazon.png);
@@ -194,8 +206,10 @@ width: 62px;
         background-image: url(../images/png_amazon_hover.png);
     }
 
-    ;
+    
 }
+
+
 
 
 .apple-books {
@@ -313,6 +327,8 @@ width: 62px;
     font-weight: 400;
     line-height: 1.16;
     letter-spacing: -0.48px;
+    word-wrap: break-word;
+    
 }
 
 .list-icons {
@@ -363,6 +379,7 @@ width: 62px;
 }
 
 
+
 @media screen and (max-width: 767px) {
     .common {
         font-size: 32px;
@@ -385,7 +402,14 @@ width: 62px;
     .text-author {
             position: absolute;
                 bottom: 14px;
+                max-width: 100px;
+                white-space: pre-wrap;
+                
     }
+        .card-title {
+            max-width: 140px;
+        }
+
 
     .default-text {
 
@@ -404,7 +428,21 @@ width: 62px;
         height: 16px;
     }
 
+        .amazon {
+            .dark-theme & {
+                background-image: url(../images/pngdarkamazon.png);
+                width: 32px;
+                height: 11px;
+                &:hover, &:focus {
+                    background-image: url(../images/pngdarkamazon.png);
+                }
+
+            }
+        }
+
 }
+
+
 
 
 @media screen and (min-width: 768px) {
