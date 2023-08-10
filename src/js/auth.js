@@ -6,34 +6,20 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { onAuthStateChanged } from 'firebase/auth';
-import { signOut } from 'firebase/auth';
 import { onValue, get, update } from 'firebase/database';
 import { getDatabase, ref, set, remove, child, push } from 'firebase/database';
 import axios from 'axios';
 import { createMarkup } from './markup-shopping-list';
-
-
 
 const form = document.querySelector('.signIn-form');
 
 const body = document.querySelectorAll('body');
 const userButtonCont = document.querySelector('.user-btn-container');
 const userNameField = document.querySelectorAll('.user-name');
-const logInBtn = document.querySelector('.signIn');
-const logUpBtn = document.querySelector('.signUp');
-const logoutBtn = document.querySelector('.user-bar-log-out-btn');
-const logoutMobileBtn = document.querySelector('.log-out-mob-btn');
+
 const bookCont = document.querySelector(
   'body > div.container.home-container > main'
 );
-const formBtn = document.querySelector('.SignUpBtn');
-
-logoutBtn.addEventListener('click', onSignOutClick);
-logoutMobileBtn.addEventListener('click', onSignOutClick);
-// logInBtn.addEventListener('click', onSignInClick);
-logInBtn.addEventListener('click', onSignSwitherClick);
-logUpBtn.addEventListener('click', onSignSwitherClick);
-form.addEventListener('submit', formSubmit);
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAQxsm1fVLslhxTiwQ3FCGOtjW_RrvvnpE',
@@ -46,40 +32,8 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth();
-const database = getDatabase(app);
-
-function formSubmit(e) {
-  e.preventDefault();
-  switch (e.currentTarget.dataset.action) {
-    case 'up':
-      onSubmitReg();
-      break;
-    case 'in':
-      onSignInClick();
-      break;
-  }
-}
-
-function onSignSwitherClick(e) {
-  changeBtn(e.currentTarget.dataset.action);
-
-  switch (e.currentTarget.dataset.action) {
-    case 'in':
-      logUpBtn.classList.remove('active');
-      logInBtn.classList.add('active');
-      break;
-    case 'up':
-      logUpBtn.classList.add('active');
-      logInBtn.classList.remove('active');
-      break;
-  }
-}
-
-function changeBtn(option) {
-  formBtn.innerText = `sign ${option}`;
-  form.dataset.action = option;
-}
+export const auth = getAuth();
+export const database = getDatabase(app);
 
 onAuthStateChanged(auth, user => {
   if (user) {
@@ -98,26 +52,6 @@ onAuthStateChanged(auth, user => {
   }
 });
 
-function onSubmitReg(e) {
-  const displayName = form.name.value;
-  const email = form.email.value;
-  const password = form.password.value;
-  createUserWithEmailAndPassword(auth, email, password)
-    .then(userCredential => {
-      const user = userCredential.user;
-      const email = user.email;
-      const imageUrl = user.photoURL;
-      writeUserData(user.uid, displayName, email);
-      e.target.reset();
-      onCloseClick();
-    })
-    .catch(error => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // ..
-    });
-}
-
 function writeUserData(userId, name, email, bookId) {
   const dbRef = ref(database, 'users/' + userId);
   set(dbRef, {
@@ -132,25 +66,6 @@ function writeUserData(userId, name, email, bookId) {
     });
 }
 const productCards = document.querySelectorAll('.book-by-category-list');
-
-export function onClickToShopingListAdd(bookId) {
-  const userId = auth.currentUser.uid;
-
-  try {
-    const dbRef = ref(database, `users/${userId}/books`);
-    push(dbRef, {
-      bookId: bookId,
-    })
-      .then(() => {
-        Notify.success("Book added to user's shopping list successfully.");
-      })
-      .catch(error => {
-        console.error("Error adding book to user's shopping list:", error);
-      });
-  } catch (error) {
-    console.error("Error adding book to user's shopping list:", error);
-  }
-}
 
 function readUserData(userId) {
   const dbRef = ref(getDatabase());
@@ -176,43 +91,6 @@ function readUserData(userId) {
 }
 const user = auth.currentUser;
 
-function onSignOutClick() {
-  signOut(auth)
-    .then(() => {
-      Notify.success('Sign-out successful');
-    })
-    .catch(error => {
-      Notify.failure('An error happened');
-    })
-    .finally(() => {
-      location.reload();
-    });
-}
-
-function onSignInClick() {
-  const displayName = form.name.value;
-  const email = form.email.value;
-  const password = form.password.value;
-
-  signInWithEmailAndPassword(auth, email, password)
-    .then(userCredential => {
-      const user = userCredential.user;
-      onCloseClick();
-      Notify.success("Glad you're back again");
-    })
-    .catch(error => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-
-      if (errorCode === 'auth/wrong-password') {
-        Notify.failure('Wrong password. Please try again.');
-      } else if (errorCode === 'auth/user-not-found') {
-        Notify.failure('User not found. Please check your email or sign up.');
-      }
-    });
-}
-
-
 onValue(ref(database, 'users'), function (snapshot) {
   console.log(snapshot.val());
 });
@@ -226,14 +104,13 @@ function readBookData(userId, bookId) {
 
         const books = Object.values(booksData);
         books.forEach(({ bookId }) => {
-
-          refs.defaultPage.innerHTML = ''
-          Loading.pulse()
+          refs.defaultPage.innerHTML = '';
+          Loading.pulse();
 
           shopingList.push(bookId);
 
           serviceBooks(bookId);
-          Loading.remove()
+          Loading.remove();
         });
       } else {
         console.log('No shopping list data available');
@@ -243,83 +120,64 @@ function readBookData(userId, bookId) {
     .catch(error => {
       console.log(error);
     });
-
-
-  }
-
-
-  const refs = {
-    deleteBtn : document.querySelector(".btn-delete"),
-    defaultPage : document.querySelector('.default-page'),
-    showElement: document.querySelector('.js-container'),
-    shopLink: document.querySelector('.shopping-link'),
 }
 
-
+const refs = {
+  deleteBtn: document.querySelector('.btn-delete'),
+  defaultPage: document.querySelector('.default-page'),
+  showElement: document.querySelector('.js-container'),
+  shopLink: document.querySelector('.shopping-link'),
+};
 
 Loading.init({
   backgroundColor: 'rgba(0,0,0,0.1)',
   svgColor: '#4f2ee8',
 });
 
-
-
 async function serviceBooks(bookId) {
-
-
   try {
+    refs.defaultPage.innerHTML = '';
+    Loading.pulse();
 
-      refs.defaultPage.innerHTML = '';
-      Loading.pulse();
-    
-      const BASE_URL = 'https://books-backend.p.goit.global/books/'
-      const books = [];
+    const BASE_URL = 'https://books-backend.p.goit.global/books/';
+    const books = [];
 
-       const { data } = await axios.get(`${BASE_URL}${bookId}`)
-    books.push(data)
+    const { data } = await axios.get(`${BASE_URL}${bookId}`);
+    books.push(data);
     console.log(books);
     const isBookAlreadyAdded = books.every(book => book.id === data.id);
-
-
 
     //* піде в main
     if (!isBookAlreadyAdded) {
       books.push(data);
     }
 
-      
     //* піде і main
     if (books.length !== 0) {
       console.log('Adding cards...');
       refs.defaultPage.classList.add('visually-hidden');
 
-        const markup = createMarkup(books)
-      refs.showElement.insertAdjacentHTML("beforeend", markup)
- 
-          Loading.remove();
+      const markup = createMarkup(books);
+      refs.showElement.insertAdjacentHTML('beforeend', markup);
+
+      Loading.remove();
     }
-              if (books.length === 0) {
+    if (books.length === 0) {
       refs.defaultPage.classList.remove('visually-hidden');
-      Loading.remove()
+      Loading.remove();
     }
     const deleteButtons = document.querySelectorAll('.btn-delete');
 
-  deleteButtons.forEach(button => {
-    button.addEventListener('click', handleDeleteClick);
-  });
-    
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', handleDeleteClick);
+    });
   } catch (error) {
     console.log(error.message);
-    throw new Error(error)
+    throw new Error(error);
   } finally {
-    Loading.remove()
-  }      
-
+    Loading.remove();
+  }
 }
-
-
-
-
 
 function handleDeleteClick(event) {
   const listItem = event.currentTarget.closest('.list-cards');
@@ -340,7 +198,7 @@ export function removeBookData(cardId) {
     .then(snapshot => {
       if (snapshot.exists()) {
         const booksData = snapshot.val();
-        console.log("booksData:", booksData)
+        console.log('booksData:', booksData);
 
         for (const key in booksData) {
           if (booksData.hasOwnProperty(key)) {
@@ -368,5 +226,48 @@ export function removeBookData(cardId) {
     .catch(error => {
       console.error('Ошибка получения данных о книгах:', error);
       Notify.failure('Error getting data about books.');
+    });
+}
+
+export function onSubmitReg(e) {
+  const displayName = form.name.value;
+  const email = form.email.value;
+  const password = form.password.value;
+  createUserWithEmailAndPassword(auth, email, password)
+    .then(userCredential => {
+      const user = userCredential.user;
+      const email = user.email;
+      const imageUrl = user.photoURL;
+      writeUserData(user.uid, displayName, email);
+      e.target.reset();
+      onCloseClick();
+    })
+    .catch(error => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // ..
+    });
+}
+
+export function onSignInClick() {
+  const displayName = form.name.value;
+  const email = form.email.value;
+  const password = form.password.value;
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then(userCredential => {
+      const user = userCredential.user;
+      onCloseClick();
+      Notify.success("Glad you're back again");
+    })
+    .catch(error => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+
+      if (errorCode === 'auth/wrong-password') {
+        Notify.failure('Wrong password. Please try again.');
+      } else if (errorCode === 'auth/user-not-found') {
+        Notify.failure('User not found. Please check your email or sign up.');
+      }
     });
 }
