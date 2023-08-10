@@ -214,7 +214,7 @@ function onSignInClick() {
     });
 }
 
-export let shopingList = [];
+
 onValue(ref(database, 'users'), function (snapshot) {
   console.log(snapshot.val());
 });
