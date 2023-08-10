@@ -35,22 +35,7 @@ const modalData = async id => {
     });
 };
 
-// const getLocalList = () => {
-//   let localList = localStorage.getItem('list');
-//   if (localList === null) {
-//     localList = {};
-//   } else {
-//     localList = JSON.parse(localList);
-//   }
-//   return localList;
-// };
 
-// const localStorageAppend = () => {
-//   const localList = getLocalList();
-//   console.log(shopingList)
-
-//   // localStorage.setItem('list', JSON.stringify(localList));
-// };
 
 const openModal = async function (e) {
   e.preventDefault();
@@ -111,15 +96,17 @@ const openModal = async function (e) {
 
 async function onButtonToShopingClick() {
   const action = addToListBtn.dataset.action;
-  //const bookId = addToListBtn.dataset.bookId;
+
 
   if (action === 'add') {
     addToListBtn.dataset.action = 'remove';
     addToListBtn.innerHTML = 'Remove from the shopping list';
+    modalSuccessMesage.classList.remove('is-hidden');
     await onClickToShopingListAdd(bookId);
   } else if (action === 'remove') {
     addToListBtn.dataset.action = 'add';
     addToListBtn.innerHTML = 'Add to shopping list';
+    modalSuccessMesage.classList.add('is-hidden');
     await removeBookData(bookId);
   }
 
