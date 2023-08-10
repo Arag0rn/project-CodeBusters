@@ -72,6 +72,9 @@ export async function loadCategoriesAndBooks() {
   } catch (error) {
     Notify.failure('Oops! Something went wrong! Try to reload the page!');
   }
+  finally {
+    Loading.remove()
+  }
 }
 
 async function fetchBooks(categories) {
