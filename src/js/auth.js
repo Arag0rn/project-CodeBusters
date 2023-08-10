@@ -1,4 +1,4 @@
-'use strict';
+import { shopingList } from './modal';
 import { onCloseClick, onSignOnclick } from './auth-modal';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
@@ -26,7 +26,7 @@ const logoutMobileBtn = document.querySelector('.log-out-mob-btn');
 const bookCont = document.querySelector(
   'body > div.container.home-container > main'
 );
-const formBtn = document.querySelector(".SignUpBtn");
+const formBtn = document.querySelector('.SignUpBtn');
 
 logoutBtn.addEventListener('click', onSignOutClick);
 logoutMobileBtn.addEventListener('click', onSignOutClick);
@@ -51,34 +51,34 @@ const database = getDatabase(app);
 
 function formSubmit(e) {
   e.preventDefault();
-    switch (e.currentTarget.dataset.action) {
-      case "up":
-        onSubmitReg();
-        break;
-      case "in":
-        onSignInClick();
-        break;
-    }
+  switch (e.currentTarget.dataset.action) {
+    case 'up':
+      onSubmitReg();
+      break;
+    case 'in':
+      onSignInClick();
+      break;
+  }
 }
 
-function onSignSwitherClick (e) {
-   changeBtn(e.currentTarget.dataset.action);
+function onSignSwitherClick(e) {
+  changeBtn(e.currentTarget.dataset.action);
 
-   switch (e.currentTarget.dataset.action) {
-    case "in":
-      logUpBtn.classList.remove("active");
-      logInBtn.classList.add("active");
+  switch (e.currentTarget.dataset.action) {
+    case 'in':
+      logUpBtn.classList.remove('active');
+      logInBtn.classList.add('active');
       break;
-    case "up":
-      logUpBtn.classList.add("active");
-      logInBtn.classList.remove("active");
+    case 'up':
+      logUpBtn.classList.add('active');
+      logInBtn.classList.remove('active');
       break;
-   }
+  }
 }
 
 function changeBtn(option) {
-formBtn.innerText = `sign ${option}`
-form.dataset.action = option;
+  formBtn.innerText = `sign ${option}`;
+  form.dataset.action = option;
 }
 
 onAuthStateChanged(auth, user => {
@@ -86,13 +86,11 @@ onAuthStateChanged(auth, user => {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/auth.user
     const userUid = user.uid;
-    console.log(userUid);
     const email = user.email;
     const photoURL = user.photoURL;
     const emailVerified = user.emailVerified;
     readUserData(userUid);
     readBookData(userUid);
-
     // ...
   } else {
     // User is signed out
@@ -195,9 +193,12 @@ function onSignInClick() {
   const displayName = form.name.value;
   const email = form.email.value;
   const password = form.password.value;
+
   signInWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
       const user = userCredential.user;
+      onCloseClick();
+      Notify.success("Glad you're back again");
     })
     .catch(error => {
       const errorCode = error.code;
@@ -208,12 +209,9 @@ function onSignInClick() {
       } else if (errorCode === 'auth/user-not-found') {
         Notify.failure('User not found. Please check your email or sign up.');
       }
-    })
-    .finally(() => {
-      Notify.success("Glad you're back again");
-      onCloseClick();
     });
 }
+
 
 onValue(ref(database, 'users'), function (snapshot) {
   console.log(snapshot.val());
@@ -226,10 +224,14 @@ function readBookData(userId, bookId) {
       if (snapshot.exists()) {
         const booksData = snapshot.val();
 
-        const books = Object.values(booksData); // Отримуємо список книг за id
+        const books = Object.values(booksData);
         books.forEach(({ bookId }) => {
+
           refs.defaultPage.innerHTML = ''
           Loading.pulse()
+
+          shopingList.push(bookId);
+
           serviceBooks(bookId);
           Loading.remove()
         });
@@ -241,6 +243,7 @@ function readBookData(userId, bookId) {
     .catch(error => {
       console.log(error);
     });
+
 
   }
 
@@ -267,6 +270,7 @@ async function serviceBooks(bookId) {
 
 
   try {
+
       refs.defaultPage.innerHTML = '';
       Loading.pulse();
     
@@ -278,10 +282,13 @@ async function serviceBooks(bookId) {
     console.log(books);
     const isBookAlreadyAdded = books.every(book => book.id === data.id);
 
+
+
     //* піде в main
     if (!isBookAlreadyAdded) {
-      books.push(data)
+      books.push(data);
     }
+
       
     //* піде і main
     if (books.length !== 0) {
@@ -325,11 +332,10 @@ function handleDeleteClick(event) {
   }
 }
 
-function removeBookData(cardId) {
+export function removeBookData(cardId) {
   const userId = auth.currentUser.uid;
   const db = getDatabase(app);
   const dbRef = ref(db, `users/${userId}/books/`);
-  console.log(cardId);
 
   get(dbRef)
     .then(snapshot => {

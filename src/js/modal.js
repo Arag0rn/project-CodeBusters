@@ -1,7 +1,8 @@
+'use strict';
 import axios from 'axios';
-import { onClickToShopingListAdd } from './auth'; 
+import { onClickToShopingListAdd, removeBookData } from './auth'; 
 let bookData = {};
-
+export let shopingList = [];
 const modal = document.querySelector('div#modal');
 
 const modalCloseBtn = modal.querySelector('.modal-close-btn');
@@ -14,7 +15,7 @@ const modalSubTitle = modal.querySelector('.modal-sub-title');
 const modalDescription = modal.querySelector('.modal-description');
 const modallinks = modal.querySelector('.modal-links');
 const modalSuccessMesage = modal.querySelector('.modal-success-mesage');
-
+console.log(shopingList);
 
 const modalData = async id => {
   await axios
@@ -28,33 +29,28 @@ const modalData = async id => {
     })
 };
 
-const getLocalList = () => {
-  let localList = localStorage.getItem('list');
-  if (localList === null) {
-    localList = {};
-  } else {
-    localList = JSON.parse(localList);
-  }
-  return localList;
-};
+// const getLocalList = () => {
+//   let localList = localStorage.getItem('list');
+//   if (localList === null) {
+//     localList = {};
+//   } else {
+//     localList = JSON.parse(localList);
+//   }
+//   return localList;
+// };
 
-const localStorageAppend = () => {
-  const localList = getLocalList();
 
-  console.log(bookData._id, typeof localList[bookData._id]);
-  if (typeof localList[bookData._id] !== "undefined"){
-    delete localList[bookData._id];
-    modalOrderBtn.innerText="Add to shopping list";
-    modalSuccessMesage.classList.add('is-hidden');
-  }
-  else {
-    localList[bookData._id] = bookData;
-    modalOrderBtn.innerText="Remove from the shopping list";
-    modalSuccessMesage.classList.remove('is-hidden');
-  }
 
-  localStorage.setItem('list', JSON.stringify(localList));
-};
+// const localStorageAppend = () => {
+//   const localList = getLocalList();
+//   console.log(shopingList)
+
+
+
+ 
+
+//   // localStorage.setItem('list', JSON.stringify(localList));
+// };
 
 const openModal = async function (e) {
   e.preventDefault();
@@ -67,19 +63,37 @@ const openModal = async function (e) {
   document.body.classList.add('no-scroll');
 
   const bookId = this.getAttribute('data-book-id');
-
-  const localList = getLocalList();
-  
-  if (typeof localList[bookId] !== "undefined"){
-    modalOrderBtn.innerText="Remove from the shopping list";
+  if (!shopingList.includes(bookId)){
+    modalOrderBtn.innerText="Add to shopping list";
+    modalSuccessMesage.classList.add('is-hidden');
   }
+  else {
+    modalOrderBtn.innerText="Remove from the shopping list";
+    modalSuccessMesage.classList.remove('is-hidden');
+  }
+  
+   await modalData(bookId);
 
-  await modalData(bookId);
   const addToListBtn = modal.querySelector('.modal-order-btn');
-addToListBtn.addEventListener('click', async () => {
-  await onClickToShopingListAdd(bookId);
-}, { once: true });
 
+  addToListBtn.addEventListener('click', onButtonToShopingClick)
+  
+  async function onButtonToShopingClick () {
+   
+      console.log(bookId);
+      const action = addToListBtn.dataset.action;
+      //const bookId = addToListBtn.dataset.bookId;
+  
+      if (action === "add") {
+        await onClickToShopingListAdd(bookId);
+        addToListBtn.dataset.action = "remove";
+        addToListBtn.innerText = "Remove from the shopping list";
+      } else if (action === "remove") {
+        await removeBookData(bookId);
+        addToListBtn.dataset.action = "add";
+        addToListBtn.innerText = "Add to shopping list";
+      }
+    };
   modalDescription.innerHTML = '';
   modallinks.innerHTML = '';
 
@@ -116,10 +130,10 @@ addToListBtn.addEventListener('click', async () => {
   }
   
   document.addEventListener('keydown', closeModal);
-  modalOrderBtn.addEventListener('click', localStorageAppend);
+
 };
 const closeModal = function (e) {
-  
+
     if (
         (typeof e.target !== 'undefined' &&
         (
@@ -131,10 +145,8 @@ const closeModal = function (e) {
     modal.classList.add('is-hidden');
     document.body.classList.remove('no-scroll');
 
-    // TODO: clear data elements
-    // TODO: clear listener on Checkout button
     document.removeEventListener('keydown', closeModal);
-    modalOrderBtn.removeEventListener('click', localStorageAppend);
+    addToListBtn.removeEventListener('click', onClickToShopingListAdd)
     modalOrderBtn.innerText="Add to shopping list";
     modalImageContainer.innerHTML="";
     modalDescription.innerText="";
@@ -152,4 +164,3 @@ export const modalInit = () => {
 };
 
 modalInit();
-

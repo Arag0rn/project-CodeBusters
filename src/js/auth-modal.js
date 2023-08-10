@@ -1,5 +1,3 @@
-'use strict';
-
 export const close = document.querySelector('.modal-close');
 export const modal = document.querySelector('.modal__auth');
 
@@ -18,7 +16,7 @@ export function onSignOnclick(e) {
 }
 
 export function onCloseClick(e) {
-  if (e.type === 'keydown' && e.code !== 'Escape') {
+  if (e && e.type === 'keydown' && e.code !== 'Escape') {
     return;
   }
   modal.style.opacity = 0;
