@@ -37,6 +37,7 @@ export const database = getDatabase(app);
 
 onAuthStateChanged(auth, user => {
   if (user) {
+    Loading.pulse();
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/auth.user
     const userUid = user.uid;
@@ -45,6 +46,7 @@ onAuthStateChanged(auth, user => {
     const emailVerified = user.emailVerified;
     readUserData(userUid);
     readBookData(userUid);
+    Loading.remove();
     // ...
   } else {
     // User is signed out
@@ -91,9 +93,7 @@ function readUserData(userId) {
 }
 const user = auth.currentUser;
 
-onValue(ref(database, 'users'), function (snapshot) {
-  console.log(snapshot.val());
-});
+onValue(ref(database, 'users'), function (snapshot) {});
 
 function readBookData(userId, bookId) {
   const dbRef = ref(getDatabase(), `users/${userId}/books`);
@@ -103,15 +103,13 @@ function readBookData(userId, bookId) {
         const booksData = snapshot.val();
 
         const books = Object.values(booksData);
-        books.forEach(({ bookId }) => {
-          refs.defaultPage.innerHTML = '';
-          Loading.pulse();
+        if (books) {
+          books.forEach(({ bookId }) => {
+            shopingList.push(bookId);
 
-          shopingList.push(bookId);
-
-          serviceBooks(bookId);
-          Loading.remove();
-        });
+            serviceBooks(bookId);
+          });
+        }
       } else {
         console.log('No shopping list data available');
         return [];
@@ -136,15 +134,11 @@ Loading.init({
 
 async function serviceBooks(bookId) {
   try {
-    refs.defaultPage.innerHTML = '';
-    Loading.pulse();
-
     const BASE_URL = 'https://books-backend.p.goit.global/books/';
     const books = [];
 
     const { data } = await axios.get(`${BASE_URL}${bookId}`);
     books.push(data);
-    console.log(books);
     const isBookAlreadyAdded = books.every(book => book.id === data.id);
 
     if (!isBookAlreadyAdded) {
@@ -157,11 +151,12 @@ async function serviceBooks(bookId) {
       const markup = createMarkup(books);
       refs.showElement.insertAdjacentHTML('beforeend', markup);
 
+
       Loading.remove();
+
     }
     if (books.length === 0) {
       refs.defaultPage.classList.remove('visually-hidden');
-      Loading.remove();
     }
     const deleteButtons = document.querySelectorAll('.btn-delete');
 
@@ -170,19 +165,18 @@ async function serviceBooks(bookId) {
     });
   } catch (error) {
     console.log(error.message);
-    throw new Error(error);
-  } finally {
-    Loading.remove();
   }
 }
 
 function handleDeleteClick(event) {
   const listItem = event.currentTarget.closest('.list-cards');
-  if (listItem) {
-    const cardId = listItem.id;
-    removeBookData(cardId);
 
-    listItem.remove();
+  const cardId = listItem.id;
+  removeBookData(cardId);
+  listItem.remove();
+
+  if (refs.showElement.children.length === 0) {
+    refs.defaultPage.classList.remove('visually-hidden');
   }
 }
 
@@ -195,29 +189,23 @@ export function removeBookData(cardId) {
     .then(snapshot => {
       if (snapshot.exists()) {
         const booksData = snapshot.val();
-        console.log('booksData:', booksData);
 
         for (const key in booksData) {
           if (booksData.hasOwnProperty(key)) {
             const book = booksData[key];
-            console.log(cardId);
             if (book.bookId === cardId) {
               const bookToDeleteRef = child(dbRef, key);
 
               remove(bookToDeleteRef)
                 .then(() => {
-                  console.log('The book has been removed from the database');
                   Notify.success('Book deleted successfully.');
                 })
                 .catch(error => {
-                  console.error('Ошибка удаления книги из базы данных:', error);
-                  Notify.failure('Ошибка удаления книги.');
+                  Notify.failure('Error.');
                 });
             }
           }
         }
-      } else {
-        console.log('Данные о книгах не найдены');
       }
     })
     .catch(error => {
