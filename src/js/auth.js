@@ -120,7 +120,6 @@ function readBookData(userId, bookId) {
     .catch(error => {
       console.log(error);
     });
-
 }
 
 const refs = {
@@ -148,7 +147,6 @@ async function serviceBooks(bookId) {
     console.log(books);
     const isBookAlreadyAdded = books.every(book => book.id === data.id);
 
-
     if (!isBookAlreadyAdded) {
       books.push(data);
     }
@@ -156,12 +154,10 @@ async function serviceBooks(bookId) {
     if (books.length !== 0) {
       refs.defaultPage.classList.add('visually-hidden');
 
-
       const markup = createMarkup(books);
       refs.showElement.insertAdjacentHTML('beforeend', markup);
 
       Loading.remove();
-
     }
     if (books.length === 0) {
       refs.defaultPage.classList.remove('visually-hidden');
@@ -169,11 +165,9 @@ async function serviceBooks(bookId) {
     }
     const deleteButtons = document.querySelectorAll('.btn-delete');
 
-
     deleteButtons.forEach(button => {
       button.addEventListener('click', handleDeleteClick);
     });
-
   } catch (error) {
     console.log(error.message);
     throw new Error(error);
@@ -181,7 +175,6 @@ async function serviceBooks(bookId) {
     Loading.remove();
   }
 }
-
 
 function handleDeleteClick(event) {
   const listItem = event.currentTarget.closest('.list-cards');
@@ -243,7 +236,6 @@ export function onSubmitReg(e) {
       const email = user.email;
       const imageUrl = user.photoURL;
       writeUserData(user.uid, displayName, email);
-      e.target.reset();
       onCloseClick();
     })
     .catch(error => {
