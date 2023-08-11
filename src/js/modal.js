@@ -51,7 +51,9 @@ const openModal = async function (e) {
   modalSuccessMesage.classList.add('is-hidden');
 
   modalOrderBtn.disabled = !document.body.classList.contains('sign-in');
-
+ if(!document.body.classList.contains('sign-in')){
+  modalOrderBtn.innerHTML = 'Add to shopping list(requires sign-in)'
+ }
   document.body.classList.add('no-scroll');
 
   addToListBtn.addEventListener('click', onButtonToShopingClick);
@@ -102,7 +104,7 @@ async function onButtonToShopingClick() {
 
   if (action === 'add') {
     addToListBtn.dataset.action = 'remove';
-    addToListBtn.innerHTML = 'Remove from the shopping list';
+    C = 'Remove from the shopping list';
     modalSuccessMesage.classList.remove('is-hidden');
     await onClickToShopingListAdd(bookId);
   } else if (action === 'remove') {
