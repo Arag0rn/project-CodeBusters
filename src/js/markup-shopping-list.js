@@ -1,8 +1,16 @@
-
 function createMarkup(arr) {
   return arr
-    .map(({ book_image, title, description, author, buy_links, _id }) => {
-      return `
+    .map(
+      ({
+        book_image,
+        title,
+        description,
+        author,
+        buy_links,
+        _id,
+        list_name,
+      }) => {
+        return `
       <div class="list-cards" id="${_id}">
                 <div class="js-item list-item "  id="${_id}" >
                     <div class="image-container">
@@ -10,7 +18,7 @@ function createMarkup(arr) {
                     </div>
                     <div class="content-container">
                         <h2 class="card-title">${title}</h2>
-                        <p class="card-text">Description</p>
+                        <p class="card-text">${list_name}</p>
                         <p class="main-card-text">${description}
                         </p>
                         <p class="text-author">${author}</p>
@@ -22,17 +30,20 @@ function createMarkup(arr) {
                     </div>
                     <ul class="main-list-icon">
                     <li class="item-images">
-                        <a href="${buy_links[0].url}" class="item-link amazon">
+                        <a href="${buy_links[0].url}" class="item-link amazon" target="_blank"
+                        rel="noreferrer noopener">
                             <span class="underline"></span>
                         </a>
                     </li>
                     <li class="item-images">
-                        <a href="${buy_links[1].url}" class="item-link apple-books">
+                        <a href="${buy_links[1].url}" class="item-link apple-books" target="_blank"
+                        rel="noreferrer noopener">
                     <span class="underline"></span>
                         </a>
                     </li>
                     <li class="item-images">
-                        <a href="${buy_links[2].url}" class="item-link bookshop">
+                        <a href="${buy_links[2].url}" class="item-link bookshop" target="_blank"
+                        rel="noreferrer noopener">
                         <span class="underline"></span>
                         </a>
                     </li>
@@ -41,7 +52,8 @@ function createMarkup(arr) {
                 </div>
                                
             `;
-    })
+      }
+    )
     .join('');
 }
 

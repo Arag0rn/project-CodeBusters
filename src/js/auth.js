@@ -150,6 +150,10 @@ async function serviceBooks(bookId) {
 
       const markup = createMarkup(books);
       refs.showElement.insertAdjacentHTML('beforeend', markup);
+
+
+      Loading.remove();
+
     }
     if (books.length === 0) {
       refs.defaultPage.classList.remove('visually-hidden');
@@ -220,7 +224,6 @@ export function onSubmitReg(e) {
       const email = user.email;
       const imageUrl = user.photoURL;
       writeUserData(user.uid, displayName, email);
-      e.target.reset();
       onCloseClick();
     })
     .catch(error => {

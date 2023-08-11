@@ -41,6 +41,8 @@ export function onCloseClick(e) {
   modal.style.visibility = 'hidden';
   close.removeEventListener('click', onCloseClick);
   window.removeEventListener('keydown', onCloseClick);
+
+  location.reload();
 }
 
 const password = document.querySelector('#password');
