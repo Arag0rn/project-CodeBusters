@@ -10,8 +10,8 @@ export let shopingList = [];
 const modal = document.querySelector('div#modal');
 
 const modalCloseBtn = modal.querySelector('.modal-close-btn');
-const modalCloseBtnSVG = modal.querySelector('.modal-close-btn svg');
-const modalCloseBtnPath = modal.querySelector('.modal-close-btn svg path');
+const modalCloseBtnSVG = modal.querySelector('.modal-close-btn-svg');
+const modalCloseBtnUse = modal.querySelector('.modal-close-btn-svg use');
 const modalOrderBtn = modal.querySelector('button.modal-order-btn');
 const modalImageContainer = modal.querySelector('.modal-image-container');
 const modalTitle = modal.querySelector('.modal-title');
@@ -35,8 +35,6 @@ const modalData = async id => {
     });
 };
 
-
-
 const openModal = async function (e) {
   e.preventDefault();
 
@@ -51,9 +49,9 @@ const openModal = async function (e) {
   modalSuccessMesage.classList.add('is-hidden');
 
   modalOrderBtn.disabled = !document.body.classList.contains('sign-in');
- if(!document.body.classList.contains('sign-in')){
-  modalOrderBtn.innerHTML = 'Add to shopping list(requires sign-in)'
- }
+  if (!document.body.classList.contains('sign-in')) {
+    modalOrderBtn.innerHTML = 'Add to shopping list(requires sign-in)';
+  }
   document.body.classList.add('no-scroll');
 
   addToListBtn.addEventListener('click', onButtonToShopingClick);
@@ -101,7 +99,6 @@ const openModal = async function (e) {
 async function onButtonToShopingClick() {
   const action = addToListBtn.dataset.action;
 
-
   if (action === 'add') {
     addToListBtn.dataset.action = 'remove';
     C = 'Remove from the shopping list';
@@ -123,7 +120,7 @@ const closeModal = function (e) {
       (e.target === modal ||
         e.target === modalCloseBtn ||
         e.target === modalCloseBtnSVG ||
-        e.target === modalCloseBtnPath)) ||
+        e.target === modalCloseBtnUse)) ||
     (typeof e.key !== 'undefined' && e.key === 'Escape')
   ) {
     e.preventDefault();

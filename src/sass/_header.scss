@@ -152,6 +152,7 @@
       }
     }
   }
+
   .mob-signup-btn {
     width: 184px;
     height: 48px;
@@ -179,7 +180,7 @@
   .decoration {
     position: absolute;
     bottom: 0;
-    // width: 425px;
+    z-index: -1;
     left: 50%;
     transform: translate(-50%, 170px);
   }
@@ -357,7 +358,7 @@ input:checked + .slider:before {
   .dark-theme & {
     color: #111;
   }
-  .dark-theme &{
+  .dark-theme & {
     .shopping-icon-svg {
       fill: #111;
     }
@@ -371,7 +372,7 @@ input:checked + .slider:before {
 
 .shopping-icon-svg {
   margin-left: 4px;
-  .dark-theme &{
+  .dark-theme & {
     fill: #fff;
   }
 }
