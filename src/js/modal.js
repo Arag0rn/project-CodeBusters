@@ -101,7 +101,7 @@ async function onButtonToShopingClick() {
 
   if (action === 'add') {
     addToListBtn.dataset.action = 'remove';
-    C = 'Remove from the shopping list';
+    addToListBtn.innerHTML = 'Remove from the shopping list';
     modalSuccessMesage.classList.remove('is-hidden');
     await onClickToShopingListAdd(bookId);
   } else if (action === 'remove') {
